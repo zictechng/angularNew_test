@@ -25,7 +25,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/vendor/css/pages/page-auth.css"
             ],
             "scripts": [
               "src/assets/vendor/libs/jquery/jquery.js",
@@ -35,7 +36,11 @@
               "src/assets/vendor/js/menu.js",
               "src/assets/vendor/libs/apex-charts/apexcharts.js",
               "src/assets/js/main.js",
-              "src/assets/js/dashboards-analytics.js"
+              "src/assets/js/dashboards-analytics.js",
+              "src/assets/js/form-basic-inputs.js",
+              "src/assets/js/extended-ui-perfect-scrollbar.js",
+              "src/assets/js/pages-account-settings-account.js",
+              "src/assets/js/ui-modals.js"
             ]
           },
           "configurations": {

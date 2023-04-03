@@ -14,6 +14,7 @@ export class NavBarComponent implements AfterViewInit {
   // so that angular application can have access to the javascript.
   //../assets/js/main.js
   ngAfterViewInit() {
+    require('../../../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js');
     require('../../../../assets/vendor/js/helpers.js');
     require('../../../../assets/js/main.js');
   }
