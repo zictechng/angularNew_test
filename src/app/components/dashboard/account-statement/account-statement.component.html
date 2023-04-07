@@ -14,50 +14,42 @@
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Account Statement</span></h4>
 
             <div class="row">
-              <div class="col-lg-7 mb-4 order-0">
-                <div class="card">
-                  <div class="table-responsive text-nowrap">
-                    <table class="table">
-                      <thead>
-                        <tr class="text-nowrap">
-                          <th>#</th>
-                          <th>Date Posted</th>
-                          <th>Transaction Date</th>
-                          <th>Description</th>
-                          <th>Status</th>
-                          <th>Amount</th>
 
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                         </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                           </tr>
-
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-5 col-md-4 order-1">
+              <div class="col-lg-12 col-md-4 order-1">
                 <div class="row">
-                  <div class="col-lg-4 col-md-12 col-6 mb-4">
+                  <div class="col-lg-5 col-md-6 col-6 mb-4">
+                    <div class="card bg-warning text-white mb-3">
+                      <div class="card-body">
+                        <div class="card-title d-flex align-items-start justify-content-between">
+                          <div class="avatar flex-shrink-0">
+                            <!-- <img src="../assets/img/icons/unicons/chart-success.png" alt="chart success" class="rounded"> -->
+                            <img src="../assets/img/icons/unicons/wallet-info.png" alt="Credit Card" class="rounded">
+                          </div>
+
+                        </div>
+                        <span class="fw-semibold d-block mb-1">Total Debit</span>
+                        <h3 class="card-title mb-2">{{summaryData[1]?.totalAmount || '0.0' | currency}}</h3>
+                        <small class="text-white fw-semibold"><i class='bx bx-down-arrow-alt'></i> +72.80%</small>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-lg-7 col-md-9 col-6 mb-4">
+
+                  <div class="col-lg-5 col-md-6 col-6 mb-4">
+                    <div class="card bg-success text-white">
+                      <div class="card-body">
+                        <div class="card-title d-flex align-items-start justify-content-between">
+                          <div class="avatar flex-shrink-0">
+                            <img src="../assets/img/icons/unicons/wallet-info.png" alt="Credit Card" class="rounded">
+                          </div>
+
+                        </div>
+                        <span>Total Credit Received</span>
+                        <h3 class="card-title text-nowrap mb-1">{{summaryData[0]?.totalAmount || '0.0' | currency }}</h3>
+                        <small class="text-white fw-semibold"><i class='bx bx-up-arrow-alt'></i> +28.42%</small>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="col-lg-4 col-md-6 col-6 mb-4">
                     <div class="card bg-secondary text-white mb-3">
                       <div class="card-body">
                         <div class="card-body">
@@ -65,27 +57,84 @@
                           <p class="card-text">
                             Your Online Banking user ID and password, <span class="text-warning"> COT Code and PIN </span>  are confidential and should never be disclosed to anyone.
                           </p>
-                          <a href="javascript:;" class="btn btn-sm btn-warning">Contact</a>
-                        </div>
-
+                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
 
-              <br/><br/>
-              <!-- Total Revenue -->
+             </div>
+
+            <div class="wrapper">
+              <div class="overlay d-flex justify-content-center" *ngIf="showSpinner; else loadingFalse">
+                <div class="spinner-border m-2" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+              <div class="loaded-content" [class.blurred]="showSpinner">
+                <ng-template #loadingFalse>
+                  <div class="col-lg-10 mb-4 order-0">
+                    <div class="card">
+                      <div class="alert alert-dark alert-dismissible mb-0" role="alert" *ngIf="statementData.length < 1">
+                        You currently do not have any statement record at the moment
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        </button>
+                      </div>
+                      <div class="table-responsive text-nowrap" *ngIf="statementData.length > 0">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Date Posted</th>
+                              <th>Transaction Date</th>
+                              <th>Description</th>
+                              <th>Status</th>
+                              <th>Amount</th>
+                            </tr>
+                          </thead>
+                          <tbody *ngFor="let statementDatas of statementData | paginate
+                          : {
+                              itemsPerPage: pageSize,
+                              currentPage: pagination,
+                              totalItems: totalRecord
+                            }
+                            ; let i = index">
+                            <tr>
+                              <td>{{ pageSize * (pagination - 1) + i }}</td>
+                              <td><span class="text-muted">{{statementDatas.createdOn | date:'shortDate'}}</span>
+                              </td>
+                              <td><span class="text-muted">{{statementDatas.createdOn | date:'shortDate'}}</span>
+                              </td>
+                              <td>{{statementDatas.tran_desc}}</td>
+                              <ng-container [ngSwitch]="statementDatas.transac_nature">
+                                <td *ngSwitchCase="'Credit'"><span class="badge rounded-pill bg-success">Credit</span>
+                                </td>
+                                <td *ngSwitchCase="'Debit'"><span class="badge rounded-pill bg-danger">Debit</span>
+                                </td>
+                                <td *ngSwitchDefault><span class="badge rounded-pill bg-secondary">Unknow status</span>
+                                </td>
+                              </ng-container>
+                              <td>{{statementDatas.amount | currency}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <div class="d-flex justify-content-end dataTables_paginate demo-inline-spacing">
+                          <pagination-controls (pageChange)="renderPage($event)" class="page-link"></pagination-controls>
+                       </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
               </div>
             </div>
+              </div>
             <!-- Total Revenue -->
-
            </div>
            <!-- Content wrapper -->
          </div>
          <div class="layout-overlay layout-menu-toggle"></div>
      </div>
-
    </div>
 
 

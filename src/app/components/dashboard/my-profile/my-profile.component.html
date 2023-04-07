@@ -11,127 +11,140 @@
            <!-- Dash page comes here-->
            <!-- Content -->
            <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Account Profile</span></h4>
+            <h4 class="fw-bold py-3 mb-4">
+              <span class="text-muted fw-light"> Account Profile</span>
+            </h4>
 
             <div class="row">
-              <div class="col-lg-7 mb-4 order-0">
-                <div class="card h-100">
-                  <div class="card-header d-flex align-items-center justify-content-between pb-0">
-                    <div class="card-title mb-0">
-                      <h5 class="m-0 me-2">Account Profile Details</h5>
-                      <!-- <small class="text-muted">42.82k Total Sales</small> -->
-                     </div>
-
-                  </div>
+              <div class="col-md-8">
+                <!-- <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                  <li class="nav-item"><a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> My Account</a></li>
+                  </ul> -->
+                <div class="card mb-4">
+                  <h5 class="card-header">Profile Details</h5>
+                  <!-- Account -->
                   <div class="card-body">
-                    <hr>
-                    <div class="d-flex justify-content-between align-items-center mb-3" style="position: relative;">
-                      <div class="d-flex flex-column align-items-center gap-1">
-                        <h6 class="mb-0">ACCOUNT STATUS:</h6>
-                        <span>Active</span>
+                    <div class="d-flex align-items-start align-items-sm-center gap-4">
+                      <div *ngIf="myId?.image_photo=='' || myId?.image_photo== null; else myProfileImage ">
+                        <img [src]="defaultImageProfile" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
                       </div>
-                      <div id="orderStatisticsChart" style="min-height: 154.583px;">
-                        <div id="apexchartsn39t7qef" class="apexcharts-canvas apexchartsn39t7qef apexcharts-theme-light" style="width: 130px; height: 154.583px;">
-                        <img src="../../../assets/img/avatars/1.png" alt class="w-px-150 h-auto rounded-circle">
+
+                      <div class="button-wrapper">
+                        <!-- <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                          <span class="d-none d-sm-block">Upload new photo</span>
+                          <i class="bx bx-upload d-block d-sm-none"></i>
+                          <input type="file" id="upload" class="account-file-input" hidden accept="image/png, image/jpeg" />
+                        </label> -->
+                        <ng-template #myProfileImage>
+                          <div>
+                            <img [src]="userProfilePic" height="100" width="100" class="d-block rounded">
+                          </div>
+
+                        </ng-template>
+                        <a href="/dashboard/support">
+                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                            <i class="bx bx-reset d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Contact Support</span>
+                          </button>
+                        </a>
+
+                        <!-- <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p> -->
+                        <p class="text-muted mb-0">Account Status: <strong>Active</strong></p>
                       </div>
+                    </div>
                   </div>
-
+                  <hr class="my-0">
+                  <div class="card-body">
+                    <form id="formAccountSettings" method="POST" onsubmit="return false">
+                      <div class="row">
+                        <div class="mb-3 col-md-6">
+                          <label for="firstName" class="form-label">Surname</label>
+                          <input class="form-control" type="text" id="firstName" name="firstName" value="{{myData.surname}}" placeholder="Surname" />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label for="lastName" class="form-label">Other Name</label>
+                          <input class="form-control" type="text" name="lastName" id="lastName" value="{{myData.first_name}}" placeholder="Other Name" />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label for="email" class="form-label">Sex</label>
+                          <input class="form-control" type="text" id="sex" name="sex" value="{{myData.sex}}" placeholder="Gender" />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label for="organization" class="form-label">Email</label>
+                          <input type="text" class="form-control" id="email" name="email" value="{{myData.email}}" placeholder="Email" />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label class="form-label" for="phoneNumber">Phone Number</label>
+                          <div class="input-group input-group-merge">
+                            <span class="input-group-text">US (+1)</span>
+                            <input type="text" id="phoneNumber" name="phoneNumber" value="{{myData.phone}}" class="form-control" placeholder="Phone Number" />
+                          </div>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label for="address" class="form-label">Account Number</label>
+                          <input type="text" class="form-control" id="acct_number" name="acct_number" value="{{myData.acct_number}}" placeholder="Address" />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label for="state" class="form-label">State</label>
+                          <input class="form-control" type="text" id="state" name="state" value="{{myData.state}}" placeholder="State" />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label for="zipCode" class="form-label">City</label>
+                          <input type="text" class="form-control" id="zipCode" name="zipCode" value="{{myData.city}}" placeholder="City"/>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label class="form-label" for="country">Country</label>
+                          <input type="text" class="form-control" id="zipCode" name="zipCode" value="{{myData.country}}" placeholder="Country" />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label for="language" class="form-label">Account Type</label>
+                          <input type="text" class="form-control" id="zipCode" name="zipCode" value="{{myData.acct_type}}" placeholder="Account Type" />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label for="timeZones" class="form-label">Currency Type</label>
+                          <input type="text" class="form-control" id="zipCode" name="zipCode" value="{{myData.currency_type}}" placeholder="Currency Type" />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label for="currency" class="form-label">Username</label>
+                          <input type="text" class="form-control" id="zipCode" name="zipCode" value="{{myData.username}}" placeholder="Username" />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label for="currency" class="form-label">Address</label>
+                          <input type="text" class="form-control" id="zipCode" name="zipCode" value="{{myData.address}}" placeholder="Address" />
+                        </div>
+                      </div>
+                      <!-- <div class="mt-2">
+                        <button type="submit" class="btn btn-primary me-2">Save changes</button>
+                        <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                      </div> -->
+                    </form>
                   </div>
-                    <ul class="p-0 m-0">
-                      <li class="d-flex mb-4 pb-1">
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <h6 class="mb-0">Account Full Name</h6>
-                            <small class="text-muted">Mobile, Earbuds, TV</small>
-                          </div>
-                          <div class="user-progress">
-                            <!-- <small class="fw-semibold">82.5k</small> -->
-                          </div>
-                        </div>
-                      </li>
-                      <li class="d-flex mb-4 pb-1">
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <h6 class="mb-0">Sex</h6>
-                            <small class="text-muted">T-shirt, Jeans, Shoes</small>
-                          </div>
-
-                        </div>
-                      </li>
-
-
-                      <li class="d-flex mb-4 pb-1">
-
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <h6 class="mb-0">Date of Birth</h6>
-                            <small class="text-muted">Fine Art, Dining</small>
-                          </div>
-
-                        </div>
-                      </li>
-
-                      <li class="d-flex mb-4 pb-1">
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <h6 class="mb-0">Account Type</h6>
-                            <small class="text-muted">T-shirt, Jeans, Shoes</small>
-                          </div>
-                          <div class="user-progress">
-
-                          </div>
-                        </div>
-                      </li>
-
-                      <li class="d-flex mb-4 pb-1">
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <h6 class="mb-0">Account Number</h6>
-                            <small class="text-muted">T-shirt, Jeans, Shoes</small>
-                          </div>
-                          <div class="user-progress">
-
-                          </div>
-                        </div>
-                      </li>
-
-
-                      <li class="d-flex mb-4 pb-1">
-
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <h6 class="mb-0">Account Username</h6>
-                            <small class="text-muted">Football, Cricket Kit</small>
-                          </div>
-
-                        </div>
-                      </li>
-                      <li class="d-flex mb-4 pb-1">
-
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <h6 class="mb-0">Country</h6>
-                            <small class="text-muted">Football, Cricket Kit</small>
-                          </div>
-
-                        </div>
-                      </li>
-                      <li class="d-flex mb-4 pb-1">
-
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <h6 class="mb-0">Holder Address</h6>
-                            <small class="text-muted">Football, Cricket Kit</small>
-                          </div>
-
-                        </div>
-                      </li>
-                    </ul>
+                  <!-- /Account -->
+                </div>
+                <div class="card">
+                  <h5 class="card-header">Block Account</h5>
+                  <div class="card-body">
+                    <div class="mb-3 col-12 mb-0">
+                      <div class="alert alert-warning">
+                        <h6 class="alert-heading fw-bold mb-1">Are you sure you want to block your account?</h6>
+                        <p class="mb-0">Once you block your account, you will not be able to carry out any transaction in your account anymore.</p>
+                      </div>
+                    </div>
+                    <form id="" onsubmit="return false">
+                      <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" name="accountActivation" id="accountActivation" />
+                        <label class="form-check-label" for="accountActivation">I confirm my account blocking</label>
+                      </div>
+                      <button type="submit" class="btn btn-danger deactivate-account" data-bs-toggle="modal" data-bs-target="#backDropModal3">Block Account</button>
+                    </form>
                   </div>
                 </div>
+
+
+
               </div>
 
-              <div class="col-lg-5 col-md-4 order-1">
+              <div class="col-lg-4 col-md-4 order-1">
                 <div class="row">
                   <div class="col-lg-4 col-md-12 col-6 mb-4">
                   </div>
@@ -143,7 +156,7 @@
                           <p class="card-text">
                             Your Online Banking user ID and password, <span class="text-warning"> COT Code and PIN </span>  are confidential and should never be disclosed to anyone.
                           </p>
-                          <a href="javascript:;" class="btn btn-sm btn-warning">Contact</a>
+                          <a href="/dashboard/support" class="btn btn-sm btn-warning">Contact</a>
                         </div>
 
                       </div>
@@ -151,13 +164,9 @@
                   </div>
                 </div>
               </div>
-
-              <br/><br/>
-              <!-- Total Revenue -->
-              </div>
+            </div>
             </div>
             <!-- Total Revenue -->
-
            </div>
            <!-- Content wrapper -->
          </div>
@@ -165,5 +174,38 @@
      </div>
 
    </div>
+
+   <!--Inter banking modal popup here-->
+<div class="col-lg-4 col-md-3">
+  <div class="mt-3">
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="backDropModal3" data-bs-backdrop="static" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <form class="modal-content" [formGroup]="blockAccountForm">
+          <div class="modal-header bg-danger">
+            <h5 class="modal-title text-white" id="backDropModalTitle">Caution</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+            <p> Are you sure you want to block your account ?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" (click)="blockMyAccount()" [disabled]="isbuttonClick">
+              <div class="spinner-border spinner-border-sm text-primary" role="status" *ngIf="isbuttonClick">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              &nbsp;  Yes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 

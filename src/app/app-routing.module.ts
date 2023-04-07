@@ -1,3 +1,4 @@
+import { DomesticPinComponent } from './components/dashboard/domestic-pin/domestic-pin.component';
 import { HomePageComponent } from './components/dashboard/home-page/home-page.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -10,6 +11,13 @@ import { HistoryComponent } from './components/dashboard/history/history.compone
 import { MyProfileComponent } from './components/dashboard/my-profile/my-profile.component';
 import { SupportComponent } from './components/dashboard/support/support.component';
 import { SettingComponent } from './components/dashboard/setting/setting.component';
+import { DomesticTransferComponent } from './components/dashboard/domestic-transfer/domestic-transfer.component';
+import { WirepinComponent } from './components/dashboard/wirepin/wirepin.component';
+import { WirecotComponent } from './components/dashboard/wirecot/wirecot.component';
+import { WireimfComponent } from './components/dashboard/wireimf/wireimf.component';
+import { SuccessfulComponent } from './components/dashboard/successful/successful.component';
+import { DomesticSuccessfulComponent } from './components/dashboard/domestic-successful/domestic-successful.component';
+import { AccountOfficerComponent } from './components/dashboard/account-officer/account-officer.component';
 
 const routes: Routes = [
   // pubic route here ...
@@ -28,6 +36,16 @@ const routes: Routes = [
   {path: 'dashboard/profile', component: MyProfileComponent },
   {path: 'dashboard/support', component: SupportComponent },
   {path: 'dashboard/user-setting', component: SettingComponent },
+  {path: 'dashboard/domestic-transfer', component: DomesticTransferComponent },
+  {path: 'dashboard/confirm-pin', component: WirepinComponent },
+  {path: 'dashboard/confirm-cot', component: WirecotComponent },
+  {path: 'dashboard/confirm-imf', component: WireimfComponent },
+  {path: 'dashboard/transfer-successful', component: SuccessfulComponent },
+  {path: 'dashboard/domestic-pin', component: DomesticPinComponent },
+  {path: 'dashboard/domestic-successful', component: DomesticSuccessfulComponent },
+  {path: 'dashboard/domestic-successful', component: DomesticSuccessfulComponent },
+  {path: 'dashboard/officer-profile', component: AccountOfficerComponent },
+
   // {path: 'reset-password', component: HomePageComponent },
 ];
 

@@ -15,29 +15,57 @@
 
             <div class="row">
               <div class="col-lg-6 mb-4 order-0">
+
                 <div class="col-xl">
                   <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
                       <h5 class="mb-0"><small class="text-muted float-end">Enter the information below correctly to <span class="text-danger">initial</span> your funds transfer</small></h5>
                     </div>
                     <div class="card-body">
-                      <form>
+                      <form [formGroup]="fundTransferForm">
+
+                        <div class="alert alert-danger alert-dismissible" role="alert" *ngIf="errorNotification">
+                          Sorry! Your account is currently blocked. Contact support
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                          </button>
+                        </div>
+                        <!-- <div class="spinner-border spinner-border-sm text-primary" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                        </div> -->
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-fullname">Customer Bank Name</label>
-                          <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe">
+                          <input type="text" class="form-control" id="bank_name" name="bank_name" formControlName="bank_name" placeholder="Bank Name Customer">
+                          <div *ngIf="fundTransferForm.controls['bank_name'].invalid && (fundTransferForm.controls['bank_name'].dirty || fundTransferForm.controls['bank_name'].touched || fundTransferForm.controls['bank_name'].untouched && isFormSubmit )" class="text-danger">
+                            <span *ngIf="fundTransferForm.controls['bank_name'].hasError('required')" class="text-danger"> * Required</span>
+                            <span *ngIf="fundTransferForm.get('bank_name')!.hasError('maxlength')" class="text-danger">
+                              The maximum length is 25 characters.
+                            </span>
+                          </div>
                         </div>
                         <div class="row">
                           <div class="mb-3 col-md-6">
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-company">Account Name/ Holder</label>
-                              <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc.">
+                              <input type="text" class="form-control" id="holder_name" name="holder_name" formControlName="holder_name" placeholder="Account Holder Name">
+                              <div *ngIf="fundTransferForm.controls['holder_name'].invalid && (fundTransferForm.controls['holder_name'].dirty || fundTransferForm.controls['holder_name'].touched || fundTransferForm.controls['holder_name'].untouched && isFormSubmit )" class="text-danger">
+                                <span *ngIf="fundTransferForm.controls['holder_name'].hasError('required')" class="text-danger"> * Required</span>
+                                <span *ngIf="fundTransferForm.get('holder_name')!.hasError('maxlength')" class="text-danger">
+                                  The maximum length is 25 characters.
+                                </span>
+                              </div>
                             </div>
                             </div>
 
                             <div class="mb-3 col-md-6">
                               <div class="mb-3">
                                 <label class="form-label" for="basic-default-company">Account Number</label>
-                                <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc.">
+                                <input type="text" class="form-control" id="acct_number" name="acct_number" formControlName="acct_number" placeholder="Account Number">
+                                <div *ngIf="fundTransferForm.controls['acct_number'].invalid && (fundTransferForm.controls['acct_number'].dirty || fundTransferForm.controls['acct_number'].touched || fundTransferForm.controls['acct_number'].untouched && isFormSubmit )" class="text-danger">
+                                  <span *ngIf="fundTransferForm.controls['acct_number'].hasError('required')" class="text-danger"> * Required</span>
+                                  <!-- <span *ngIf="fundTransferForm.get('acct_number')!.hasError('maxlength')" class="text-danger">
+                                    The maximum length is 25 characters.
+                                  </span> -->
+                                </div>
                               </div>
                               </div>
                          </div>
@@ -46,21 +74,31 @@
                           <div class="mb-3 col-md-6">
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-company">Bank swift code/ Routing Number</label>
-                              <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc.">
+                              <input type="text" class="form-control" id="swift_code" name="swift_code" formControlName="swift_code" placeholder="Swift Code">
+                              <div *ngIf="fundTransferForm.controls['swift_code'].invalid && (fundTransferForm.controls['swift_code'].dirty || fundTransferForm.controls['swift_code'].touched || fundTransferForm.controls['swift_code'].untouched && isFormSubmit )" class="text-danger">
+                                <span *ngIf="fundTransferForm.controls['swift_code'].hasError('required')" class="text-danger"> * Required</span>
+                                <span *ngIf="fundTransferForm.get('swift_code')!.hasError('maxlength')" class="text-danger">
+                                  The maximum length is 25 characters.
+                                </span>
+                              </div>
                             </div>
                             </div>
 
                             <div class="mb-3 col-md-6">
                               <div class="mb-3">
                                 <label class="form-label" for="basic-default-company">Amount</label>
-                                <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc.">
+                                <input type="text" class="form-control" id="send_amt" accept="Number" name="send_amt" formControlName="send_amt" placeholder="Amount">
+                                <div *ngIf="fundTransferForm.controls['send_amt'].invalid && (fundTransferForm.controls['send_amt'].dirty || fundTransferForm.controls['send_amt'].touched || fundTransferForm.controls['send_amt'].untouched && isFormSubmit )" class="text-danger">
+                                  <span *ngIf="fundTransferForm.controls['send_amt'].hasError('required')" class="text-danger"> * Required</span>
+
+                                </div>
                               </div>
                               </div>
                           </div>
 
                           <div class="mb-3">
                             <label class="form-label" for="basic-default-company">Country</label>
-                            <select class="form-control form-select" name="country" required>
+                            <select class="form-control form-select" id="country" name="country" formControlName="country">
                               <option value="">Select Country</option>
                               <option value="Afghanistan" title="Afghanistan">Afghanistan</option>
                               <option value="Åland Islands" title="Åland Islands">Åland Islands</option>
@@ -312,13 +350,23 @@
                               <option value="Zambia" title="Zambia">Zambia</option>
                               <option value="Zimbabwe" title="Zimbabwe">Zimbabwe</option>
                               </select>
+                              <div *ngIf="fundTransferForm.controls['country'].invalid && (fundTransferForm.controls['country'].dirty || fundTransferForm.controls['country'].touched || fundTransferForm.controls['country'].untouched && isFormSubmit )" class="text-danger">
+                                <span *ngIf="fundTransferForm.controls['country'].hasError('required')" class="text-danger"> * Required</span>
+
+                              </div>
                           </div>
 
                           <div class="mb-3">
                             <label for="address" class="form-label">Address</label>
-                            <textarea class='form-control' name="address" id='id_comments' placeholder='Address' rows='3' required></textarea>
+                            <textarea class='form-control' id='address' name="address" formControlName="address" placeholder='Address' rows='3'></textarea>
+                            <div *ngIf="fundTransferForm.controls['address'].invalid && (fundTransferForm.controls['address'].dirty || fundTransferForm.controls['address'].touched || fundTransferForm.controls['address'].untouched && isFormSubmit )" class="text-danger">
+                              <span *ngIf="fundTransferForm.controls['address'].hasError('required')" class="text-danger"> * Required</span>
+                              <span *ngIf="fundTransferForm.get('address')!.hasError('maxlength')" class="text-danger">
+                                The maximum length is 25 characters.
+                              </span>
+                            </div>
                           </div>
-                        <button type="submit" class="btn btn-primary">Send</button>
+                        <button type="submit" class="btn btn-primary" (click)="transferFund()" > Transfer</button>
                       </form>
                     </div>
                   </div>

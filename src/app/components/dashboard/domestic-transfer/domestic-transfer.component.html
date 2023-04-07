@@ -21,23 +21,41 @@
                       <h5 class="mb-0"><small class="text-muted float-end">Enter the information below correctly to <span class="text-danger">initial</span> your funds transfer</small></h5>
                     </div>
                     <div class="card-body">
-                      <form>
+                      <form [formGroup]="domesticFundTransferForm">
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-fullname">Customer Bank Name</label>
-                          <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe">
+                          <input type="text" class="form-control" id="bank_name" name="bank_name" formControlName="bank_name" placeholder="Bank Name">
+                          <div *ngIf="domesticFundTransferForm.controls['bank_name'].invalid && (domesticFundTransferForm.controls['bank_name'].dirty || domesticFundTransferForm.controls['bank_name'].touched || domesticFundTransferForm.controls['bank_name'].untouched && isFormSubmit )" class="text-danger">
+                            <span *ngIf="domesticFundTransferForm.controls['bank_name'].hasError('required')" class="text-danger"> * Required</span>
+                            <span *ngIf="domesticFundTransferForm.get('bank_name')!.hasError('maxlength')" class="text-danger">
+                              The maximum length is 100 characters.
+                            </span>
+                          </div>
                         </div>
                         <div class="row">
                           <div class="mb-3 col-md-6">
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-company">Account Name/ Holder</label>
-                              <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc.">
+                              <input type="text" class="form-control" id="holder_name" name="holder_name" formControlName="holder_name" placeholder="Account Holder Name">
+                              <div *ngIf="domesticFundTransferForm.controls['holder_name'].invalid && (domesticFundTransferForm.controls['holder_name'].dirty || domesticFundTransferForm.controls['holder_name'].touched || domesticFundTransferForm.controls['holder_name'].untouched && isFormSubmit )" class="text-danger">
+                                <span *ngIf="domesticFundTransferForm.controls['holder_name'].hasError('required')" class="text-danger"> * Required</span>
+                                <span *ngIf="domesticFundTransferForm.get('holder_name')!.hasError('maxlength')" class="text-danger">
+                                  The maximum length is 100 characters.
+                                </span>
+                              </div>
                             </div>
                             </div>
 
                             <div class="mb-3 col-md-6">
                               <div class="mb-3">
                                 <label class="form-label" for="basic-default-company">Account Number</label>
-                                <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc.">
+                                <input type="text" class="form-control" id="acct_number" name="acct_number" formControlName="acct_number" placeholder="Account Number">
+                                <div *ngIf="domesticFundTransferForm.controls['acct_number'].invalid && (domesticFundTransferForm.controls['acct_number'].dirty || domesticFundTransferForm.controls['acct_number'].touched || domesticFundTransferForm.controls['acct_number'].untouched && isFormSubmit )" class="text-danger">
+                                  <span *ngIf="domesticFundTransferForm.controls['acct_number'].hasError('required')" class="text-danger"> * Required</span>
+                                  <span *ngIf="domesticFundTransferForm.get('acct_number')!.hasError('maxlength')" class="text-danger">
+                                    The maximum length is 10 characters.
+                                  </span>
+                                </div>
                               </div>
                               </div>
                          </div>
@@ -46,23 +64,39 @@
                           <div class="mb-3 col-md-6">
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-company">Bank swift code/ Routing Number</label>
-                              <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc.">
+                              <input type="text" class="form-control" id="swift_code" name="swift_code" formControlName="swift_code" placeholder="Swift Code">
+                              <div *ngIf="domesticFundTransferForm.controls['swift_code'].invalid && (domesticFundTransferForm.controls['swift_code'].dirty || domesticFundTransferForm.controls['swift_code'].touched || domesticFundTransferForm.controls['swift_code'].untouched && isFormSubmit )" class="text-danger">
+                                <span *ngIf="domesticFundTransferForm.controls['swift_code'].hasError('required')" class="text-danger"> * Required</span>
+                                <span *ngIf="domesticFundTransferForm.get('swift_code')!.hasError('maxlength')" class="text-danger">
+                                  The maximum length is 6 characters.
+                                </span>
+                              </div>
                             </div>
                             </div>
 
                             <div class="mb-3 col-md-6">
                               <div class="mb-3">
                                 <label class="form-label" for="basic-default-company">Amount</label>
-                                <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc.">
+                                <input type="text" class="form-control" id="send_amt" name="send_amt" formControlName="send_amt" placeholder="ACME Inc.">
+                                <div *ngIf="domesticFundTransferForm.controls['send_amt'].invalid && (domesticFundTransferForm.controls['send_amt'].dirty || domesticFundTransferForm.controls['send_amt'].touched || domesticFundTransferForm.controls['send_amt'].untouched && isFormSubmit )" class="text-danger">
+                                  <span *ngIf="domesticFundTransferForm.controls['send_amt'].hasError('required')" class="text-danger"> * Required</span>
+
+                                </div>
                               </div>
                               </div>
                           </div>
 
                           <div class="mb-3">
                             <label for="address" class="form-label">Address</label>
-                            <textarea class='form-control' name="address" id='id_comments' placeholder='Address' rows='3' required></textarea>
+                            <textarea class='form-control' id='id_comments' name="address" formControlName="address" placeholder='Address' rows='3' required></textarea>
+                            <div *ngIf="domesticFundTransferForm.controls['address'].invalid && (domesticFundTransferForm.controls['address'].dirty || domesticFundTransferForm.controls['address'].touched || domesticFundTransferForm.controls['address'].untouched && isFormSubmit )" class="text-danger">
+                              <span *ngIf="domesticFundTransferForm.controls['address'].hasError('required')" class="text-danger"> * Required</span>
+                              <span *ngIf="domesticFundTransferForm.get('address')!.hasError('maxlength')" class="text-danger">
+                                The maximum length is 350 characters.
+                              </span>
+                            </div>
                           </div>
-                        <button type="submit" class="btn btn-primary">Send</button>
+                        <button type="submit" class="btn btn-primary" (click)="domesticTransferFund()">Transfer</button>
                       </form>
                     </div>
                   </div>

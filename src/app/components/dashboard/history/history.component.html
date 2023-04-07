@@ -13,76 +13,94 @@
            <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Transactions History</span></h4>
 
-            <div class="row">
-              <div class="col-lg-7 mb-4 order-0">
-                <div class="card">
-                  <div class="table-responsive text-nowrap">
-                    <table class="table">
-                      <thead>
-                        <tr class="text-nowrap">
-                          <th>#</th>
-                          <th>Status</th>
-                          <th>Balance</th>
-                          <th>Credit</th>
-                          <th>Debit</th>
-                          <th>Type</th>
-                          <th>Description</th>
-                          <th>Date</th>
-
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                         </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                           </tr>
-
-                      </tbody>
-                    </table>
-                  </div>
+            <div class="wrapper">
+              <div class="overlay d-flex justify-content-center" *ngIf="showSpinner; else loadingFalse">
+                <div class="spinner-border m-2" role="status">
+                  <span class="visually-hidden">Loading...</span>
                 </div>
               </div>
-
-              <div class="col-lg-5 col-md-4 order-1">
-                <div class="row">
-                  <div class="col-lg-4 col-md-12 col-6 mb-4">
-                  </div>
-                  <div class="col-lg-7 col-md-9 col-6 mb-4">
-                    <div class="card bg-secondary text-white mb-3">
-                      <div class="card-body">
-                        <div class="card-body">
-                          <h5 class="card-title text-success">Protect your account</h5>
-                          <p class="card-text">
-                            Your Online Banking user ID and password, <span class="text-warning"> COT Code and PIN </span>  are confidential and should never be disclosed to anyone.
-                          </p>
-                          <a href="javascript:;" class="btn btn-sm btn-warning">Contact</a>
-                        </div>
-
+              <div class="loaded-content" [class.blurred]="showSpinner">
+                <ng-template #loadingFalse>
+                  <div class="col-lg-10 mb-4 order-0">
+                    <div class="card">
+                      <div class="alert alert-dark alert-dismissible mb-0" role="alert" *ngIf="historyData.length < 1">
+                        You do not have any history data at the moment
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        </button>
                       </div>
+                      <div class="table-responsive text-nowrap" *ngIf="historyData.length > 0">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th></th>
+                              <th>Status</th>
+                              <th>Balance</th>
+                              <th>Credit</th>
+                              <th>Debit</th>
+                              <th>Type</th>
+                              <th>Description</th>
+                              <th>Date</th>
+                              <th>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody *ngFor="let historyDatas of historyData | paginate
+                          : {
+                              itemsPerPage: pageSize,
+                              currentPage: pagination,
+                              totalItems: totalRecord
+                            }
+                            ; let i = index">
+                            <tr>
+                              <td>{{ pageSize * (pagination - 1) + i }}</td>
+                              <td>{{historyDatas.transaction_status}}</td>
+                              <td>{{historyDatas.trans_balance |
+                                currency}}</td>
+                              <td *ngIf="historyDatas.transac_nature === 'Credit'; else isNotCredit">+{{historyDatas.amount |
+                                currency}}
+                              </td>
+                              <td *ngIf="historyDatas.transac_nature === 'Debit'; else isNotDebit">-{{historyDatas.amount |
+                                currency}}
+                              </td>
+                              <ng-container [ngSwitch]="historyDatas.transac_nature">
+                                <td *ngSwitchCase="'Credit'"><span class="badge badge-success">Credit</span>
+                                </td>
+                                <td *ngSwitchCase="'Debit'"><span class="badge badge-danger">Debit</span>
+                                </td>
+                                <td *ngSwitchDefault><span class="badge badge-default">Unknow status</span>
+                                </td>
+                              </ng-container>
+                              <td>{{historyDatas.tran_desc}}</td>
+                              <td>{{historyDatas.createdOn | date:'medium'}}</td>
+
+                            </tr>
+                            <ng-template #isNotCredit>
+                              <td></td>
+                            </ng-template>
+                            <ng-template #isNotDebit>
+                              <td></td>
+                            </ng-template>
+                          </tbody>
+                        </table>
+                        <!-- <div *ngIf="historyData" class="demo-inline-spacing" id="example_info" role="status" aria-live="polite">
+                          &nbsp; Showing
+
+                          {{pagination}} to {{totalPages}} Pages of {{totalRecord}}
+                          entries
+
+                        </div> -->
+                        <div class="d-flex justify-content-end dataTables_paginate demo-inline-spacing">
+
+                           <pagination-controls (pageChange)="renderPage($event)" class="page-link"></pagination-controls>
+                        </div>
+                      </div>
+
+
                     </div>
                   </div>
-                </div>
+                </ng-template>
               </div>
-
-              <br/><br/>
-              <!-- Total Revenue -->
-              </div>
+            </div>
             </div>
             <!-- Total Revenue -->
 

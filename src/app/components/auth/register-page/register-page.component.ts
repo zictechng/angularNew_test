@@ -119,7 +119,9 @@ export class RegisterPageComponent implements OnInit {
           success: {
               background: '#1EAAE7',
               },
+              width: '350px',
               showOnlyTheLastOne: true,
+              fontSize: '18px',
           });
           this.isFormSubmit = false
           this.registerForm.reset(); // clear the form input
@@ -128,42 +130,48 @@ export class RegisterPageComponent implements OnInit {
       }
       else {
             Notiflix.Notify.warning('Error! Something went wrong, try again', {
-                width: '200px',
+                width: '350px',
                 showOnlyTheLastOne: true,
+                fontSize: '18px',
               });
               Notiflix.Loading.remove();
           }
   }, err =>{
         if(err.status == "401"){
           Notiflix.Notify.warning('Error! Invalid details', {
-            width: '200px',
+            width: '300px',
             showOnlyTheLastOne: true,
+            fontSize: '18px',
           });
             }
             else if(err.status == "400"){
           Notiflix.Notify.warning('Error! Some fields missing..', {
-                width: '200px',
+                width: '300px',
                 showOnlyTheLastOne: true,
+                fontSize: '18px',
               });
           }
           else if(err.status == '409'){
             Notiflix.Notify.warning('Error! Username Already Exist', {
-               width: '250px',
+               width: '300px',
                showOnlyTheLastOne: true,
+               fontSize: '18px',
              });
              Notiflix.Loading.remove();
            }
            else if(err.status == '500'){
             Notiflix.Notify.warning('Error! Server errored occurred', {
-               width: '250px',
+               width: '300px',
                showOnlyTheLastOne: true,
+               fontSize: '18px',
              });
              Notiflix.Loading.remove();
            }
            else if(err.status == '403'){
             Notiflix.Notify.warning('Error! No image selected', {
-               width: '250px',
+               width: '300px',
                showOnlyTheLastOne: true,
+               fontSize: '18px',
              });
              Notiflix.Loading.remove();
            }

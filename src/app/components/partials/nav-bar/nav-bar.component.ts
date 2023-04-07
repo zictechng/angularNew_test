@@ -1,4 +1,6 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ServiceDataService } from 'src/app/services/service-data.service';
 declare var $: any;
 declare var jQuery:any;
 declare const require: any;
@@ -7,7 +9,18 @@ declare const require: any;
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
-export class NavBarComponent implements AfterViewInit {
+export class NavBarComponent implements AfterViewInit, OnInit{
+
+
+  defaultImageProfile: string = '';
+  defaultDetailsLocalStorage: any;
+  top_bar_fullname: any = '';
+  userDatas: any;
+  userProfilePhoto = '';
+  userProfilePic = '';
+
+  constructor(private _dataService: ServiceDataService,
+   private _router: Router){}
 
   // this make the toggle of menu and nav-bar to work
   // we are calling the jquery that hold the script after the page is loaded
@@ -17,5 +30,31 @@ export class NavBarComponent implements AfterViewInit {
     require('../../../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js');
     require('../../../../assets/vendor/js/helpers.js');
     require('../../../../assets/js/main.js');
+  }
+
+  ngOnInit(): void {
+    this.defaultImageProfile = this._dataService.getDefaultImage();
+    this.defaultDetailsLocalStorage = this._dataService.getUserLocalInfomation();
+
+    this.top_bar_fullname = this.defaultDetailsLocalStorage.surname + ' ' +this.defaultDetailsLocalStorage.first_name;
+    this.getLoggedInUserProfileData();
+  }
+
+
+  // get logged in user profile details and profile image here
+  getLoggedInUserProfileData(){
+    this._dataService.getMyData(this.defaultDetailsLocalStorage._id).subscribe(res =>{
+      this.userDatas = res.others;
+      this.userProfilePhoto = this._dataService.backenServerUrl+res.others.image_photo;
+      this.userProfilePic = this._dataService.backenServerUrl+res.others.image_photo;
+      //console.log('Backend Profile', this.userDatas);
+    });
+  }
+
+  //logged out and clear the local storage here
+  logoutUser(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('userData');
+    this._router.navigate(['/login']);
   }
 }

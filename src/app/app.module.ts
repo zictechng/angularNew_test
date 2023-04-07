@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +24,13 @@ import { SupportComponent } from './components/dashboard/support/support.compone
 import { AccountSettingComponent } from './components/dashboard/account-setting/account-setting.component';
 import { SettingComponent } from './components/dashboard/setting/setting.component';
 import { AuthServiceService } from './services/auth-service.service';
+import { WirepinComponent } from './components/dashboard/wirepin/wirepin.component';
+import { WirecotComponent } from './components/dashboard/wirecot/wirecot.component';
+import { WireimfComponent } from './components/dashboard/wireimf/wireimf.component';
+import { SuccessfulComponent } from './components/dashboard/successful/successful.component';
+import { DomesticPinComponent } from './components/dashboard/domestic-pin/domestic-pin.component';
+import { DomesticSuccessfulComponent } from './components/dashboard/domestic-successful/domestic-successful.component';
+import { AccountOfficerComponent } from './components/dashboard/account-officer/account-officer.component';
 
 @NgModule({
   declarations: [
@@ -44,13 +51,21 @@ import { AuthServiceService } from './services/auth-service.service';
     MyProfileComponent,
     SupportComponent,
     AccountSettingComponent,
-    SettingComponent
+    SettingComponent,
+    WirepinComponent,
+    WirecotComponent,
+    WireimfComponent,
+    SuccessfulComponent,
+    DomesticPinComponent,
+    DomesticSuccessfulComponent,
+    AccountOfficerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule
   ],
   providers: [
     AuthServiceService

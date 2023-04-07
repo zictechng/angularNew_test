@@ -22,10 +22,10 @@
                       <small class="text-muted float-end">You can always contact Coin Bank for enquiry or for any technical issues <span class="text-danger">24/7.</span></small>
                     </div>
                     <div class="card-body">
-                      <form>
+                      <form [formGroup]="ticketForm">
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-fullname">Customer Bank Name</label>
-                          <select class="form-control form-select" name="subject" id="subject" required>
+                          <select class="form-control form-select" name="subject" id="subject" formControlName="subject">
                             <option value=""></option>
                             <option value="Funds Transfer Issues"> Funds Transfer Issues</option>
                             <option value="Loan Application">Loan Application</option>
@@ -37,28 +37,57 @@
                             <option value="Fees Charges">Fees Charges</option>
                             <option value="Others">Others</option>
                         </select>
+                        <div *ngIf="ticketForm.controls['subject'].invalid && (ticketForm.controls['subject'].dirty || ticketForm.controls['subject'].touched || ticketForm.controls['subject'].untouched && isFormSubmit )" class="text-danger">
+                          <span *ngIf="ticketForm.controls['subject'].hasError('required')" class="text-danger"> * Required</span>
+
+                        </div>
                         </div>
                         <div class="row">
                           <div class="mb-3 col-md-6">
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-company">Sender Name</label>
-                              <input type="text" class="form-control" id="basic-default-company" placeholder="Sender Name">
+                              <input type="text" class="form-control" id="sender_name" name="sender_name" formControlName="sender_name" placeholder="Sender Name">
+                              <div *ngIf="ticketForm.controls['sender_name'].invalid && (ticketForm.controls['sender_name'].dirty || ticketForm.controls['sender_name'].touched || ticketForm.controls['sender_name'].untouched && isFormSubmit )" class="text-danger">
+                                <span *ngIf="ticketForm.controls['sender_name'].hasError('required')" class="text-danger"> * Required</span>
+                                <span *ngIf="ticketForm.get('sender_name')!.hasError('maxlength')" class="text-danger">
+                                  The maximum length is 100 characters.
+                                </span>
+                              </div>
                             </div>
                             </div>
 
                             <div class="mb-3 col-md-6">
                               <div class="mb-3">
                                 <label class="form-label" for="basic-default-company">Email ID</label>
-                                <input type="text" class="form-control" id="basic-default-company" placeholder="Email ID">
+                                <input type="text" class="form-control" id="email" name="email" formControlName="email" placeholder="Email ID">
+                                <div *ngIf="ticketForm.controls['email'].invalid && (ticketForm.controls['email'].dirty || ticketForm.controls['email'].touched || ticketForm.controls['email'].untouched && isFormSubmit )" class="text-danger">
+                                  <span *ngIf="ticketForm.controls['email'].hasError('required')" class="text-danger"> * Required</span>
+                                  <span *ngIf="ticketForm.get('email')!.hasError('email')" class="text-danger">
+                                   Correct email format required.
+                                  </span>
+                                </div>
                               </div>
                               </div>
                          </div>
 
                           <div class="mb-3">
                             <label for="address" class="form-label">Message</label>
-                            <textarea class='form-control' name="ticket_message" id='id_comments' placeholder='Enter Message' rows='3' required></textarea>
+                            <textarea class='form-control' name="ticket_message" id='ticket_message' formControlName='ticket_message' placeholder='Enter Message' rows='3' required></textarea>
+                            <div *ngIf="ticketForm.controls['ticket_message'].invalid && (ticketForm.controls['ticket_message'].dirty || ticketForm.controls['ticket_message'].touched || ticketForm.controls['ticket_message'].untouched && isFormSubmit )" class="text-danger">
+                              <span *ngIf="ticketForm.controls['ticket_message'].hasError('required')" class="text-danger"> * Required</span>
+                              <span *ngIf="ticketForm.get('ticket_message')!.hasError('maxlength')" class="text-danger">
+                                The maximum length is 250 characters.
+                              </span>
+                            </div>
                           </div>
-                        <button type="submit" class="btn btn-primary">Send</button>
+                        <button type="submit" class="btn btn-primary" (click)="sendTicket()"
+                        [disabled]="ticketForm.invalid" [disabled]="isFormSubmit">
+                         <!-- <div class="spinner-border spinner-border-sm text-primary" role="status" *ngIf="isButtonClick">
+                          <span class="visually-hidden">Loading...</span>
+                        </div> -->
+                        &nbsp;
+                         Send Ticket
+                        </button>
                       </form>
                     </div>
                   </div>

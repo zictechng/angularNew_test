@@ -1,0 +1,94 @@
+<div class="layout-wrapper layout-content-navbar">
+  <div class="layout-container">
+    <!-- Menu -->
+      <app-side-bar></app-side-bar>
+     <!-- Menu End -->
+     <div class="layout-page">
+       <!-- Navbar -->
+       <app-nav-bar></app-nav-bar>
+       <!-- Navbar End-->
+         <div class="content-wrapper">
+           <!-- Dash page comes here-->
+           <!-- Content -->
+           <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Transfer PIN</span></h4>
+
+            <div class="col-lg-6 mb-4 order-0" style="height: 25px;">
+              <div class="progress" style="height: 18px;">
+                <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50% completed</div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6 mb-4 order-0">
+
+                <div class="col-xl">
+                  <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <h5 class="mb-0"><small class="text-muted float-end">Enter your PIN <span class="text-danger">to confirm</span> your funds transfer</small></h5>
+                    </div>
+                    <div class="card-body">
+                      <form [formGroup]="fundTransferPINForm">
+                        <!-- <div class="alert alert-danger alert-dismissible" role="alert">
+                          This is a danger dismissible alert — check it out!
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                          </button>
+                        </div> -->
+                        <div class="mb-3">
+                          <label class="form-label" for="basic-default-fullname">Pin Code</label>
+                          <input type="text" class="form-control" id="pin_code" name="pin_code" formControlName="pin_code" placeholder="Enter Pin Code">
+                          <div *ngIf="fundTransferPINForm.controls['pin_code'].invalid && (fundTransferPINForm.controls['pin_code'].dirty || fundTransferPINForm.controls['pin_code'].touched || fundTransferPINForm.controls['pin_code'].untouched && isFormSubmit )" class="text-danger">
+                            <span *ngIf="fundTransferPINForm.controls['pin_code'].hasError('required')" class="text-danger"> * Required</span>
+                            <span *ngIf="fundTransferPINForm.get('pin_code')!.hasError('maxlength')" class="text-danger">
+                              The maximum length is 6 characters.
+                            </span>
+                          </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" (click)="confirmTransferPin()" [disabled]="fundTransferPINForm.invalid" [disabled]="isFormSubmit">
+                          <div class="spinner-border spinner-border-sm text-primary" role="status" *ngIf="isbuttonClick">
+                            <span class="visually-hidden">Loading...</span>
+                          </div>
+                          &nbsp; Confirm Pin
+                          </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-4 order-1">
+                <div class="row">
+                  <div class="col-lg-4 col-md-12 col-6 mb-4">
+                  </div>
+                  <div class="col-lg-6 col-md-9 col-6 mb-4">
+                    <div class="card bg-warning text-white mb-3">
+                      <div class="card-body">
+                        <div class="card-body">
+                          <h5 class="card-title text-dark">Notice</h5>
+                          <p class="card-text">
+                           Fund transfer require your account to be active and possesses the 3F keys to complete the transaction
+                          </p>
+                          <!-- <a href="javascript:;" class="btn btn-sm btn-outline-success">Apply Now</a> -->
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <br/><br/>
+              <!-- Total Revenue -->
+              </div>
+            </div>
+            <!-- Total Revenue -->
+
+           </div>
+           <!-- Content wrapper -->
+         </div>
+         <div class="layout-overlay layout-menu-toggle"></div>
+     </div>
+
+   </div>
+
+

@@ -19,6 +19,11 @@
   text-transform: lowercase;
 }
 
+.app-brand-text.companyName {
+  font-size: 1.75rem;
+  letter-spacing: -0.5px;
+}
+
 /* ! For .layout-navbar-fixed added fix padding top tpo .layout-page */
 /* Detached navbar */
 .layout-navbar-fixed .layout-wrapper:not(.layout-horizontal):not(.layout-without-menu) .layout-page {

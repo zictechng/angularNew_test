@@ -25,7 +25,7 @@
                   <div class="d-flex align-items-end row">
                     <div class="col-sm-7">
                       <div class="card-body">
-                        <h5 class="card-title">Hello John, 🎉</h5>
+                        <h5 class="card-title">Hello, {{fullname}} 🎉 <span class="rightfloat">{{maskAccNumber}}</span></h5>
                         <h5 class="card-title text-info"><p class="mb-4"> Send money across world in <span class="fw-bold">real time</span><br>
                         </p></h5>
                         Sending International Business Payments or Sending Money To Family Overseas? We Are Your Fast And Simple Solution.
@@ -53,7 +53,7 @@
 
                         </div>
                         <span class="fw-semibold d-block mb-1">Credit Balance</span>
-                        <h3 class="card-title mb-2">$12,628</h3>
+                        <h3 class="card-title mb-2">{{myData.amount || '0.0' | currency}}</h3>
                         <small class="text-success fw-semibold"><i class='bx bx-up-arrow-alt'></i> +72.80%</small>
                       </div>
                     </div>
@@ -68,8 +68,8 @@
                           </div>
 
                         </div>
-                        <span>Available Balance</span>
-                        <h3 class="card-title text-nowrap mb-1">$4,679</h3>
+                        <span class="fw-semibold d-block mb-1">Available Balance</span>
+                        <h3 class="card-title mb-2">{{myData.amount || '0.0' | currency}}</h3>
                         <small class="text-success fw-semibold"><i class='bx bx-up-arrow-alt'></i> +28.42%</small>
                       </div>
                     </div>
@@ -171,8 +171,10 @@
                <!-- Transactions -->
                <div class="col-12 mb-4">
                 <div class="card">
+
+
                   <h5 class="card-header">Recent Transactions</h5>
-                  <div class="table-responsive text-nowrap">
+                  <div class="table-responsive text-nowrap" *ngIf="userRecentTransaction.length > 0">
                     <table class="table">
                       <thead>
                         <tr class="text-nowrap">
@@ -185,26 +187,22 @@
 
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody *ngFor="let recentDatas of userRecentTransaction; let i = index">
                         <tr>
-                          <th scope="row">1</th>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
+                          <th scope="row">{{i + 1}}</th>
+                          <td>{{recentDatas.transaction_status}}</td>
+                          <td>{{recentDatas.amount | currency}}</td>
+                          <td>{{recentDatas.tran_desc}}</td>
+                          <td>{{recentDatas.transac_nature}}</td>
+                          <td>{{recentDatas.createdOn | date:'medium'}}</td>
                          </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                          <td>Table cell</td>
-                           </tr>
-
                       </tbody>
                     </table>
+                  </div>
+                  <div class="alert alert-dark alert-dismissible mb-0" role="alert" *ngIf="userRecentTransaction.length < 1">
+                    You currently do not have any recent transaction at the moment
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    </button>
                   </div>
                 </div>
                </div>

@@ -47,13 +47,15 @@ export class AuthPageComponent implements OnInit {
                 success: {
                     background: '#1EAAE7',
                     },
+                    width: '300px',
                     showOnlyTheLastOne: true,
+                    fontSize: '18px',
                 });
 
                 localStorage.setItem('token', res.token);
                 localStorage.setItem('userData', JSON.stringify(res.userData));
-                console.log("User details ", JSON.stringify(res.userData));
-                console.log("User Token ", JSON.stringify(res.token));
+                // console.log("User details ", JSON.stringify(res.userData));
+                // console.log("User Token ", JSON.stringify(res.token));
 
                 this.isFormSubmit = false
 
@@ -65,28 +67,33 @@ export class AuthPageComponent implements OnInit {
             }
           else {
                 Notiflix.Notify.warning('Error! Something went wrong, try again', {
-                    width: '200px',
+                    width: '350px',
                     showOnlyTheLastOne: true,
+                    fontSize: '18px',
                   });
                   Notiflix.Loading.remove();
+                  this.clicked = false;
               }
          }, err =>{
           if(err.status == "401"){
           Notiflix.Notify.warning('Error! No user found', {
-            width: '200px',
+            width: '250px',
             showOnlyTheLastOne: true,
+            fontSize: '18px',
           });
             }
             else if(err.status == "400"){
           Notiflix.Notify.warning('Error! Some fields missing..', {
                 width: '300px',
                 showOnlyTheLastOne: true,
+                fontSize: '18px',
               });
           }
           else if(err.status == '403'){
             Notiflix.Notify.warning('Sorry! Error occurred, try again', {
-               width: '300px',
+               width: '330px',
                showOnlyTheLastOne: true,
+               fontSize: '18px',
              });
              Notiflix.Loading.remove();
            }
@@ -94,17 +101,19 @@ export class AuthPageComponent implements OnInit {
             Notiflix.Notify.warning('Error! Wrong password', {
                width: '300px',
                showOnlyTheLastOne: true,
+               fontSize: '18px',
              });
              Notiflix.Loading.remove();
            }
            else if(err.status == '500'){
             Notiflix.Notify.warning('Error! Server errored occurred', {
-               width: '250px',
+               width: '300px',
                showOnlyTheLastOne: true,
+               fontSize: '18px',
              });
              Notiflix.Loading.remove();
            }
-
+           this.clicked = false;
           Notiflix.Loading.remove();
           })
        }
