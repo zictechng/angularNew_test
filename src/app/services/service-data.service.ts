@@ -40,6 +40,8 @@ export class ServiceDataService {
  private _accountOfficerUrl = serverUrl+'api/officer_details';
  private _registerOfficerUrl = serverUrl+'api/add_officer';
  private _ticketSubmitUrl = serverUrl+'api/submit_ticket';
+ private _investPlanSubmitUrl = serverUrl+'api/submit_investment';
+ private _financeChartUrl = serverUrl+'api/user_finance_chart/';
 
 
  constructor(private http: HttpClient,
@@ -96,6 +98,16 @@ registerOfficerDetails(officerData:any){
 // Submit ticket request goes here
 sendTicket(ticketData:any){
   return this.http.post<any>(this._ticketSubmitUrl, ticketData)
+}
+
+// Submit ticket request goes here
+sendInvestment(investData:any){
+  return this.http.post<any>(this._investPlanSubmitUrl, investData)
+}
+
+// Submit ticket request goes here
+financeChartReport(userID:any){
+  return this.http.get<any>(this._financeChartUrl + userID)
 }
 
 

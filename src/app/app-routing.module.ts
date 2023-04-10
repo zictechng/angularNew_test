@@ -18,6 +18,10 @@ import { WireimfComponent } from './components/dashboard/wireimf/wireimf.compone
 import { SuccessfulComponent } from './components/dashboard/successful/successful.component';
 import { DomesticSuccessfulComponent } from './components/dashboard/domestic-successful/domestic-successful.component';
 import { AccountOfficerComponent } from './components/dashboard/account-officer/account-officer.component';
+import { StockInvestmentComponent } from './components/dashboard/stock-investment/stock-investment.component';
+import { AngroInvestmentComponent } from './components/dashboard/angro-investment/angro-investment.component';
+import { FxInvestmentComponent } from './components/dashboard/fx-investment/fx-investment.component';
+import { IsAuthenticatedGuard } from './services/is-authenticated.guard';
 
 const routes: Routes = [
   // pubic route here ...
@@ -28,7 +32,7 @@ const routes: Routes = [
   {path: 'reset-password', component: ResetPasswordPageComponent },
 
   // private routes here ...
-  {path: 'dashboard', component: HomePageComponent },
+  {path: 'dashboard', component: HomePageComponent, canActivate:[IsAuthenticatedGuard] },
   {path: 'dashboard/index', component: HomePageComponent },
   {path: 'dashboard/wire-transfer', component: WireTransferComponent },
   {path: 'dashboard/account-statement', component: AccountStatementComponent },
@@ -45,6 +49,9 @@ const routes: Routes = [
   {path: 'dashboard/domestic-successful', component: DomesticSuccessfulComponent },
   {path: 'dashboard/domestic-successful', component: DomesticSuccessfulComponent },
   {path: 'dashboard/officer-profile', component: AccountOfficerComponent },
+  {path: 'dashboard/stock-invest', component: StockInvestmentComponent },
+  {path: 'dashboard/agro-invest', component: AngroInvestmentComponent },
+  {path: 'dashboard/fx-invest', component: FxInvestmentComponent },
 
   // {path: 'reset-password', component: HomePageComponent },
 ];

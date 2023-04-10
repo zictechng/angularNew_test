@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServiceDataService } from 'src/app/services/service-data.service';
-import { ServiceTransactions } from 'src/app/services/serviceTransaction.service';
+import { TransactionsService } from 'src/app/services/transactions.service';
 
 @Component({
   selector: 'app-history',
@@ -28,7 +28,7 @@ export class HistoryComponent implements OnInit{
   paginationStatementData:any [] = [];
 
   constructor(private _dataService: ServiceDataService,
-    private _transactService: ServiceTransactions,
+    private _transactService: TransactionsService,
     private _router: Router) {}
 
 

@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as Notiflix from 'notiflix';
 import { ServiceDataService } from 'src/app/services/service-data.service';
-import { ServiceTransactions } from 'src/app/services/serviceTransaction.service';
+import { TransactionsService } from 'src/app/services/transactions.service';
 
 @Component({
   selector: 'app-domestic-transfer',
@@ -32,7 +32,7 @@ export class DomesticTransferComponent implements OnInit {
 
 
   constructor(private _dataService: ServiceDataService,
-    private _transactService: ServiceTransactions,
+    private _transactService: TransactionsService,
     private _router: Router){}
 
 
@@ -40,10 +40,22 @@ export class DomesticTransferComponent implements OnInit {
 
   }
 
+  yearNow: number = new Date().getFullYear();
+  month = new Date().getMonth()+1;
+
+  monthNames = ["January", "February", "March", "April", "May","June","July", "August", "September", "October", "November","December"];
+  dayNames = ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday","Saturday"];
+
+  monthName = new Date();
+  days = new Date();
+
+  day: number = new Date().getDay();
 
   obj2 = {
     "createdBy": (this.myLocalDatails._id),
     "tid": (this.randomString(25)),
+    'tr_year': this.yearNow,
+    'tr_month': this.monthNames[this.monthName.getMonth()]
   };
 
 

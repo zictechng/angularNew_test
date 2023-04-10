@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { ServiceDataService } from 'src/app/services/service-data.service';
 declare var $: any;
 declare var jQuery:any;
@@ -11,7 +12,7 @@ declare const require: any;
 })
 export class NavBarComponent implements AfterViewInit, OnInit{
 
-
+  isFormSubmit = false;
   defaultImageProfile: string = '';
   defaultDetailsLocalStorage: any;
   top_bar_fullname: any = '';
@@ -20,6 +21,7 @@ export class NavBarComponent implements AfterViewInit, OnInit{
   userProfilePic = '';
 
   constructor(private _dataService: ServiceDataService,
+   private _authService: AuthServiceService,
    private _router: Router){}
 
   // this make the toggle of menu and nav-bar to work
@@ -27,7 +29,6 @@ export class NavBarComponent implements AfterViewInit, OnInit{
   // so that angular application can have access to the javascript.
   //../assets/js/main.js
   ngAfterViewInit() {
-    require('../../../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js');
     require('../../../../assets/vendor/js/helpers.js');
     require('../../../../assets/js/main.js');
   }
@@ -51,10 +52,34 @@ export class NavBarComponent implements AfterViewInit, OnInit{
     });
   }
 
-  //logged out and clear the local storage here
-  logoutUser(){
-    localStorage.removeItem('token');
-    localStorage.removeItem('userData');
-    this._router.navigate(['/login']);
+  logoutOut(){
+    this.isFormSubmit = true;
+    setTimeout(() => {
+      localStorage.clear();
+      this._router.navigate(['/login']);
+      this.closeNavLogoutPopup();
+      this.isFormSubmit= false;
+
+      this._authService.loginUser = false;
+    }, 2000);
+
+
   }
+
+  // logout modal dialog here
+  displayStyle = "none";
+  openNavLogoutPopup() {
+    this.displayStyle = "block";
+  }
+  closeNavLogoutPopup() {
+    this.displayStyle = "none";
+  }
+
+
+  //logged out and clear the local storage here
+  // logoutUser(){
+  //   localStorage.removeItem('token');
+  //   localStorage.removeItem('userData');
+  //   this._router.navigate(['/login']);
+  // }
 }

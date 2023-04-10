@@ -1,9 +1,11 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { formatDate } from '@angular/common';
+import { Component, AfterViewInit, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as Notiflix from 'notiflix';
 import { ServiceDataService } from 'src/app/services/service-data.service';
-import { ServiceTransactions } from 'src/app/services/serviceTransaction.service';
+import { TransactionsService } from 'src/app/services/transactions.service';
+
 
 declare var $: any;
 declare var jQuery:any;
@@ -35,7 +37,7 @@ export class WireTransferComponent implements AfterViewInit, OnInit{
     bank_name: new FormControl('', [Validators.required, Validators.maxLength(100)]),
   });
   constructor(private _dataService: ServiceDataService,
-    private _transactService: ServiceTransactions,
+    private _transactService: TransactionsService,
     private _router: Router){}
 
   // this make the toggle of menu and nav-bar to work
@@ -46,13 +48,29 @@ export class WireTransferComponent implements AfterViewInit, OnInit{
 
   }
 
+  yearNow: number = new Date().getFullYear();
+  month = new Date().getMonth()+1;
+
+  monthNames = ["January", "February", "March", "April", "May","June","July", "August", "September", "October", "November","December"];
+  dayNames = ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday","Saturday"];
+
+  monthName = new Date();
+  days = new Date();
+
+  day: number = new Date().getDay();
+
   ngOnInit(): void {
-    //console.log('default', this.myLocalDatails._id)
+    // console.log("Today Year: ", this.yearNow, "Month: ", this.month, "Day: ", this.day);
+    // console.log("The current month is " + this.monthNames[this.monthName.getMonth()]);
+    // console.log("The current days name is " + this.dayNames[this.day]);
+
   }
 
   obj2 = {
     "createdBy": (this.myLocalDatails._id),
     "tid": (this.randomString(25)),
+    'tr_year': this.yearNow,
+    'tr_month': this.monthNames[this.monthName.getMonth()]
   };
 
 

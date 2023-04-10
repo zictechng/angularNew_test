@@ -25,6 +25,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/custom-theme.scss",
               "src/styles.css",
               "src/assets/vendor/css/pages/page-auth.css"
             ],
@@ -34,6 +35,7 @@
               "src/assets/vendor/js/bootstrap.js",
               "src/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js",
               "src/assets/vendor/js/menu.js",
+              "src/assets/vendor/js/helpers.js",
               "src/assets/vendor/libs/apex-charts/apexcharts.js",
               "src/assets/js/main.js",
               "src/assets/js/dashboards-analytics.js",

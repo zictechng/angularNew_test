@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServiceDataService } from 'src/app/services/service-data.service';
+import {Chart, registerables} from 'node_modules/chart.js';
+Chart.register(...registerables);
 declare var $: any;
 declare var jQuery:any;
-declare const require: any;
 
 @Component({
   selector: 'app-home-page',
@@ -12,6 +13,11 @@ declare const require: any;
 })
 export class HomePageComponent implements OnInit{
 
+  chartdata:any;
+
+   labeldata:any[]=[];
+   realdata:any[]=[];
+   colordata:any[]=[];
 
 
   userLocalStorageDetails:any
@@ -38,10 +44,34 @@ constructor(private _dataService: ServiceDataService,
 
    this.getUserProfileData();
    this.getMyIncomeStatement();
-   this.myRecentTransaction()
+   this.myRecentTransaction();
+   this.getFinanceChart();
   }
 
-
+  RenderChart(labeldata:any, maindata:any, colordata:any, type:any, id:any){
+    const myChart = new Chart(id, {
+      type: type,
+      data: {
+          labels: labeldata,
+          datasets: [{
+              label: 'Record Statistic',
+              data: maindata,
+              backgroundColor: colordata,
+              borderColor: ['#D2D2D2'],
+              borderWidth: 1,
+              borderRadius: 5,
+          },
+        ],
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          },
+      }
+  });
+  }
   // get loggin user profile details here
   getUserProfileData(){
     this._dataService.getMyData(this.myLocalDatails._id).subscribe(res =>{
@@ -67,7 +97,23 @@ constructor(private _dataService: ServiceDataService,
     });
   }
 
-
+  getFinanceChart(){
+    this._dataService.financeChartReport(this.myLocalDatails._id).subscribe(res =>{
+      this.chartdata = res;
+      //console.log(this.labeldata)
+      if(this.chartdata!=null){
+        for(let i=0; i<this.chartdata.length; i++){
+          //console.log(this.chartdata[i]);
+          this.labeldata.push(this.chartdata[i].tr_year)
+          this.realdata.push(this.chartdata[i].amount)
+          this.colordata.push(this.chartdata[i].colorcode)
+        }
+        this.RenderChart(this.labeldata, this.realdata, this.colordata, 'bar', 'barchart');
+        this.RenderChart(this.labeldata, this.realdata, this.colordata, 'pie', 'piechart');
+        this.RenderChart(this.labeldata, this.realdata, this.colordata, 'line', 'dochart');
+        }
+    });
+  }
 // get logged in user profile details here from the local storage
 // getUserLocalData(){
 //   this.userLocalDetails = localStorage.getItem('userData');

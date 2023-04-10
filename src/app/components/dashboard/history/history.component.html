@@ -52,7 +52,7 @@
                             }
                             ; let i = index">
                             <tr>
-                              <td>{{ pageSize * (pagination - 1) + i }}</td>
+                              <td>{{ pageSize * (pagination - 1) + i+1 }}</td>
                               <td>{{historyDatas.transaction_status}}</td>
                               <td>{{historyDatas.trans_balance |
                                 currency}}</td>

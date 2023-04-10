@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as Notiflix from 'notiflix';
 import { ServiceDataService } from 'src/app/services/service-data.service';
-import { ServiceTransactions } from 'src/app/services/serviceTransaction.service';
+import { TransactionsService } from 'src/app/services/transactions.service';
 
 @Component({
   selector: 'app-wirecot',
@@ -24,7 +24,7 @@ export class WirecotComponent implements OnInit{
    });
 
   constructor(private _dataService: ServiceDataService,
-    private _transactService: ServiceTransactions,
+    private _transactService: TransactionsService,
     private _router: Router){}
 
 

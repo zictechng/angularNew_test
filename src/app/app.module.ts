@@ -4,6 +4,7 @@ import {ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './components/partials/nav-bar/nav-bar.component';
@@ -31,6 +32,10 @@ import { SuccessfulComponent } from './components/dashboard/successful/successfu
 import { DomesticPinComponent } from './components/dashboard/domestic-pin/domestic-pin.component';
 import { DomesticSuccessfulComponent } from './components/dashboard/domestic-successful/domestic-successful.component';
 import { AccountOfficerComponent } from './components/dashboard/account-officer/account-officer.component';
+import { StockInvestmentComponent } from './components/dashboard/stock-investment/stock-investment.component';
+import { AngroInvestmentComponent } from './components/dashboard/angro-investment/angro-investment.component';
+import { FxInvestmentComponent } from './components/dashboard/fx-investment/fx-investment.component';
+import { IsAuthenticatedGuard } from './services/is-authenticated.guard';
 
 @NgModule({
   declarations: [
@@ -58,18 +63,23 @@ import { AccountOfficerComponent } from './components/dashboard/account-officer/
     SuccessfulComponent,
     DomesticPinComponent,
     DomesticSuccessfulComponent,
-    AccountOfficerComponent
+    AccountOfficerComponent,
+    StockInvestmentComponent,
+    AngroInvestmentComponent,
+    FxInvestmentComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+
+
   ],
   providers: [
-    AuthServiceService
-  ],
+    AuthServiceService, IsAuthenticatedGuard
+   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -78,7 +78,7 @@
             <div class="dropdown-divider"></div>
           </li>
           <li>
-            <a class="dropdown-item" href="">
+            <a class="dropdown-item" (click)="openNavLogoutPopup()" style="cursor: pointer;">
               <i class="bx bx-power-off me-2"></i>
               <span class="align-middle">Log Out</span>
             </a>
@@ -88,6 +88,35 @@
       <!--/ User -->
     </ul>
   </div>
-</nav>
 
+</nav>
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog">
+    <form class="modal-content">
+      <div class="modal-header bg-danger">
+        <h5 class="modal-title text-white" id="backDropModalTitle">Logout</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeNavLogoutPopup()"></button>
+      </div>
+      <div class="modal-body">
+        <h4> Are you sure you want to logout?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="closeNavLogoutPopup()">Cancel</button>
+        <button type="button" (click)="logoutOut()" class="btn btn-danger" [disabled]="isFormSubmit">
+          <div class="spinner-border spinner-border-sm text-white" role="status" *ngIf="isFormSubmit">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          &nbsp;
+          <!-- <span *ngIf="!isFormSubmit">
+            Submit
+          </span>
+          <span *ngIf="isFormSubmit">
+            Logging out...
+          </span> -->
+          {{ isFormSubmit === false ? "Logout" : "Logging out..." }}
+        </button>
+      </div>
+     </form>
+  </div>
+</div>
 <!-- / Navbar -->

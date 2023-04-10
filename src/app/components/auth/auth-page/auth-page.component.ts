@@ -17,7 +17,6 @@ export class AuthPageComponent implements OnInit {
 
   clicked: boolean = false;
 
-
   loginForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
@@ -54,9 +53,8 @@ export class AuthPageComponent implements OnInit {
 
                 localStorage.setItem('token', res.token);
                 localStorage.setItem('userData', JSON.stringify(res.userData));
-                // console.log("User details ", JSON.stringify(res.userData));
-                // console.log("User Token ", JSON.stringify(res.token));
 
+                this._auth.loginUser = true;
                 this.isFormSubmit = false
 
                 this.clicked = false; // this disables the button when clicked
