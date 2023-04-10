@@ -11,17 +11,25 @@
   <!-- Search -->
     <div class="navbar-nav align-items-center">
       <div class="nav-item d-flex align-items-center">
-        <span class="app-brand-text companyName menu-text fw-bolder ms-2">Sneat Trust and Saving (STS)</span>
+        <span class="app-brand-text companyName menu-text fw-bolder ms-2">Sneat Trust and Saving (STS) </span>
       </div>
     </div>
     <!-- /Search -->
     <ul class="navbar-nav flex-row align-items-center ms-auto">
 
       <!-- Show boxes more menu here-->
-        <app-nav-drop-menu></app-nav-drop-menu>
+
+        <div *ngIf="_authLevel.myAccessLevel()=='Admin'">
+          <app-nav-drop-menu>
+
+          </app-nav-drop-menu>
+        </div>
+
       <!-- Place this tag where you want the button to render. -->
       <!-- Show bell notification here -->
-      <app-nav-notification></app-nav-notification>
+      <app-nav-notification *ngIf="_authLevel.myAccessLevel()!='Admin'">
+
+      </app-nav-notification>
 
       <!-- User -->
       <li class="nav-item navbar-dropdown dropdown-user dropdown">

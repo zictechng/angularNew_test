@@ -2,6 +2,7 @@ import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { ServiceDataService } from 'src/app/services/service-data.service';
+import { userLevelAccess } from 'src/app/services/userLevel.service';
 declare var $: any;
 declare var jQuery:any;
 declare const require: any;
@@ -22,6 +23,7 @@ export class NavBarComponent implements AfterViewInit, OnInit{
 
   constructor(private _dataService: ServiceDataService,
    private _authService: AuthServiceService,
+   public _authLevel: userLevelAccess,
    private _router: Router){}
 
   // this make the toggle of menu and nav-bar to work
@@ -36,7 +38,7 @@ export class NavBarComponent implements AfterViewInit, OnInit{
   ngOnInit(): void {
     this.defaultImageProfile = this._dataService.getDefaultImage();
     this.defaultDetailsLocalStorage = this._dataService.getUserLocalInfomation();
-
+    this._authLevel.myAccessLevel();
     this.top_bar_fullname = this.defaultDetailsLocalStorage.surname + ' ' +this.defaultDetailsLocalStorage.first_name;
     this.getLoggedInUserProfileData();
   }

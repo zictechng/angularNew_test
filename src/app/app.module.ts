@@ -36,6 +36,18 @@ import { StockInvestmentComponent } from './components/dashboard/stock-investmen
 import { AngroInvestmentComponent } from './components/dashboard/angro-investment/angro-investment.component';
 import { FxInvestmentComponent } from './components/dashboard/fx-investment/fx-investment.component';
 import { IsAuthenticatedGuard } from './services/is-authenticated.guard';
+import { userLevelAccess } from './services/userLevel.service';
+import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
+import { AdminSideBarComponent } from './components/partials/admin-side-bar/admin-side-bar.component';
+import { AdminAllUsersComponent } from './components/admin/admin-all-users/admin-all-users.component';
+import { AdminPendingAccountComponent } from './components/admin/admin-pending-account/admin-pending-account.component';
+import { AdminTransactionComponent } from './components/admin/admin-transaction/admin-transaction.component';
+import { AdminCreditComponent } from './components/admin/admin-credit/admin-credit.component';
+import { AdminDebitComponent } from './components/admin/admin-debit/admin-debit.component';
+import { AdminInvestComponent } from './components/admin/admin-invest/admin-invest.component';
+import { AdminUsersComponent } from './components/admin/admin-users/admin-users.component';
+import { AdminSystemLogComponent } from './components/admin/admin-system-log/admin-system-log.component';
+import { AdminAllLogComponent } from './components/admin/admin-all-log/admin-all-log.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +78,19 @@ import { IsAuthenticatedGuard } from './services/is-authenticated.guard';
     AccountOfficerComponent,
     StockInvestmentComponent,
     AngroInvestmentComponent,
-    FxInvestmentComponent
+    FxInvestmentComponent,
+    AdminHomeComponent,
+    AdminSideBarComponent,
+    AdminAllUsersComponent,
+    AdminPendingAccountComponent,
+    AdminTransactionComponent,
+    AdminCreditComponent,
+    AdminDebitComponent,
+    AdminInvestComponent,
+    AdminUsersComponent,
+    AdminSystemLogComponent,
+    AdminAllLogComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -78,7 +102,8 @@ import { IsAuthenticatedGuard } from './services/is-authenticated.guard';
 
   ],
   providers: [
-    AuthServiceService, IsAuthenticatedGuard
+    AuthServiceService, IsAuthenticatedGuard,
+    userLevelAccess
    ],
   bootstrap: [AppComponent]
 })

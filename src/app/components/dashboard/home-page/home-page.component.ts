@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServiceDataService } from 'src/app/services/service-data.service';
 import {Chart, registerables} from 'node_modules/chart.js';
+import { userLevelAccess } from 'src/app/services/userLevel.service';
 Chart.register(...registerables);
 declare var $: any;
 declare var jQuery:any;
@@ -38,6 +39,7 @@ export class HomePageComponent implements OnInit{
 
 
 constructor(private _dataService: ServiceDataService,
+  public authLevel: userLevelAccess,
   _router: Router){}
 
   ngOnInit(): void {

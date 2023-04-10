@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as Notiflix from 'notiflix';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
+import { userLevelAccess } from 'src/app/services/userLevel.service';
 
 @Component({
   selector: 'app-auth-page',
@@ -23,6 +24,7 @@ export class AuthPageComponent implements OnInit {
 
   });
   constructor(private _auth: AuthServiceService,
+    private _authLevel: userLevelAccess,
     private _router: Router){}
 
 
@@ -57,6 +59,8 @@ export class AuthPageComponent implements OnInit {
                 this._auth.loginUser = true;
                 this.isFormSubmit = false
 
+                // get user role level here
+                this._authLevel.myLevel = res.userData.user_role;
                 this.clicked = false; // this disables the button when clicked
 
                 this.loginForm.reset(); // clear the form input

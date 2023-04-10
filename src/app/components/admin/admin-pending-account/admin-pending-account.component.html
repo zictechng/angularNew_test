@@ -1,0 +1,246 @@
+<div class="layout-wrapper layout-content-navbar">
+  <div class="layout-container">
+    <!-- Menu -->
+    <app-side-bar></app-side-bar>
+    <!-- Menu End -->
+
+    <div class="layout-page">
+      <!-- Navbar -->
+      <app-nav-bar></app-nav-bar>
+      <!-- Navbar End-->
+
+      <div class="content-wrapper">
+        <div class="container-xxl flex-grow-1 container-p-y">
+          <h4 class="fw-bold py-3 mb-4">
+            <span class="text-muted fw-light">Pending /</span> Accounts
+          </h4>
+
+          <!-- Users List Table -->
+          <div class="card">
+            <div class="card-header border-bottom">
+              <h5 class="card-title">Pending Account Holders</h5>
+            </div>
+            <div class="card-datatable table-responsive">
+              <div
+                id="DataTables_Table_0_wrapper"
+                class="dataTables_wrapper dt-bootstrap5 no-footer"
+              >
+                <div class="row mx-2">
+                  <div class="col-md-2">
+                    <div class="me-3">
+                      <div
+                        class="dataTables_length"
+                        id="DataTables_Table_0_length"
+                      >
+                        <label
+                          ><select
+                            name="DataTables_Table_0_length"
+                            aria-controls="DataTables_Table_0"
+                            class="form-select"
+                          >
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                          </select></label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-10">
+                    <div
+                      class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"
+                    >
+                      <div
+                        class="dataTables_filter"
+                      >
+                        <label
+                          ><input
+                            type="search"
+                            class="form-control"
+                            placeholder="Search.."
+                            aria-controls="DataTables_Table_1"
+                        /></label>
+                      </div>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <div class="dt-buttons btn-group flex-wrap">
+                        <div class="btn-group"></div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <table
+                  class="datatables-users table border-top dataTable no-footer dtr-column"
+                  id="DataTables_Table_0"
+                  aria-describedby="DataTables_Table_0_info"
+                >
+                  <thead>
+                    <tr>
+                      <th
+                        class="control sorting_disabled dtr-hidden"
+                        rowspan="1"
+                        colspan="1"
+                        style="width: 0px; display: none"
+                        aria-label=""
+                      ></th>
+                      <th
+                        class="sorting sorting_desc"
+                        tabindex="0"
+                        aria-controls="DataTables_Table_0"
+                        rowspan="1"
+                        colspan="1"
+                        style="width: 301px"
+                        aria-label="User: activate to sort column ascending"
+                        aria-sort="descending"
+                      >
+                        Name
+                      </th>
+                      <th
+                        class="sorting"
+                        tabindex="0"
+                        aria-controls="DataTables_Table_0"
+                        rowspan="1"
+                        colspan="1"
+                        style="width: 147px"
+                        aria-label="Role: activate to sort column ascending"
+                      >
+                        Account Number
+                      </th>
+                      <th
+                        class="sorting"
+                        tabindex="0"
+                        aria-controls="DataTables_Table_0"
+                        rowspan="1"
+                        colspan="1"
+                        style="width: 98px"
+                        aria-label="Plan: activate to sort column ascending"
+                      >
+                        Login Pin
+                      </th>
+                      <th
+                        class="sorting"
+                        tabindex="0"
+                        aria-controls="DataTables_Table_0"
+                        rowspan="1"
+                        colspan="1"
+                        style="width: 183px"
+                        aria-label="Billing: activate to sort column ascending"
+                      >
+                        Transfer COT
+                      </th>
+                      <th
+                        class="sorting"
+                        tabindex="0"
+                        aria-controls="DataTables_Table_0"
+                        rowspan="1"
+                        colspan="1"
+                        style="width: 94px"
+                        aria-label="Status: activate to sort column ascending"
+                      >
+                        Password
+                      </th>
+                      <th
+                        class="sorting"
+                        tabindex="0"
+                        aria-controls="DataTables_Table_0"
+                        rowspan="1"
+                        colspan="1"
+                        style="width: 94px"
+                        aria-label="Status: activate to sort column ascending"
+                      >
+                        Status
+                      </th>
+                      <th
+                        class="sorting_disabled"
+                        rowspan="1"
+                        colspan="1"
+                        style="width: 121px"
+                        aria-label="Actions"
+                      >
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="odd">
+                      <td
+                        class="control"
+                        tabindex="0"
+                        style="display: none"
+                      ></td>
+                    </tr>
+                    <tr class="even">
+
+                      <td class="sorting_1">
+                        <div
+                          class="d-flex justify-content-start align-items-center user-name"
+                        >
+                          <div class="avatar-wrapper">
+                            <div class="avatar avatar-sm me-3">
+                              <img
+                                src="../../assets/img/avatars/7.png"
+                                alt="Avatar"
+                                class="rounded-circle"
+                              />
+                            </div>
+                          </div>
+                          <div class="d-flex flex-column">
+                            Yoko Pottie<small class="text-muted"
+                              >ypottiec@privacy.gov.au</small
+                            >
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="text-truncate d-flex align-items-center"
+                          ><span
+                            class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"
+                            ><i class="bx bx-user bx-xs"></i></span
+                          >Subscriber</span
+                        >
+                      </td>
+                      <td><span class="fw-semibold">Basic</span></td>
+                      <td><span class="fw-semibold">Good</span></td>
+                      <td>Auto Debit</td>
+                      <td>
+                        <span class="badge bg-label-secondary">Inactive</span>
+                      </td>
+                      <td>
+                        <div class="d-inline-block text-nowrap">
+                          <button class="btn btn-sm btn-icon rounded-pill btn-dark">
+                            <i class="bx bx-check text-white"></i></button
+                          >
+                          &nbsp;&nbsp;
+                          <button class="btn btn-sm btn-icon delete-record rounded-pill btn-danger">
+                            <i class="bx bx-trash btn btn-icon text-white"></i></button
+                          >
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="row mx-2">
+                  <div class="col-sm-12 col-md-6">
+                    <div
+                      class="dataTables_info"
+                      id="DataTables_Table_0_info"
+                      role="status"
+                      aria-live="polite"
+                    >
+                      Showing 1 to 10 of 50 entries
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    <!--Pagination goes here-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Offcanvas to add new user -->
+           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

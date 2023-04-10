@@ -22,6 +22,16 @@ import { StockInvestmentComponent } from './components/dashboard/stock-investmen
 import { AngroInvestmentComponent } from './components/dashboard/angro-investment/angro-investment.component';
 import { FxInvestmentComponent } from './components/dashboard/fx-investment/fx-investment.component';
 import { IsAuthenticatedGuard } from './services/is-authenticated.guard';
+import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
+import { AdminAllUsersComponent } from './components/admin/admin-all-users/admin-all-users.component';
+import { AdminPendingAccountComponent } from './components/admin/admin-pending-account/admin-pending-account.component';
+import { AdminTransactionComponent } from './components/admin/admin-transaction/admin-transaction.component';
+import { AdminCreditComponent } from './components/admin/admin-credit/admin-credit.component';
+import { AdminDebitComponent } from './components/admin/admin-debit/admin-debit.component';
+import { AdminInvestComponent } from './components/admin/admin-invest/admin-invest.component';
+import { AdminUsersComponent } from './components/admin/admin-users/admin-users.component';
+import { AdminSystemLogComponent } from './components/admin/admin-system-log/admin-system-log.component';
+import { AdminAllLogComponent } from './components/admin/admin-all-log/admin-all-log.component';
 
 const routes: Routes = [
   // pubic route here ...
@@ -32,7 +42,8 @@ const routes: Routes = [
   {path: 'reset-password', component: ResetPasswordPageComponent },
 
   // private routes here ...
-  {path: 'dashboard', component: HomePageComponent, canActivate:[IsAuthenticatedGuard] },
+  {path: 'dashboard', component: HomePageComponent,
+  canActivate:[IsAuthenticatedGuard] },
   {path: 'dashboard/index', component: HomePageComponent },
   {path: 'dashboard/wire-transfer', component: WireTransferComponent },
   {path: 'dashboard/account-statement', component: AccountStatementComponent },
@@ -53,6 +64,18 @@ const routes: Routes = [
   {path: 'dashboard/agro-invest', component: AngroInvestmentComponent },
   {path: 'dashboard/fx-invest', component: FxInvestmentComponent },
 
+
+  //Admin routes start from here
+  {path: 'admin', component: AdminHomeComponent},
+  {path: 'admin/all-users', component: AdminAllUsersComponent},
+  {path: 'admin/pending-account', component: AdminPendingAccountComponent},
+  {path: 'admin/all-transactions', component: AdminTransactionComponent},
+  {path: 'admin/credit-account', component: AdminCreditComponent},
+  {path: 'admin/debit-account', component: AdminDebitComponent},
+  {path: 'admin/user-investment', component: AdminInvestComponent},
+  {path: 'admin/admin-users', component: AdminUsersComponent},
+  {path: 'admin/users-logs', component: AdminSystemLogComponent},
+  {path: 'admin/system-logs', component: AdminAllLogComponent},
   // {path: 'reset-password', component: HomePageComponent },
 ];
 

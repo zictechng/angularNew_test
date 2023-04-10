@@ -1,40 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ServiceDataService } from 'src/app/services/service-data.service';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
-import { userLevelAccess } from 'src/app/services/userLevel.service';
+import { ServiceDataService } from 'src/app/services/service-data.service';
 
 declare let $: any;
-
 @Component({
-  selector: 'app-side-bar',
-  templateUrl: './side-bar.component.html',
-  styleUrls: ['./side-bar.component.css']
+  selector: 'app-admin-side-bar',
+  templateUrl: './admin-side-bar.component.html',
+  styleUrls: ['./admin-side-bar.component.css']
 })
-export class SideBarComponent implements OnInit{
+export class AdminSideBarComponent implements OnInit{
 
 
-  isFormSubmit = false
-  isButtonClick = false
 
-  constructor(private _dataService: ServiceDataService,
-    private _authService: AuthServiceService,
-    public _authLevel: userLevelAccess,
+  isFormSubmit = false;
+  constructor(public _authService: AuthServiceService,
+    private _dataService: ServiceDataService,
     private _router: Router){}
 
 
   ngOnInit(): void {
-    this._authLevel.myAccessLevel();
-  }
 
+  }
 
   logoutMeOut(){
     this.isFormSubmit = true;
     setTimeout(() => {
       localStorage.clear();
       this._router.navigate(['/login']);
-      this.closeLogoutPopup();
+      this.closeAdminLogoutPopup();
       this.isFormSubmit= false;
 
       this._authService.loginUser = false;
@@ -43,10 +37,10 @@ export class SideBarComponent implements OnInit{
 
   // logout modal dialog here
   displayStyle = "none";
-  openLogoutPopup() {
+  openAdminLogoutPopup() {
     this.displayStyle = "block";
   }
-  closeLogoutPopup() {
+  closeAdminLogoutPopup() {
     this.displayStyle = "none";
   }
 
@@ -66,4 +60,5 @@ export class SideBarComponent implements OnInit{
   closeInterBankModal(id: String){
   $('#'+ id).modal('hide');
   }
+
 }
