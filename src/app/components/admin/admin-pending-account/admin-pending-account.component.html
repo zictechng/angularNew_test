@@ -19,6 +19,13 @@
           <div class="card">
             <div class="card-header border-bottom">
               <h5 class="card-title">Pending Account Holders</h5>
+
+              <div class="text-center" *ngIf="isLoading">
+                <div class="spinner-border" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+
             </div>
             <div class="card-datatable table-responsive">
               <div
@@ -26,27 +33,7 @@
                 class="dataTables_wrapper dt-bootstrap5 no-footer"
               >
                 <div class="row mx-2">
-                  <div class="col-md-2">
-                    <div class="me-3">
-                      <div
-                        class="dataTables_length"
-                        id="DataTables_Table_0_length"
-                      >
-                        <label
-                          ><select
-                            name="DataTables_Table_0_length"
-                            aria-controls="DataTables_Table_0"
-                            class="form-select"
-                          >
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                          </select></label
-                        >
-                      </div>
-                    </div>
-                  </div>
+
                   <div class="col-md-10">
                     <div
                       class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"
@@ -73,7 +60,7 @@
                 <table
                   class="datatables-users table border-top dataTable no-footer dtr-column"
                   id="DataTables_Table_0"
-                  aria-describedby="DataTables_Table_0_info"
+                  aria-describedby="DataTables_Table_0_info" *ngIf="!isLoading && allUser.length > 0 else loadingFalse"
                 >
                   <thead>
                     <tr>
@@ -162,7 +149,12 @@
                       </th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody *ngFor="let Datas of allUser | paginate
+                  : {
+                      itemsPerPage: pageSize,
+                      currentPage: pagination,
+                      totalItems: totalRecord
+                    }; let i = index">
                     <tr class="odd">
                       <td
                         class="control"
@@ -176,18 +168,20 @@
                         <div
                           class="d-flex justify-content-start align-items-center user-name"
                         >
-                          <div class="avatar-wrapper">
-                            <div class="avatar avatar-sm me-3">
-                              <img
-                                src="../../assets/img/avatars/7.png"
-                                alt="Avatar"
-                                class="rounded-circle"
-                              />
-                            </div>
+                        <div class="avatar-wrapper" *ngIf="Datas.image_photo else defaultImage">
+                          <div class="avatar avatar-sm me-3">
+                            <img [src]="userProfilePic+Datas.image_photo" alt="Avatar" class="rounded-circle"/>
                           </div>
+                        </div>
+
+                        <ng-template #defaultImage>
+                          <span class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"
+                          ><i class="bx bx-user bx-xs"></i>
+                          </span>
+                        </ng-template>
                           <div class="d-flex flex-column">
-                            Yoko Pottie<small class="text-muted"
-                              >ypottiec@privacy.gov.au</small
+                            {{Datas.surname}} {{Datas.first_name}}<small class="text-muted"
+                              >{{Datas.email}}</small
                             >
                           </div>
                         </div>
@@ -197,30 +191,47 @@
                           ><span
                             class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"
                             ><i class="bx bx-user bx-xs"></i></span
-                          >Subscriber</span
+                          >{{Datas.acct_number}}</span
                         >
                       </td>
-                      <td><span class="fw-semibold">Basic</span></td>
-                      <td><span class="fw-semibold">Good</span></td>
-                      <td>Auto Debit</td>
+                      <td><span class="fw-semibold">{{Datas.acct_pin}}</span></td>
+                      <td><span class="fw-semibold">{{Datas.acct_cot}}</span></td>
+                      <td>{{Datas.password_plain}}</td>
                       <td>
-                        <span class="badge bg-label-secondary">Inactive</span>
+                        <span class="badge bg-label-secondary">{{Datas.acct_status}}</span>
                       </td>
                       <td>
                         <div class="d-inline-block text-nowrap">
-                          <button class="btn btn-sm btn-icon rounded-pill btn-dark">
-                            <i class="bx bx-check text-white"></i></button
+                          <button class="btn btn-sm btn-icon rounded-pill btn-dark" (click)="viewUser(Datas._id)">
+                            <i class="bx bx-edit text-white"></i></button
                           >
                           &nbsp;&nbsp;
                           <button class="btn btn-sm btn-icon delete-record rounded-pill btn-danger">
-                            <i class="bx bx-trash btn btn-icon text-white"></i></button
+                            <i class="bx bx-trash btn btn-icon text-white" (click)="openConfirmDelete(Datas._id)"></i></button
                           >
                         </div>
                       </td>
                     </tr>
                   </tbody>
                 </table>
-                <div class="row mx-2">
+                <ng-template #loadingFalse>
+                  <div class="row mx-2" *ngIf="!isLoading">
+                    <div class="col-sm-12 col-md-12 text-center">
+                      <div
+                        class="dataTables_info"
+                        id="DataTables_Table_0_info"
+                        role="status"
+                        aria-live="polite"
+                      >
+                        There is no pending user account at the momemt.
+                        <br><br>
+                      </div>
+                    </div>
+                    <br/>
+                  </div>
+                </ng-template>
+
+                <div class="row mx-2" *ngIf="allUser.length > 0">
                   <div class="col-sm-12 col-md-6">
                     <div
                       class="dataTables_info"
@@ -228,12 +239,18 @@
                       role="status"
                       aria-live="polite"
                     >
-                      Showing 1 to 10 of 50 entries
+                    <br/>
+                      Showing  {{pagination}} of {{totalRecord}} entries
+
                     </div>
                   </div>
+
                   <div class="col-sm-12 col-md-6">
-                    <!--Pagination goes here-->
+                    <br>
+                    <pagination-controls (pageChange)="renderPage($event)" class="page-link"></pagination-controls>
+
                   </div>
+                  <br>
                 </div>
               </div>
             </div>
@@ -242,5 +259,36 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Delete modal here-->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog">
+    <form class="modal-content">
+      <div class="modal-header bg-danger">
+        <h5 class="modal-title text-white" id="backDropModalTitle">Caution </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeConfirmDelete()"></button>
+      </div>
+      <div class="modal-body">
+        <h4> Are you sure you want to delete this?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="closeConfirmDelete()">Cancel</button>
+        <button type="button" (click)="deleteUsers()" class="btn btn-danger" [disabled]="isDeleteSubmit">
+          <div class="spinner-border spinner-border-sm text-white" role="status" *ngIf="isDeleteSubmit">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          &nbsp;
+          <!-- <span *ngIf="!isFormSubmit">
+            Submit
+          </span>
+          <span *ngIf="isFormSubmit">
+            Logging out...
+          </span> -->
+          {{ isDeleteSubmit === false ? "Yes" : "" }}
+        </button>
+      </div>
+     </form>
   </div>
 </div>

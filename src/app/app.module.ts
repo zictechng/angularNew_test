@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
+import {FormsModule} from '@angular/forms';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -48,6 +49,7 @@ import { AdminInvestComponent } from './components/admin/admin-invest/admin-inve
 import { AdminUsersComponent } from './components/admin/admin-users/admin-users.component';
 import { AdminSystemLogComponent } from './components/admin/admin-system-log/admin-system-log.component';
 import { AdminAllLogComponent } from './components/admin/admin-all-log/admin-all-log.component';
+import { UpdateAccountComponent } from './components/admin/update-account/update-account.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +92,7 @@ import { AdminAllLogComponent } from './components/admin/admin-all-log/admin-all
     AdminUsersComponent,
     AdminSystemLogComponent,
     AdminAllLogComponent,
+    UpdateAccountComponent,
 
   ],
   imports: [
@@ -98,6 +101,7 @@ import { AdminAllLogComponent } from './components/admin/admin-all-log/admin-all
     ReactiveFormsModule,
     HttpClientModule,
     NgxPaginationModule,
+    FormsModule,
 
 
   ],

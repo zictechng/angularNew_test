@@ -19,6 +19,13 @@
           <div class="card">
             <div class="card-header border-bottom">
               <h5 class="card-title">Crediting Users Account</h5>
+
+              <div class="text-center" *ngIf="isLoading">
+                <div class="spinner-border" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+
             </div>
             <div class="card-datatable table-responsive">
               <div
@@ -26,27 +33,7 @@
                 class="dataTables_wrapper dt-bootstrap5 no-footer"
               >
                 <div class="row mx-2">
-                  <div class="col-md-2">
-                    <div class="me-3">
-                      <div
-                        class="dataTables_length"
-                        id="DataTables_Table_0_length"
-                      >
-                        <label
-                          ><select
-                            name="DataTables_Table_0_length"
-                            aria-controls="DataTables_Table_0"
-                            class="form-select"
-                          >
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                          </select></label
-                        >
-                      </div>
-                    </div>
-                  </div>
+
                   <div class="col-md-10">
                     <div
                       class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"
@@ -73,7 +60,7 @@
                 <table
                   class="datatables-users table border-top dataTable no-footer dtr-column"
                   id="DataTables_Table_0"
-                  aria-describedby="DataTables_Table_0_info"
+                  aria-describedby="DataTables_Table_0_info" *ngIf="!isLoading && allCreditUsers.length > 0 else loadingFalse"
                 >
                   <thead>
                     <tr>
@@ -140,7 +127,12 @@
                       </th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody *ngFor="let userData of allCreditUsers | paginate
+                  : {
+                      itemsPerPage: pageSize,
+                      currentPage: pagination,
+                      totalItems: totalRecord
+                    }; let i = index">
                     <tr class="odd">
                       <td
                         class="control"
@@ -154,18 +146,21 @@
                         <div
                           class="d-flex justify-content-start align-items-center user-name"
                         >
-                          <div class="avatar-wrapper">
-                            <div class="avatar avatar-sm me-3">
-                              <img
-                                src="../../assets/img/avatars/7.png"
-                                alt="Avatar"
-                                class="rounded-circle"
-                              />
-                            </div>
+                        <div class="avatar-wrapper" *ngIf="userData.image_photo else defaultImage">
+                          <div class="avatar avatar-sm me-3">
+                            <img [src]="userProfilePic+userData.image_photo" alt="Avatar" class="rounded-circle"/>
                           </div>
+                        </div>
+
+                        <ng-template #defaultImage>
+                          <span class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"
+                          ><i class="bx bx-user bx-xs"></i>
+                          </span>
+                        </ng-template>
+
                           <div class="d-flex flex-column">
-                            Yoko Pottie<small class="text-muted"
-                              >ypottiec@privacy.gov.au</small
+                            {{userData.surname}} {{userData.first_name}}<small class="text-muted"
+                              >{{userData.email}}</small
                             >
                           </div>
                         </div>
@@ -175,24 +170,40 @@
                           ><span
                             class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"
                             ><i class="bx bx-user bx-xs"></i></span
-                          >Subscriber</span
+                          >{{userData.acct_number}}</span
                         >
                       </td>
-                      <td><span class="fw-semibold">Basic</span></td>
-                      <td><span class="fw-semibold">Good</span></td>
+                      <td><span class="fw-semibold">{{userData.acct_type}}</span></td>
+                      <td><span class="fw-semibold">{{userData.currency_type}}{{userData.acct_balance}}.00</span></td>
 
                       <td>
                         <div class="d-inline-block text-nowrap">
-                          <button class="btn btn-sm btn-icon rounded-pill btn-primary">
+                          <button class="btn btn-sm btn-icon rounded-pill btn-primary" (click)="openCreditModal(userData._id, userData.acct_balance, userData.surname+' '+ userData.first_name)">
                             <i class="bx bx-plus text-white"></i></button
                           >
-
                         </div>
                       </td>
                     </tr>
                   </tbody>
                 </table>
-                <div class="row mx-2">
+                <ng-template #loadingFalse>
+                  <div class="row mx-2" *ngIf="!isLoading">
+                    <div class="col-sm-12 col-md-12 text-center">
+                      <div
+                        class="dataTables_info"
+                        id="DataTables_Table_0_info"
+                        role="status"
+                        aria-live="polite"
+                      >
+                        There is no record at the moment.
+                        <br><br>
+                      </div>
+                    </div>
+                    <br/>
+                  </div>
+                </ng-template>
+
+                <div class="row mx-2" *ngIf="allCreditUsers.length > 0">
                   <div class="col-sm-12 col-md-6">
                     <div
                       class="dataTables_info"
@@ -200,12 +211,18 @@
                       role="status"
                       aria-live="polite"
                     >
-                      Showing 1 to 10 of 50 entries
+                    <br/>
+                      Showing  {{pagination}} of {{totalRecord}} entries
+
                     </div>
                   </div>
+
                   <div class="col-sm-12 col-md-6">
-                    <!--Pagination goes here-->
+                    <br>
+                    <pagination-controls (pageChange)="renderPage($event)" class="page-link"></pagination-controls>
+
                   </div>
+                  <br>
                 </div>
               </div>
             </div>
@@ -214,5 +231,152 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+
+
+<!-- Credit modal here-->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog">
+    <form class="modal-content" [formGroup]="creditForm">
+      <div class="modal-header bg-secondary">
+        <h5 class="modal-title text-white" id="backDropModalTitle">Credit Account </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeCreditModal()"></button>
+      </div>
+      <div class="modal-body">
+        <h6> Fill the details below to credit user account</h6>
+        <br>
+      <h4>{{displayName}} <small>Account</small></h4>
+          <br>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3 fv-plugins-icon-container">
+              <label class="form-label" for="add-user-fullname"
+                >Current Bal</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="current_bal"
+                placeholder="Current Balance"
+                name="current_bal" formControlName="current_bal" readonly/>
+              <div *ngIf="creditForm.controls['current_bal'].invalid && (creditForm.controls['current_bal'].dirty || creditForm.controls['current_bal'].touched || creditForm.controls['current_bal'].untouched && isFormSubmit )" class="text-danger">
+                <span *ngIf="creditForm.controls['current_bal'].hasError('required')" class="text-danger"> * Required</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3 fv-plugins-icon-container">
+              <label class="form-label" for="add-user-fullname"
+                >Amount</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="sending_amt"
+                placeholder="Enter Amount"
+                name="sending_amt" formControlName="sending_amt"/>
+              <div *ngIf="creditForm.controls['sending_amt'].invalid && (creditForm.controls['sending_amt'].dirty || creditForm.controls['sending_amt'].touched || creditForm.controls['sending_amt'].untouched && isFormSubmit )" class="text-danger">
+                <span *ngIf="creditForm.controls['sending_amt'].hasError('required')" class="text-danger"> * Required</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3 fv-plugins-icon-container">
+              <label class="form-label" for="add-user-fullname"
+                >Status</label
+              >
+              <select id="credit_status" name="credit_status" formControlName="credit_status" class="form-select">
+                <option value="">Select</option>
+                <option value="Pending">Pending</option>
+                <option value="Successful">Successful</option>
+                <option value="Bank Credit">Bank Credit</option>
+                <option value="Annual Profit Share">Annual Profit Share</option>
+                <option value="Account Refunded">Account Refunded</option>
+            </select>
+              <div *ngIf="creditForm.controls['credit_status'].invalid && (creditForm.controls['credit_status'].dirty || creditForm.controls['credit_status'].touched || creditForm.controls['credit_status'].untouched && isFormSubmit )" class="text-danger">
+                <span *ngIf="creditForm.controls['credit_status'].hasError('required')" class="text-danger"> * Required</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3 fv-plugins-icon-container">
+              <label class="form-label" for="add-user-fullname"
+                >Date</label>
+              <input
+                type="date"
+                class="form-control"
+                id="credit_date"
+                placeholder="Select Date"
+                name="credit_date" formControlName="credit_date"/>
+              <div *ngIf="creditForm.controls['credit_date'].invalid && (creditForm.controls['credit_date'].dirty || creditForm.controls['credit_date'].touched || creditForm.controls['credit_date'].untouched && isFormSubmit )" class="text-danger">
+                <span *ngIf="creditForm.controls['credit_date'].hasError('required')" class="text-danger"> * Required</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="mb-3 fv-plugins-icon-container">
+            <label class="form-label" for="add-user-fullname"
+              >Note/Description</label
+            >
+            <textarea class='form-control' name="credit_note" id='credit_note' formControlName="credit_note" placeholder='Description' rows='3'></textarea>
+            <div *ngIf="creditForm.controls['credit_note'].invalid && (creditForm.controls['credit_note'].dirty || creditForm.controls['credit_note'].touched || creditForm.controls['credit_note'].untouched && isFormSubmit )" class="text-danger">
+              <span *ngIf="creditForm.controls['credit_note'].hasError('required')" class="text-danger"> * Required</span>
+              <span *ngIf="creditForm.get('credit_note')!.hasError('maxlength')" class="text-danger">
+                The maximum length is 250 characters.
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="closeCreditModal()">Cancel</button>
+        <button type="button" (click)="openConfirmCreditModal()" class="btn btn-primary" [disabled]="isFormSubmit && creditForm.invalid || confirmModalActive">
+          Credit
+        </button>
+      </div>
+     </form>
+  </div>
+</div>
+
+
+<!-- Confirm Credit modal here-->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyleConfirm}">
+  <div class="modal-dialog modal-dialog-centered">
+    <form class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title text-white" id="backDropModalTitle">Caution </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeConfirmCreditModal()"></button>
+      </div>
+      <div class="modal-body">
+        <h5> Are you sure you want to do this?</h5>
+        <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="closeConfirmCreditModal()">Cancel</button>
+        <button type="button" (click)="creditUser()" class="btn btn-primary" [disabled]="isDeleteSubmit">
+          <div class="spinner-border spinner-border-sm text-primary" role="status" *ngIf="isDeleteSubmit">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          &nbsp;
+          <!-- <span *ngIf="!isFormSubmit">
+            Submit
+          </span>
+          <span *ngIf="isFormSubmit">
+            Logging out...
+          </span> -->
+          {{ isDeleteSubmit === false ? "Yes" : "" }}
+        </button>
+      </div>
+     </form>
   </div>
 </div>

@@ -65,7 +65,15 @@ export class AuthPageComponent implements OnInit {
 
                 this.loginForm.reset(); // clear the form input
                 Notiflix.Loading.remove(); // remove the loading indicator
-                this._router.navigate(['/dashboard/index']); // after login, go dashboard page
+                // check user role and redirect to page
+                if(this._authLevel.myLevel == "User"){
+                  this._router.navigate(['/dashboard']);
+                }
+                else if(this._authLevel.myLevel == "Admin"){
+                  this._router.navigate(['/admin']);
+                }
+
+                //this._router.navigate(['/dashboard/index']); // after login, go dashboard page
             }
           else {
                 Notiflix.Notify.warning('Error! Something went wrong, try again', {

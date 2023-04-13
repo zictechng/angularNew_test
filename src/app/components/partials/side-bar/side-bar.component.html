@@ -164,12 +164,11 @@
         </div>
         </li>
       <li>
-
       </li>
     </ul>
   </div>
 
-  <app-admin-side-bar></app-admin-side-bar>
+  <app-admin-side-bar *ngIf="_authLevel.myAccessLevel() =='Admin'"></app-admin-side-bar>
 
 </aside>
 <!--Inter banking modal popup here-->
@@ -219,7 +218,6 @@
 
           </div>
          </form>
-
       </div>
     </div>
   </div>

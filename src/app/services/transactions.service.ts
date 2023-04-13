@@ -39,6 +39,7 @@ export class TransactionsService {
  private _getFundTransferDetails = serverUrl+'api/wire_fund_send/';
  private _domesticFundTransferUrl = serverUrl+'api/domestic_fund_send/';
  private _domesticPinUrl = serverUrl+'api/domestic_pin/';
+ private _userCreditUrl = serverUrl+'api/credit_user';
 
 
  constructor(private http: HttpClient,
@@ -90,6 +91,11 @@ domesticFundTransfer(transferData:any){
 // domestic pin fund transfer goes here
 domesticPinConfirm(dPinData:any){
   return this.http.post<any>(this._domesticPinUrl , dPinData);
+}
+
+// domestic pin fund transfer goes here
+postUserCredit(creditData:any){
+  return this.http.post<any>(this._userCreditUrl , creditData);
 }
 
 }

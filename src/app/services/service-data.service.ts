@@ -43,6 +43,21 @@ export class ServiceDataService {
  private _investPlanSubmitUrl = serverUrl+'api/submit_investment';
  private _financeChartUrl = serverUrl+'api/user_finance_chart/';
 
+ // admin route goes here
+ private _getAllUserUrl = serverUrl+'api/all-users';
+ private _getAllActiveUserUrl = serverUrl+'api/active-users';
+ private _getAllUserTransactionUrl = serverUrl+'api/users-transactions';
+ private _getUserInvestmentUrl = serverUrl+'api/users-investments';
+ private _getUserDetailsUrl = serverUrl+'api/user-details';
+ private _regNewUserUrl = serverUrl+'api/add-user';
+ private _userDataFetchEditUrl = serverUrl+'api/fetch_edit_user/';
+ private _updateDataDetailUrl = serverUrl+'api/update_user';
+ private _deleteUserDetailsUrl = serverUrl+'api/delete_user_details/';
+ private _fetchPendingUserUrl = serverUrl+'api/pending_users/';
+ private _userTransactionsUrl = serverUrl+'api/user_tran';
+ private _deleteTransactionsUrl = serverUrl+'api/delete_transactions/';
+
+
 
  constructor(private http: HttpClient,
    private _router: Router) { }
@@ -110,6 +125,67 @@ financeChartReport(userID:any){
   return this.http.get<any>(this._financeChartUrl + userID)
 }
 
+// admin routes goes here
+
+// fetch all user accounts
+fetchAllUsers(){
+  return this.http.get<any>(this._getAllUserUrl);
+}
+
+
+// fetch all active users accounts
+fetchActiveUsers(){
+  return this.http.get<any>(this._getAllActiveUserUrl);
+}
+// user all transactions
+fetchUsersTransaction(){
+  return this.http.get<any>(this._getAllUserTransactionUrl);
+}
+
+// user investment transactions
+fetchUsersInvestment(){
+  return this.http.get<any>(this._getUserInvestmentUrl);
+}
+
+// user investment transactions
+fetchUsersAll(page: number, pageSize: number){
+  return this.http.get<any>(this._getUserDetailsUrl+'?page='+page+'&pageSize='+pageSize);
+}
+
+// register new user account
+regUserNew(userData: any){
+  return this.http.post<any>(this._regNewUserUrl, userData);
+}
+
+// fetch edit user account
+fetchEditUser(user_ID: any){
+  return this.http.get<any>(this._userDataFetchEditUrl + user_ID);
+}
+
+// post reguest to update user details
+updateUserDetail(updateData: any){
+  return this.http.post<any>(this._updateDataDetailUrl, updateData);
+}
+
+// delete user details
+deleteUserDetail(deleteID: any){
+  return this.http.delete<any>(this._deleteUserDetailsUrl+ deleteID);
+}
+
+// get pending user details
+fetchPendingUser(page: number, pageSize: number){
+  return this.http.get<any>(this._fetchPendingUserUrl+'?page='+page+'&pageSize='+pageSize);
+}
+
+// get all transaction done by user details
+getAllTran(page: number, pageSize: number){
+  return this.http.get<any>(this._userTransactionsUrl+'?page='+page+'&pageSize='+pageSize);
+}
+
+// get all transaction done by user details
+deleteTranRecord(deleID: any){
+  return this.http.delete<any>(this._deleteTransactionsUrl + deleID);
+}
 
 
 

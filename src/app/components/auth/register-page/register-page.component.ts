@@ -56,7 +56,7 @@ export class RegisterPageComponent implements OnInit {
       fileType === "image/jpg" ||
       fileType === "image/jpeg" ){
     // the file is OK
-    console.log("file type Okay")
+    //console.log("file type Okay")
     } else {
         Notiflix.Notify.failure('Sorry, file type not supported',
         {
@@ -82,7 +82,7 @@ export class RegisterPageComponent implements OnInit {
     if(fileType.match(/image\/*/)){
       this.imageFilesDetails = this.selectedFile
     }
-    console.log("Image details", fileType, this.imageFilesDetails)
+    //console.log("Image details", fileType, this.imageFilesDetails)
   }
 
 
@@ -92,7 +92,7 @@ export class RegisterPageComponent implements OnInit {
     Notiflix.Loading.standard('Processing...');
 
     const formData = new FormData();
-    console.log("Form values Sending to backend", this.userDataReceived);
+    //console.log("Form values Sending to backend", this.userDataReceived);
     //formData.append('file', this.imageFilesDetails);
     formData.append('surname',this.userDataReceived.surname);
     formData.append('first_name', this.userDataReceived.first_name);

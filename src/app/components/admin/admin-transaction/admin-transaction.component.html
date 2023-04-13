@@ -19,6 +19,12 @@
           <div class="card">
             <div class="card-header border-bottom">
               <h5 class="card-title">All User Transaction Details</h5>
+
+              <div class="text-center" *ngIf="isLoading">
+                <div class="spinner-border" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
             </div>
             <div class="card-datatable table-responsive">
               <div
@@ -26,27 +32,7 @@
                 class="dataTables_wrapper dt-bootstrap5 no-footer"
               >
                 <div class="row mx-2">
-                  <div class="col-md-2">
-                    <div class="me-3">
-                      <div
-                        class="dataTables_length"
-                        id="DataTables_Table_0_length"
-                      >
-                        <label
-                          ><select
-                            name="DataTables_Table_0_length"
-                            aria-controls="DataTables_Table_0"
-                            class="form-select"
-                          >
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                          </select></label
-                        >
-                      </div>
-                    </div>
-                  </div>
+
                   <div class="col-md-10">
                     <div
                       class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"
@@ -73,7 +59,7 @@
                 <table
                   class="datatables-users table border-top dataTable no-footer dtr-column"
                   id="DataTables_Table_0"
-                  aria-describedby="DataTables_Table_0_info"
+                  aria-describedby="DataTables_Table_0_info" *ngIf="!isLoading && allTransactions.length > 0 else loadingFalse"
                 >
                   <thead>
                     <tr>
@@ -102,10 +88,8 @@
                         aria-controls="DataTables_Table_0"
                         rowspan="1"
                         colspan="1"
-                        style="width: 147px"
-                        aria-label="Role: activate to sort column ascending"
-                      >
-                        Account Number
+                        style="width: 183px">
+                        Sender Account No
                       </th>
                       <th
                         class="sorting"
@@ -113,9 +97,7 @@
                         aria-controls="DataTables_Table_0"
                         rowspan="1"
                         colspan="1"
-                        style="width: 98px"
-                        aria-label="Plan: activate to sort column ascending"
-                      >
+                        style="width: 183px">
                         Receiver Name
                       </th>
                       <th
@@ -124,10 +106,8 @@
                         aria-controls="DataTables_Table_0"
                         rowspan="1"
                         colspan="1"
-                        style="width: 183px"
-                        aria-label="Billing: activate to sort column ascending"
-                      >
-                        Receiver Account ID
+                        style="width: 183px">
+                        Receiver Account No
                       </th>
                       <th
                         class="sorting"
@@ -135,9 +115,7 @@
                         aria-controls="DataTables_Table_0"
                         rowspan="1"
                         colspan="1"
-                        style="width: 94px"
-                        aria-label="Status: activate to sort column ascending"
-                      >
+                        style="width: 94px">
                         Receiver Bank Name
                       </th>
                       <th
@@ -146,9 +124,7 @@
                         aria-controls="DataTables_Table_0"
                         rowspan="1"
                         colspan="1"
-                        style="width: 94px"
-                        aria-label="Status: activate to sort column ascending"
-                      >
+                        style="width: 94px">
                         Amount Send
                       </th>
                       <th
@@ -157,9 +133,7 @@
                         aria-controls="DataTables_Table_0"
                         rowspan="1"
                         colspan="1"
-                        style="width: 94px"
-                        aria-label="Status: activate to sort column ascending"
-                      >
+                        style="width: 94px">
                         Amount Bal
                       </th>
                       <th
@@ -168,9 +142,7 @@
                         aria-controls="DataTables_Table_0"
                         rowspan="1"
                         colspan="1"
-                        style="width: 94px"
-                        aria-label="Status: activate to sort column ascending"
-                      >
+                        style="width: 94px">
                         Bank Code
                       </th>
                       <th
@@ -179,9 +151,7 @@
                         aria-controls="DataTables_Table_0"
                         rowspan="1"
                         colspan="1"
-                        style="width: 94px"
-                        aria-label="Status: activate to sort column ascending"
-                      >
+                        style="width: 94px">
                         Status
                       </th>
                       <th
@@ -190,9 +160,7 @@
                         aria-controls="DataTables_Table_0"
                         rowspan="1"
                         colspan="1"
-                        style="width: 94px"
-                        aria-label="Status: activate to sort column ascending"
-                      >
+                        style="width: 94px">
                         Date
                       </th>
                       <th
@@ -200,13 +168,17 @@
                         rowspan="1"
                         colspan="1"
                         style="width: 121px"
-                        aria-label="Actions"
-                      >
+                        aria-label="Actions">
                         Actions
                       </th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody *ngFor="let Datas of allTransactions | paginate
+                  : {
+                      itemsPerPage: pageSize,
+                      currentPage: pagination,
+                      totalItems: totalRecord
+                    }; let i = index">
                     <tr class="odd">
                       <td
                         class="control"
@@ -220,63 +192,74 @@
                         <div
                           class="d-flex justify-content-start align-items-center user-name"
                         >
-                          <div class="avatar-wrapper">
-                            <div class="avatar avatar-sm me-3">
-                              <img
-                                src="../../assets/img/avatars/7.png"
-                                alt="Avatar"
-                                class="rounded-circle"
-                              />
-                            </div>
+                        <div class="avatar-wrapper" *ngIf="Datas.image_photo else defaultImage">
+                          <div class="avatar avatar-sm me-3">
+                            <img [src]="userProfilePic+Datas.image_photo" alt="Avatar" class="rounded-circle"/>
                           </div>
+                        </div>
+
+                        <ng-template #defaultImage>
+                          <span class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"
+                          ><i class="bx bx-user bx-xs"></i>
+                          </span>
+                        </ng-template>
+
                           <div class="d-flex flex-column">
-                            Yoko Pottie<small class="text-muted"
-                              >ypottiec@privacy.gov.au</small
-                            >
+                            {{Datas.acct_name}}
                           </div>
                         </div>
                       </td>
                       <td>
                         <span class="text-truncate d-flex align-items-center"
-                          ><span
-                            class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"
-                            ><i class="bx bx-user bx-xs"></i></span
-                          >Subscriber</span
-                        >
+                          >{{Datas.sender_acct_number}}</span>
                       </td>
-                      <td><span class="fw-semibold">Basic</span></td>
-                      <td><span class="fw-semibold">Good</span></td>
-                      <td>Auto Debit</td>
+                      <td><span class="fw-semibold">{{Datas.acct_name}}</span></td>
+                      <td><span class="fw-semibold">{{Datas.acct_number}}</span></td>
+                      <td>{{Datas.bank_name}}</td>
                       <td>
-                        <span class="badge bg-label-secondary">Inactive</span>
+                        <span class="badge bg-label-secondary">{{Datas.currency_type}}{{Datas.amount}}</span>
                       </td>
                       <td>
-                        <span class="badge bg-label-secondary">Inactive</span>
+                        <span class="badge bg-label-secondary">{{Datas.trans_balance}}</span>
                       </td>
                       <td>
-                        <span class="badge bg-label-secondary">Inactive</span>
+                        <span class="badge bg-label-secondary">{{Datas.swift_code}}</span>
                       </td>
                       <td>
-                        <span class="badge bg-label-secondary">Inactive</span>
+                        <span class="badge bg-label-secondary">{{Datas.transaction_status}}</span>
                       </td>
                       <td>
-                        <span class="badge bg-label-secondary">Inactive</span>
+                        <span class="badge bg-label-secondary">{{Datas.createdOn | date:'short'}}</span>
                       </td>
                       <td>
                         <div class="d-inline-block text-nowrap">
-                          <button class="btn btn-sm btn-icon rounded-pill btn-dark">
-                            <i class="bx bx-check text-white"></i></button
-                          >
                           &nbsp;&nbsp;
                           <button class="btn btn-sm btn-icon delete-record rounded-pill btn-danger">
-                            <i class="bx bx-trash btn btn-icon text-white"></i></button
+                            <i class="bx bx-trash btn btn-icon text-white" (click)="openConfirmDelete(Datas._id)"></i></button
                           >
                         </div>
                       </td>
                     </tr>
                   </tbody>
                 </table>
-                <div class="row mx-2">
+                <ng-template #loadingFalse>
+                  <div class="row mx-2" *ngIf="!isLoading">
+                    <div class="col-sm-12 col-md-12 text-center">
+                      <div
+                        class="dataTables_info"
+                        id="DataTables_Table_0_info"
+                        role="status"
+                        aria-live="polite"
+                      >
+                        There is no transaction record at the momemt.
+                        <br><br>
+                      </div>
+                    </div>
+                    <br/>
+                  </div>
+                </ng-template>
+
+                <div class="row mx-2" *ngIf="allTransactions.length > 0">
                   <div class="col-sm-12 col-md-6">
                     <div
                       class="dataTables_info"
@@ -284,210 +267,55 @@
                       role="status"
                       aria-live="polite"
                     >
-                      Showing 1 to 10 of 50 entries
+                    <br/>
+                      Showing  {{pagination}} of {{totalRecord}} entries
+
                     </div>
                   </div>
+
                   <div class="col-sm-12 col-md-6">
-                    <!--Pagination goes here-->
+                    <br>
+                    <pagination-controls (pageChange)="renderPage($event)" class="page-link"></pagination-controls>
+
                   </div>
+                  <br>
                 </div>
               </div>
             </div>
-            <!-- Offcanvas to add new user -->
-            <div
-              class="offcanvas offcanvas-end"
-              tabindex="-1"
-              id="offcanvasAddUser"
-              aria-labelledby="offcanvasAddUserLabel"
-            >
-              <div class="offcanvas-header">
-                <h5 id="offcanvasAddUserLabel" class="offcanvas-title">
-                  Add User
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close text-reset"
-                  data-bs-dismiss="offcanvas"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="offcanvas-body mx-0 flex-grow-0">
-                <form
-                  class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework"
-                  id="addNewUserForm"
-                  onsubmit="return false"
-                  novalidate="novalidate"
-                >
-                  <div class="mb-3 fv-plugins-icon-container">
-                    <label class="form-label" for="add-user-fullname"
-                      >Full Name</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="add-user-fullname"
-                      placeholder="John Doe"
-                      name="userFullname"
-                      aria-label="John Doe"
-                    />
-                    <div
-                      class="fv-plugins-message-container invalid-feedback"
-                    ></div>
-                  </div>
-                  <div class="mb-3 fv-plugins-icon-container">
-                    <label class="form-label" for="add-user-email">Email</label>
-                    <input
-                      type="text"
-                      id="add-user-email"
-                      class="form-control"
-                      placeholder="john.doe@example.com"
-                      aria-label="john.doe@example.com"
-                      name="userEmail"
-                    />
-                    <div
-                      class="fv-plugins-message-container invalid-feedback"
-                    ></div>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label" for="add-user-contact"
-                      >Contact</label
-                    >
-                    <input
-                      type="text"
-                      id="add-user-contact"
-                      class="form-control phone-mask"
-                      placeholder="+1 (609) 988-44-11"
-                      aria-label="john.doe@example.com"
-                      name="userContact"
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label" for="add-user-company"
-                      >Company</label
-                    >
-                    <input
-                      type="text"
-                      id="add-user-company"
-                      class="form-control"
-                      placeholder="Web Developer"
-                      aria-label="jdoe1"
-                      name="companyName"
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label" for="country">Country</label>
-                    <div class="position-relative">
-                      <select
-                        id="country"
-                        class="select2 form-select select2-hidden-accessible"
-                        data-select2-id="country"
-                        tabindex="-1"
-                        aria-hidden="true"
-                      >
-                        <option value="" data-select2-id="2">Select</option>
-                        <option value="Australia">Australia</option>
-                        <option value="Bangladesh">Bangladesh</option>
-                        <option value="Belarus">Belarus</option>
-                        <option value="Brazil">Brazil</option>
-                        <option value="Canada">Canada</option>
-                        <option value="China">China</option>
-                        <option value="France">France</option>
-                        <option value="Germany">Germany</option>
-                        <option value="India">India</option>
-                        <option value="Indonesia">Indonesia</option>
-                        <option value="Israel">Israel</option>
-                        <option value="Italy">Italy</option>
-                        <option value="Japan">Japan</option>
-                        <option value="Korea">Korea, Republic of</option>
-                        <option value="Mexico">Mexico</option>
-                        <option value="Philippines">Philippines</option>
-                        <option value="Russia">Russian Federation</option>
-                        <option value="South Africa">South Africa</option>
-                        <option value="Thailand">Thailand</option>
-                        <option value="Turkey">Turkey</option>
-                        <option value="Ukraine">Ukraine</option>
-                        <option value="United Arab Emirates">
-                          United Arab Emirates
-                        </option>
-                        <option value="United Kingdom">United Kingdom</option>
-                        <option value="United States">
-                          United States
-                        </option></select
-                      ><span
-                        class="select2 select2-container select2-container--default"
-                        dir="ltr"
-                        data-select2-id="1"
-                        style="width: 335.2px"
-                        ><span class="selection"
-                          ><span
-                            class="select2-selection select2-selection--single"
-                            role="combobox"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                            tabindex="0"
-                            aria-disabled="false"
-                            aria-labelledby="select2-country-container"
-                            ><span
-                              class="select2-selection__rendered"
-                              id="select2-country-container"
-                              role="textbox"
-                              aria-readonly="true"
-                              ><span class="select2-selection__placeholder"
-                                >Select Country</span
-                              ></span
-                            ><span
-                              class="select2-selection__arrow"
-                              role="presentation"
-                              ><b role="presentation"></b></span></span></span
-                        ><span
-                          class="dropdown-wrapper"
-                          aria-hidden="true"
-                        ></span
-                      ></span>
-                    </div>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label" for="user-role">User Role</label>
-                    <select id="user-role" class="form-select">
-                      <option value="subscriber">Subscriber</option>
-                      <option value="editor">Editor</option>
-                      <option value="maintainer">Maintainer</option>
-                      <option value="author">Author</option>
-                      <option value="admin">Admin</option>
-                    </select>
-                  </div>
-                  <div class="mb-4">
-                    <label class="form-label" for="user-plan"
-                      >Select Plan</label
-                    >
-                    <select id="user-plan" class="form-select">
-                      <option value="basic">Basic</option>
-                      <option value="enterprise">Enterprise</option>
-                      <option value="company">Company</option>
-                      <option value="team">Team</option>
-                    </select>
-                  </div>
-                  <button
-                    type="submit"
-                    class="btn btn-primary me-sm-3 me-1 data-submit"
-                  >
-                    Submit
-                  </button>
-                  <button
-                    type="reset"
-                    class="btn btn-label-secondary"
-                    data-bs-dismiss="offcanvas"
-                  >
-                    Cancel
-                  </button>
-                  <input type="hidden" />
-                </form>
-              </div>
             </div>
-
-          </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Delete modal here-->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog">
+    <form class="modal-content">
+      <div class="modal-header bg-danger">
+        <h5 class="modal-title text-white" id="backDropModalTitle">Caution </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeConfirmDelete()"></button>
+      </div>
+      <div class="modal-body">
+        <h4> Are you sure you want to delete this?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="closeConfirmDelete()">Cancel</button>
+        <button type="button" (click)="deleteUsers()" class="btn btn-danger" [disabled]="isDeleteSubmit">
+          <div class="spinner-border spinner-border-sm text-white" role="status" *ngIf="isDeleteSubmit">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          &nbsp;
+          <!-- <span *ngIf="!isFormSubmit">
+            Submit
+          </span>
+          <span *ngIf="isFormSubmit">
+            Logging out...
+          </span> -->
+          {{ isDeleteSubmit === false ? "Yes" : "" }}
+        </button>
+      </div>
+     </form>
   </div>
 </div>

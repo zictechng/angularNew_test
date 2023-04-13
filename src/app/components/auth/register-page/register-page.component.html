@@ -59,7 +59,6 @@
 
                  <div *ngIf="registerForm.controls['gender'].invalid && (registerForm.controls['gender'].dirty || registerForm.controls['gender'].touched || registerForm.controls['gender'].untouched && isFormSubmit )" class="text-danger">
                   <span *ngIf="registerForm.controls['gender'].hasError('required')" class="text-danger"> * Required</span>
-
                 </div>
               </div>
             </div>
@@ -443,7 +442,7 @@
             <div *ngIf="registerForm.controls['address'].invalid && (registerForm.controls['address'].dirty || registerForm.controls['address'].touched || registerForm.controls['address'].untouched && isFormSubmit )" class="text-danger">
               <span *ngIf="registerForm.controls['address'].hasError('required')" class="text-danger"> * Required</span>
               <span *ngIf="registerForm.get('address')!.hasError('maxlength')" class="text-danger">
-                The maximum length is 30 characters.
+                The maximum length is 150 characters.
               </span>
             </div>
 
@@ -456,7 +455,7 @@
               <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
             </div>
           </div> -->
-          <p>Form Status: {{ registerForm.status }}</p>
+
           <div class="mb-3">
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms">

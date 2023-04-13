@@ -39,8 +39,8 @@ export class HomePageComponent implements OnInit{
 
 
 constructor(private _dataService: ServiceDataService,
-  public authLevel: userLevelAccess,
-  _router: Router){}
+  public _authLevel: userLevelAccess,
+  private _router: Router){}
 
   ngOnInit(): void {
 
@@ -48,6 +48,10 @@ constructor(private _dataService: ServiceDataService,
    this.getMyIncomeStatement();
    this.myRecentTransaction();
    this.getFinanceChart();
+   // check user access level and redirect
+   if(this._authLevel.myLevel !="User"){
+    this._router.navigate(['/admin'])
+   }
   }
 
   RenderChart(labeldata:any, maindata:any, colordata:any, type:any, id:any){

@@ -39,7 +39,6 @@
               "src/assets/vendor/libs/apex-charts/apexcharts.js",
               "src/assets/js/main.js",
               "src/assets/js/dashboards-analytics.js",
-              "src/assets/js/form-basic-inputs.js",
               "src/assets/js/extended-ui-perfect-scrollbar.js",
               "src/assets/js/pages-account-settings-account.js",
               "src/assets/js/ui-modals.js"

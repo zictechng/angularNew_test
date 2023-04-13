@@ -32,6 +32,7 @@ import { AdminInvestComponent } from './components/admin/admin-invest/admin-inve
 import { AdminUsersComponent } from './components/admin/admin-users/admin-users.component';
 import { AdminSystemLogComponent } from './components/admin/admin-system-log/admin-system-log.component';
 import { AdminAllLogComponent } from './components/admin/admin-all-log/admin-all-log.component';
+import { UpdateAccountComponent } from './components/admin/update-account/update-account.component';
 
 const routes: Routes = [
   // pubic route here ...
@@ -67,6 +68,7 @@ const routes: Routes = [
 
   //Admin routes start from here
   {path: 'admin', component: AdminHomeComponent},
+  {path: 'admin/dashboard', component: AdminHomeComponent},
   {path: 'admin/all-users', component: AdminAllUsersComponent},
   {path: 'admin/pending-account', component: AdminPendingAccountComponent},
   {path: 'admin/all-transactions', component: AdminTransactionComponent},
@@ -76,6 +78,7 @@ const routes: Routes = [
   {path: 'admin/admin-users', component: AdminUsersComponent},
   {path: 'admin/users-logs', component: AdminSystemLogComponent},
   {path: 'admin/system-logs', component: AdminAllLogComponent},
+  {path: 'admin/update-account/:id', component: UpdateAccountComponent},
   // {path: 'reset-password', component: HomePageComponent },
 ];
 

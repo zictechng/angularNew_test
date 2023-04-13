@@ -19,17 +19,17 @@
            <div class="container-xxl flex-grow-1 container-p-y">
 
             <div class="row">
-              <div class="col-md-12 col-lg-4 mb-4">
-                <div class="card">
+              <div class="col-md-12 col-lg-5 mb-4">
+                <div class="card bg-warning text-white">
                   <div class="d-flex align-items-end row">
                     <div class="col-8">
                       <div class="card-body">
-                        <h6 class="card-title mb-1 text-nowrap">Hello Katie, You login as Admin</h6>
+                        <h4 class="card-title mb-1 text-nowrap text-white">Hello {{myLocalDatails.surname}}, You login as Admin</h4>
                         <small class="d-block mb-3 text-nowrap">Best selling online banking script with user friendly UI</small>
 
-                        <h5 class="card-title text-primary mb-1">500+</h5>
-                        <small class="d-block mb-4 pb-1 text-muted">Download</small>
-                        <a href="javascript:;" class="btn btn-sm btn-primary">View Users</a>
+                        <h5 class="card-title mb-1 text-white">500+</h5>
+                        <small class="d-block mb-4 pb-1 text-muted text-primary">Download</small>
+                        <a href="/admin/all-users" class="btn btn-sm btn-primary">View Users</a>
                       </div>
                     </div>
                     <div class="col-4 pt-3 ps-0">
@@ -39,7 +39,7 @@
                 </div>
               </div>
               <!-- New Visitors & Activity -->
-              <div class="col-lg-8 mb-4">
+              <div class="col-lg-7 mb-4">
                 <div class="card">
                   <div class="card-body row g-4">
                     <div class="col-md-6 pe-md-4 card-separator">
@@ -49,7 +49,7 @@
                       </div>
                       <div class="d-flex justify-content-between" style="position: relative;">
                         <div class="mt-auto">
-                          <h2 class="mb-2">23+</h2>
+                          <h2 class="mb-2">{{registerUser.length}}</h2>
 
                         </div>
                         <div id="visitorsChart" style="min-height: 120px;"><div id="apexcharts5qekgniq" class="apexcharts-canvas apexcharts5qekgniq apexcharts-theme-light" style="width: 200px; height: 120px;"><svg id="SvgjsSvg2899" width="200" height="120" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;"><g id="SvgjsG2901" class="apexcharts-inner apexcharts-graphical" transform="translate(22, 5)"><defs id="SvgjsDefs2900"><linearGradient id="SvgjsLinearGradient2904" x1="0" y1="0" x2="0" y2="1"><stop id="SvgjsStop2905" stop-opacity="0.4" stop-color="rgba(216,227,240,0.4)" offset="0"></stop><stop id="SvgjsStop2906" stop-opacity="0.5" stop-color="rgba(190,209,230,0.5)" offset="1"></stop><stop id="SvgjsStop2907" stop-opacity="0.5" stop-color="rgba(190,209,230,0.5)" offset="1"></stop></linearGradient><clipPath id="gridRectMask5qekgniq"><rect id="SvgjsRect2909" width="172" height="88.70079907417298" x="-2" y="0" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath><clipPath id="forecastMask5qekgniq"></clipPath><clipPath id="nonForecastMask5qekgniq"></clipPath><clipPath id="gridRectMarkerMask5qekgniq"><rect id="SvgjsRect2910" width="172" height="92.70079907417298" x="-2" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath></defs><rect id="SvgjsRect2908" width="12" height="88.70079907417298" x="0" y="0" rx="0" ry="0" opacity="1" stroke-width="0" stroke-dasharray="3" fill="url(#SvgjsLinearGradient2904)" class="apexcharts-xcrosshairs" y2="88.70079907417298" filter="none" fill-opacity="0.9"></rect><g id="SvgjsG2929" class="apexcharts-xaxis" transform="translate(0, 0)"><g id="SvgjsG2930" class="apexcharts-xaxis-texts-g" transform="translate(0, -4)"><text id="SvgjsText2932" font-family="Helvetica, Arial, sans-serif" x="12" y="117.70079907417298" text-anchor="middle" dominant-baseline="auto" font-size="13px" font-weight="400" fill="#a1acb8" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan2933">M</tspan><title>M</title></text><text id="SvgjsText2935" font-family="Helvetica, Arial, sans-serif" x="36" y="117.70079907417298" text-anchor="middle" dominant-baseline="auto" font-size="13px" font-weight="400" fill="#a1acb8" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan2936">T</tspan><title>T</title></text><text id="SvgjsText2938" font-family="Helvetica, Arial, sans-serif" x="60" y="117.70079907417298" text-anchor="middle" dominant-baseline="auto" font-size="13px" font-weight="400" fill="#a1acb8" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan2939">W</tspan><title>W</title></text><text id="SvgjsText2941" font-family="Helvetica, Arial, sans-serif" x="84" y="117.70079907417298" text-anchor="middle" dominant-baseline="auto" font-size="13px" font-weight="400" fill="#a1acb8" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan2942">T</tspan><title>T</title></text><text id="SvgjsText2944" font-family="Helvetica, Arial, sans-serif" x="108" y="117.70079907417298" text-anchor="middle" dominant-baseline="auto" font-size="13px" font-weight="400" fill="#a1acb8" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan2945">F</tspan><title>F</title></text><text id="SvgjsText2947" font-family="Helvetica, Arial, sans-serif" x="132" y="117.70079907417298" text-anchor="middle" dominant-baseline="auto" font-size="13px" font-weight="400" fill="#a1acb8" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan2948">S</tspan><title>S</title></text><text id="SvgjsText2950" font-family="Helvetica, Arial, sans-serif" x="156" y="117.70079907417298" text-anchor="middle" dominant-baseline="auto" font-size="13px" font-weight="400" fill="#a1acb8" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan2951">S</tspan><title>S</title></text></g></g><g id="SvgjsG2954" class="apexcharts-grid"><g id="SvgjsG2955" class="apexcharts-gridlines-horizontal" style="display: none;"><line id="SvgjsLine2957" x1="0" y1="0" x2="168" y2="0" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine2958" x1="0" y1="17.740159814834595" x2="168" y2="17.740159814834595" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine2959" x1="0" y1="35.48031962966919" x2="168" y2="35.48031962966919" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine2960" x1="0" y1="53.22047944450378" x2="168" y2="53.22047944450378" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine2961" x1="0" y1="70.96063925933838" x2="168" y2="70.96063925933838" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine2962" x1="0" y1="88.70079907417298" x2="168" y2="88.70079907417298" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line></g><g id="SvgjsG2956" class="apexcharts-gridlines-vertical" style="display: none;"></g><line id="SvgjsLine2964" x1="0" y1="88.70079907417298" x2="168" y2="88.70079907417298" stroke="transparent" stroke-dasharray="0" stroke-linecap="butt"></line><line id="SvgjsLine2963" x1="0" y1="1" x2="0" y2="88.70079907417298" stroke="transparent" stroke-dasharray="0" stroke-linecap="butt"></line></g><g id="SvgjsG2911" class="apexcharts-bar-series apexcharts-plot-series"><g id="SvgjsG2912" class="apexcharts-series" rel="1" seriesName="seriesx1" data:realIndex="0"><path id="SvgjsPath2916" d="M 6 80.70079907417298L 6 61.22047944450379Q 6 53.22047944450379 14 53.22047944450379L 10 53.22047944450379Q 18 53.22047944450379 18 61.22047944450379L 18 61.22047944450379L 18 80.70079907417298Q 18 88.70079907417298 10 88.70079907417298L 14 88.70079907417298Q 6 88.70079907417298 6 80.70079907417298z" fill="#666ee81a" fill-opacity="1" stroke-opacity="1" stroke-linecap="round" stroke-width="0" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask5qekgniq)" pathTo="M 6 80.70079907417298L 6 61.22047944450379Q 6 53.22047944450379 14 53.22047944450379L 10 53.22047944450379Q 18 53.22047944450379 18 61.22047944450379L 18 61.22047944450379L 18 80.70079907417298Q 18 88.70079907417298 10 88.70079907417298L 14 88.70079907417298Q 6 88.70079907417298 6 80.70079907417298z" pathFrom="M 6 80.70079907417298L 6 80.70079907417298L 18 80.70079907417298L 18 80.70079907417298L 18 80.70079907417298L 18 80.70079907417298L 18 80.70079907417298L 6 80.70079907417298" cy="53.22047944450379" cx="30" j="0" val="40" barHeight="35.48031962966919" barWidth="12"></path><path id="SvgjsPath2918" d="M 30 80.70079907417298L 30 12.435039953708653Q 30 4.435039953708653 38 4.435039953708653L 34 4.435039953708653Q 42 4.435039953708653 42 12.435039953708653L 42 12.435039953708653L 42 80.70079907417298Q 42 88.70079907417298 34 88.70079907417298L 38 88.70079907417298Q 30 88.70079907417298 30 80.70079907417298z" fill="#666ee81a" fill-opacity="1" stroke-opacity="1" stroke-linecap="round" stroke-width="0" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask5qekgniq)" pathTo="M 30 80.70079907417298L 30 12.435039953708653Q 30 4.435039953708653 38 4.435039953708653L 34 4.435039953708653Q 42 4.435039953708653 42 12.435039953708653L 42 12.435039953708653L 42 80.70079907417298Q 42 88.70079907417298 34 88.70079907417298L 38 88.70079907417298Q 30 88.70079907417298 30 80.70079907417298z" pathFrom="M 30 80.70079907417298L 30 80.70079907417298L 42 80.70079907417298L 42 80.70079907417298L 42 80.70079907417298L 42 80.70079907417298L 42 80.70079907417298L 30 80.70079907417298" cy="4.435039953708653" cx="54" j="1" val="95" barHeight="84.26575912046432" barWidth="12"></path><path id="SvgjsPath2920" d="M 54 80.70079907417298L 54 43.4803196296692Q 54 35.4803196296692 62 35.4803196296692L 58 35.4803196296692Q 66 35.4803196296692 66 43.4803196296692L 66 43.4803196296692L 66 80.70079907417298Q 66 88.70079907417298 58 88.70079907417298L 62 88.70079907417298Q 54 88.70079907417298 54 80.70079907417298z" fill="#666ee81a" fill-opacity="1" stroke-opacity="1" stroke-linecap="round" stroke-width="0" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask5qekgniq)" pathTo="M 54 80.70079907417298L 54 43.4803196296692Q 54 35.4803196296692 62 35.4803196296692L 58 35.4803196296692Q 66 35.4803196296692 66 43.4803196296692L 66 43.4803196296692L 66 80.70079907417298Q 66 88.70079907417298 58 88.70079907417298L 62 88.70079907417298Q 54 88.70079907417298 54 80.70079907417298z" pathFrom="M 54 80.70079907417298L 54 80.70079907417298L 66 80.70079907417298L 66 80.70079907417298L 66 80.70079907417298L 66 80.70079907417298L 66 80.70079907417298L 54 80.70079907417298" cy="35.4803196296692" cx="78" j="2" val="60" barHeight="53.22047944450378" barWidth="12"></path><path id="SvgjsPath2922" d="M 78 80.70079907417298L 78 56.78543949079514Q 78 48.78543949079514 86 48.78543949079514L 82 48.78543949079514Q 90 48.78543949079514 90 56.78543949079514L 90 56.78543949079514L 90 80.70079907417298Q 90 88.70079907417298 82 88.70079907417298L 86 88.70079907417298Q 78 88.70079907417298 78 80.70079907417298z" fill="#666ee81a" fill-opacity="1" stroke-opacity="1" stroke-linecap="round" stroke-width="0" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask5qekgniq)" pathTo="M 78 80.70079907417298L 78 56.78543949079514Q 78 48.78543949079514 86 48.78543949079514L 82 48.78543949079514Q 90 48.78543949079514 90 56.78543949079514L 90 56.78543949079514L 90 80.70079907417298Q 90 88.70079907417298 82 88.70079907417298L 86 88.70079907417298Q 78 88.70079907417298 78 80.70079907417298z" pathFrom="M 78 80.70079907417298L 78 80.70079907417298L 90 80.70079907417298L 90 80.70079907417298L 90 80.70079907417298L 90 80.70079907417298L 90 80.70079907417298L 78 80.70079907417298" cy="48.78543949079514" cx="102" j="3" val="45" barHeight="39.915359583377835" barWidth="12"></path><path id="SvgjsPath2924" d="M 102 80.70079907417298L 102 16.870079907417306Q 102 8.870079907417306 110 8.870079907417306L 106 8.870079907417306Q 114 8.870079907417306 114 16.870079907417306L 114 16.870079907417306L 114 80.70079907417298Q 114 88.70079907417298 106 88.70079907417298L 110 88.70079907417298Q 102 88.70079907417298 102 80.70079907417298z" fill="#666ee81a" fill-opacity="1" stroke-opacity="1" stroke-linecap="round" stroke-width="0" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask5qekgniq)" pathTo="M 102 80.70079907417298L 102 16.870079907417306Q 102 8.870079907417306 110 8.870079907417306L 106 8.870079907417306Q 114 8.870079907417306 114 16.870079907417306L 114 16.870079907417306L 114 80.70079907417298Q 114 88.70079907417298 106 88.70079907417298L 110 88.70079907417298Q 102 88.70079907417298 102 80.70079907417298z" pathFrom="M 102 80.70079907417298L 102 80.70079907417298L 114 80.70079907417298L 114 80.70079907417298L 114 80.70079907417298L 114 80.70079907417298L 114 80.70079907417298L 102 80.70079907417298" cy="8.870079907417306" cx="126" j="4" val="90" barHeight="79.83071916675567" barWidth="12"></path><path id="SvgjsPath2926" d="M 126 80.70079907417298L 126 52.350399537086496Q 126 44.350399537086496 134 44.350399537086496L 130 44.350399537086496Q 138 44.350399537086496 138 52.350399537086496L 138 52.350399537086496L 138 80.70079907417298Q 138 88.70079907417298 130 88.70079907417298L 134 88.70079907417298Q 126 88.70079907417298 126 80.70079907417298z" fill="rgba(105,108,255,0.85)" fill-opacity="1" stroke-opacity="1" stroke-linecap="round" stroke-width="0" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask5qekgniq)" pathTo="M 126 80.70079907417298L 126 52.350399537086496Q 126 44.350399537086496 134 44.350399537086496L 130 44.350399537086496Q 138 44.350399537086496 138 52.350399537086496L 138 52.350399537086496L 138 80.70079907417298Q 138 88.70079907417298 130 88.70079907417298L 134 88.70079907417298Q 126 88.70079907417298 126 80.70079907417298z" pathFrom="M 126 80.70079907417298L 126 80.70079907417298L 138 80.70079907417298L 138 80.70079907417298L 138 80.70079907417298L 138 80.70079907417298L 138 80.70079907417298L 126 80.70079907417298" cy="44.350399537086496" cx="150" j="5" val="50" barHeight="44.35039953708648" barWidth="12"></path><path id="SvgjsPath2928" d="M 150 80.70079907417298L 150 30.17519976854325Q 150 22.17519976854325 158 22.17519976854325L 154 22.17519976854325Q 162 22.17519976854325 162 30.17519976854325L 162 30.17519976854325L 162 80.70079907417298Q 162 88.70079907417298 154 88.70079907417298L 158 88.70079907417298Q 150 88.70079907417298 150 80.70079907417298z" fill="#666ee81a" fill-opacity="1" stroke-opacity="1" stroke-linecap="round" stroke-width="0" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask5qekgniq)" pathTo="M 150 80.70079907417298L 150 30.17519976854325Q 150 22.17519976854325 158 22.17519976854325L 154 22.17519976854325Q 162 22.17519976854325 162 30.17519976854325L 162 30.17519976854325L 162 80.70079907417298Q 162 88.70079907417298 154 88.70079907417298L 158 88.70079907417298Q 150 88.70079907417298 150 80.70079907417298z" pathFrom="M 150 80.70079907417298L 150 80.70079907417298L 162 80.70079907417298L 162 80.70079907417298L 162 80.70079907417298L 162 80.70079907417298L 162 80.70079907417298L 150 80.70079907417298" cy="22.17519976854325" cx="174" j="6" val="75" barHeight="66.52559930562973" barWidth="12"></path><g id="SvgjsG2914" class="apexcharts-bar-goals-markers" style="pointer-events: none"><g id="SvgjsG2915" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG2917" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG2919" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG2921" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG2923" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG2925" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG2927" className="apexcharts-bar-goals-groups"></g></g></g><g id="SvgjsG2913" class="apexcharts-datalabels" data:realIndex="0"></g></g><line id="SvgjsLine2965" x1="0" y1="0" x2="168" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" stroke-linecap="butt" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine2966" x1="0" y1="0" x2="168" y2="0" stroke-dasharray="0" stroke-width="0" stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line><g id="SvgjsG2967" class="apexcharts-yaxis-annotations"></g><g id="SvgjsG2968" class="apexcharts-xaxis-annotations"></g><g id="SvgjsG2969" class="apexcharts-point-annotations"></g></g><g id="SvgjsG2952" class="apexcharts-yaxis" rel="0" transform="translate(-8, 0)"><g id="SvgjsG2953" class="apexcharts-yaxis-texts-g"></g></g><g id="SvgjsG2902" class="apexcharts-annotations"></g></svg><div class="apexcharts-legend" style="max-height: 60px;"></div><div class="apexcharts-tooltip apexcharts-theme-light"><div class="apexcharts-tooltip-title" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"></div><div class="apexcharts-tooltip-series-group" style="order: 1;"><span class="apexcharts-tooltip-marker" style="background-color: rgba(102, 110, 232, 0.1);"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label"></span><span class="apexcharts-tooltip-text-y-value"></span></div><div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div></div><div class="apexcharts-yaxistooltip apexcharts-yaxistooltip-0 apexcharts-yaxistooltip-left apexcharts-theme-light"><div class="apexcharts-yaxistooltip-text"></div></div></div></div>
@@ -88,13 +88,13 @@
                               <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="cardOpt6">
-                              <a class="dropdown-item" href="javascript:void(0);">View All</a>
-                              <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                              <a class="dropdown-item" href="/admin/all-users">View All</a>
+                              <a class="dropdown-item" href="/admin/all-users">Delete</a>
                             </div>
                           </div>
                         </div>
                         <span class="d-block">Active Users</span>
-                        <h4 class="card-title mb-1">679</h4>
+                        <h4 class="card-title mb-1">{{activeUser.length}}</h4>
                       </div>
                     </div>
                   </div>
@@ -110,11 +110,11 @@
                   <div class="col-lg-6 col-md-3 col-6 mb-4">
                     <div class="card">
                       <div class="card-body pb-0">
-                        <span class="d-block fw-semibold">Expenses</span>
+                        <span class="d-block fw-semibold">Investment</span>
                       </div>
-                      <div id="expensesChart" class="mb-2" style="min-height: 61px;"><div id="apexchartszn004o73" class="apexcharts-canvas apexchartszn004o73 apexcharts-theme-light" style="width: 146px; height: 61px;"><svg id="SvgjsSvg3106" width="146" height="61" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;"><g id="SvgjsG3108" class="apexcharts-inner apexcharts-graphical" transform="translate(-2, -10)"><defs id="SvgjsDefs3107"><clipPath id="gridRectMaskzn004o73"><rect id="SvgjsRect3110" width="156" height="142" x="-3" y="-1" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath><clipPath id="forecastMaskzn004o73"></clipPath><clipPath id="nonForecastMaskzn004o73"></clipPath><clipPath id="gridRectMarkerMaskzn004o73"><rect id="SvgjsRect3111" width="154" height="144" x="-2" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath></defs><g id="SvgjsG3112" class="apexcharts-radialbar"><g id="SvgjsG3113"><g id="SvgjsG3114" class="apexcharts-tracks"><g id="SvgjsG3115" class="apexcharts-radialbar-track apexcharts-track" rel="1"><path id="apexcharts-radialbarTrack-0" d="M 27.25609756097561 70 A 47.74390243902439 47.74390243902439 0 0 1 122.7439024390244 70" fill="none" fill-opacity="1" stroke="#8897aa1a" stroke-opacity="1" stroke-linecap="round" stroke-width="10.05487804878049" stroke-dasharray="0" class="apexcharts-radialbar-area" data:pathOrig="M 27.25609756097561 70 A 47.74390243902439 47.74390243902439 0 0 1 122.7439024390244 70"></path></g></g><g id="SvgjsG3117"><g id="SvgjsG3121" class="apexcharts-series apexcharts-radial-series" seriesName="Progress" rel="1" data:realIndex="0"><path id="SvgjsPath3122" d="M 27.25609756097561 70 A 47.74390243902439 47.74390243902439 0 0 1 111.57395115622926 39.31081107411218" fill="none" fill-opacity="0.85" stroke="rgba(105,108,255,0.85)" stroke-opacity="1" stroke-linecap="round" stroke-width="10.365853658536587" stroke-dasharray="0" class="apexcharts-radialbar-area apexcharts-radialbar-slice-0" data:angle="140" data:value="78" index="0" j="0" data:pathOrig="M 27.25609756097561 70 A 47.74390243902439 47.74390243902439 0 0 1 111.57395115622926 39.31081107411218"></path></g><circle id="SvgjsCircle3118" r="37.71646341463414" cx="75" cy="70" class="apexcharts-radialbar-hollow" fill="transparent"></circle><g id="SvgjsG3119" class="apexcharts-datalabels-group" transform="translate(0, 0) scale(1)" style="opacity: 1;"><text id="SvgjsText3120" font-family="Helvetica, Arial, sans-serif" x="75" y="70" text-anchor="middle" dominant-baseline="auto" font-size="22px" font-weight="500" fill="#566a7f" class="apexcharts-text apexcharts-datalabel-value" style="font-family: Helvetica, Arial, sans-serif;">78%</text></g></g></g></g><line id="SvgjsLine3123" x1="0" y1="0" x2="150" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" stroke-linecap="butt" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine3124" x1="0" y1="0" x2="150" y2="0" stroke-dasharray="0" stroke-width="0" stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line></g><g id="SvgjsG3109" class="apexcharts-annotations"></g></svg><div class="apexcharts-legend"></div></div></div>
+                      <div id="expensesChart" class="mb-2" style="min-height: 61px;"><div id="apexchartszn004o73" class="apexcharts-canvas apexchartszn004o73 apexcharts-theme-light" style="width: 146px; height: 61px;"><svg id="SvgjsSvg3106" width="146" height="61" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;"><g id="SvgjsG3108" class="apexcharts-inner apexcharts-graphical" transform="translate(-2, -10)"><defs id="SvgjsDefs3107"><clipPath id="gridRectMaskzn004o73"><rect id="SvgjsRect3110" width="156" height="142" x="-3" y="-1" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath><clipPath id="forecastMaskzn004o73"></clipPath><clipPath id="nonForecastMaskzn004o73"></clipPath><clipPath id="gridRectMarkerMaskzn004o73"><rect id="SvgjsRect3111" width="154" height="144" x="-2" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath></defs><g id="SvgjsG3112" class="apexcharts-radialbar"><g id="SvgjsG3113"><g id="SvgjsG3114" class="apexcharts-tracks"><g id="SvgjsG3115" class="apexcharts-radialbar-track apexcharts-track" rel="1"><path id="apexcharts-radialbarTrack-0" d="M 27.25609756097561 70 A 47.74390243902439 47.74390243902439 0 0 1 122.7439024390244 70" fill="none" fill-opacity="1" stroke="#8897aa1a" stroke-opacity="1" stroke-linecap="round" stroke-width="10.05487804878049" stroke-dasharray="0" class="apexcharts-radialbar-area" data:pathOrig="M 27.25609756097561 70 A 47.74390243902439 47.74390243902439 0 0 1 122.7439024390244 70"></path></g></g><g id="SvgjsG3117"><g id="SvgjsG3121" class="apexcharts-series apexcharts-radial-series" seriesName="Progress" rel="1" data:realIndex="0"><path id="SvgjsPath3122" d="M 27.25609756097561 70 A 47.74390243902439 47.74390243902439 0 0 1 111.57395115622926 39.31081107411218" fill="none" fill-opacity="0.85" stroke="rgba(105,108,255,0.85)" stroke-opacity="1" stroke-linecap="round" stroke-width="10.365853658536587" stroke-dasharray="0" class="apexcharts-radialbar-area apexcharts-radialbar-slice-0" data:angle="140" data:value="78" index="0" j="0" data:pathOrig="M 27.25609756097561 70 A 47.74390243902439 47.74390243902439 0 0 1 111.57395115622926 39.31081107411218"></path></g><circle id="SvgjsCircle3118" r="37.71646341463414" cx="75" cy="70" class="apexcharts-radialbar-hollow" fill="transparent"></circle><g id="SvgjsG3119" class="apexcharts-datalabels-group" transform="translate(0, 0) scale(1)" style="opacity: 1;"><text id="SvgjsText3120" font-family="Helvetica, Arial, sans-serif" x="75" y="70" text-anchor="middle" dominant-baseline="auto" font-size="22px" font-weight="500" fill="#566a7f" class="apexcharts-text apexcharts-datalabel-value" style="font-family: Helvetica, Arial, sans-serif;">{{allInvestments.length}}</text></g></g></g></g><line id="SvgjsLine3123" x1="0" y1="0" x2="150" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" stroke-linecap="butt" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine3124" x1="0" y1="0" x2="150" y2="0" stroke-dasharray="0" stroke-width="0" stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line></g><g id="SvgjsG3109" class="apexcharts-annotations"></g></svg><div class="apexcharts-legend"></div></div></div>
                       <div class="p-3 pt-2">
-                        <small class="text-muted d-block text-center">$21k Expenses more than last month</small>
+                        <small class="text-muted d-block text-center">All investment currently running </small>
                       </div>
                     <div class="resize-triggers"><div class="expand-trigger"><div style="width: 147px; height: 199px;"></div></div><div class="contract-trigger"></div></div></div>
                   </div>
@@ -123,7 +123,7 @@
                       <div class="card-body">
                         <div class="card-title d-flex align-items-start justify-content-between">
                           <div class="avatar flex-shrink-0">
-                            <a class="dropdown-item" href="pages-pricing.html">
+                            <a class="dropdown-item" href="/admin/all-transactions">
                               <!-- <i class="bx bx-dollar me-2 fs-2"></i> -->
                               <span class="align-middle">Transactions</span>
                             </a>
@@ -133,13 +133,23 @@
                               <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt1">
-                              <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                              <a class="dropdown-item" href="/admin/all-transactions">View More</a>
 
                             </div>
                           </div>
                         </div>
 
-                        <h4 class="card-title mb-1">$14,857</h4>
+                        <h4 class="card-title mb-1">
+                          <div *ngIf="isLoading else totalTran">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                          </div>
+                          <ng-template #totalTran>
+                            {{allTransactions.length}}
+                          </ng-template>
+                        </h4>
+
                         <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.14%</small>
                       </div>
                     </div>
@@ -149,59 +159,53 @@
 
               <!-- Total Income -->
               <div class="col-md-6 col-lg-8 mb-4">
-
                 <div class="card mb-4">
                   <h5 class="card-header">Recent Transactions</h5>
-                  <div class="table-responsive">
-                    <table class="table border-top">
+
+                  <div class="text-center" *ngIf="isLoading">
+                    <div class="spinner-border" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+
+                  <div class="table-responsive" *ngIf="!isLoading && allRecentTransactions.length > 0 else loadingFalse">
+                    <table class="table border-top" >
                       <thead>
                         <tr>
-                          <th class="text-truncate">Browser</th>
-                          <th class="text-truncate">Device</th>
-                          <th class="text-truncate">Location</th>
-                          <th class="text-truncate">Recent Activities</th>
+                          <th class="text-truncate">Name</th>
+                          <th class="text-truncate">Amount</th>
+                          <th class="text-truncate">Status</th>
+                          <th class="text-truncate">Date</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody *ngFor="let Datas of allRecentTransactions; let i = index">
                         <tr>
-                          <td class="text-truncate"><i class="bx bxl-windows text-info me-3"></i> <span class="fw-semibold">Chrome on Windows</span></td>
-                          <td class="text-truncate">HP Spectre 360</td>
-                          <td class="text-truncate">Switzerland</td>
-                          <td class="text-truncate">10, July 2021 20:07</td>
-                        </tr>
-                        <tr>
-                          <td class="text-truncate"><i class="bx bx-mobile-alt text-danger me-3"></i> <span class="fw-semibold">Chrome on iPhone</span></td>
-                          <td class="text-truncate">iPhone 12x</td>
-                          <td class="text-truncate">Australia</td>
-                          <td class="text-truncate">13, July 2021 10:10</td>
-                        </tr>
-                        <tr>
-                          <td class="text-truncate"><i class="bx bxl-android text-success me-3"></i> <span class="fw-semibold">Chrome on Android</span></td>
-                          <td class="text-truncate">Oneplus 9 Pro</td>
-                          <td class="text-truncate">Dubai</td>
-                          <td class="text-truncate">14, July 2021 15:15</td>
-                        </tr>
-                        <tr>
-                          <td class="text-truncate"><i class="bx bxl-apple me-3"></i> <span class="fw-semibold">Chrome on MacOS</span></td>
-                          <td class="text-truncate">Apple iMac</td>
-                          <td class="text-truncate">India</td>
-                          <td class="text-truncate">16, July 2021 16:17</td>
-                        </tr>
-                        <tr>
-                          <td class="text-truncate"><i class="bx bxl-windows text-info me-3"></i> <span class="fw-semibold">Chrome on Windows</span></td>
-                          <td class="text-truncate">HP Spectre 360</td>
-                          <td class="text-truncate">Switzerland</td>
-                          <td class="text-truncate">20, July 2021 21:01</td>
-                        </tr>
-                        <tr>
-                          <td class="text-truncate border-bottom-0"><i class="bx bxl-android text-success me-3"></i> <span class="fw-semibold">Chrome on Android</span></td>
-                          <td class="text-truncate border-bottom-0">Oneplus 9 Pro</td>
-                          <td class="text-truncate border-bottom-0">Dubai</td>
-                          <td class="text-truncate border-bottom-0">21, July 2021 12:22</td>
+                          <td class="text-truncate"><i class="bx bxl-windows text-info me-3"></i> <span class="fw-semibold">{{Datas.sender_name}}</span></td>
+                          <td class="text-truncate">{{Datas.amount | currency}}</td>
+                          <td class="text-truncate">{{Datas.transaction_status}}</td>
+                          <td class="text-truncate">{{Datas.createdOn | date:'short'}}</td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
+
+                  <ng-template #loadingFalse>
+                    <div class="row mx-2" *ngIf="!isLoading">
+                      <div class="col-sm-12 col-md-12 text-center">
+                        <div
+                          class="dataTables_info"
+                          id="DataTables_Table_0_info"
+                          role="status"
+                          aria-live="polite"
+                        >
+                          There is no transactions at the momemt.
+                          <br><br>
+                        </div>
+                      </div>
+                      <br/>
+                    </div>
+                  </ng-template>
+
                 </div>
                   <!-- <div class="row row-bordered g-0">
                     <div class="col-md-12">
