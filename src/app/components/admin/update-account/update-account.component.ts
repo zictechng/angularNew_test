@@ -59,7 +59,7 @@ updateUserForm = new FormGroup({
     // get the Edit ID passed by the page via url here
     let userID = this._route.snapshot.paramMap.get('id');
     this._dataService.fetchEditUser(this._route.snapshot.paramMap.get('id')).subscribe(res =>{
-      console.log("Result Edit data", res)
+      //console.log("Result Edit data", res)
       this.updateUserData = res
       this.userProfilePic = this._dataService.backenServerUrl;
       })

@@ -12,7 +12,7 @@
       <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">
           <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Running /</span> Investment Details
+            <span class="text-muted fw-light">Investors /</span> Earning Details
           </h4>
 
           <div class="row g-4 mb-4">
@@ -142,7 +142,7 @@
                 </div>
                 <table
                   class="datatables-users table border-top dataTable no-footer dtr-column"
-                  id="DataTables_Table_0" *ngIf="!isLoading && allInvestorsData.length > 0 else loadingFalse">
+                  id="DataTables_Table_0" *ngIf="!isLoading && allEarning.length > 0 else loadingFalse">
                   <thead>
                     <tr>
                       <th
@@ -173,7 +173,7 @@
                         style="width: 147px"
                         aria-label="Role: activate to sort column ascending"
                       >
-                        Invested Amount
+                        Earned Amount
                       </th>
                       <th
                         class="sorting"
@@ -203,22 +203,10 @@
                         aria-controls="DataTables_Table_0"
                         rowspan="1"
                         colspan="1"
-                        style="width: 183px"
-                        aria-label="Billing: activate to sort column ascending"
-                      >
-                        Investment Duration
-                      </th>
-
-                      <th
-                        class="sorting"
-                        tabindex="0"
-                        aria-controls="DataTables_Table_0"
-                        rowspan="1"
-                        colspan="1"
                         style="width: 94px"
                         aria-label="Status: activate to sort column ascending"
                       >
-                        Investment Status
+                        Status
                       </th>
                       <th
                         class="sorting"
@@ -229,7 +217,18 @@
                         style="width: 94px"
                         aria-label="Status: activate to sort column ascending"
                       >
-                        Investment Date
+                        Post Date
+                      </th>
+                      <th
+                        class="sorting"
+                        tabindex="0"
+                        aria-controls="DataTables_Table_0"
+                        rowspan="1"
+                        colspan="1"
+                        style="width: 94px"
+                        aria-label="Status: activate to sort column ascending"
+                      >
+                        System Date
                       </th>
                       <th
                         class="sorting_disabled"
@@ -242,7 +241,7 @@
                       </th>
                     </tr>
                   </thead>
-                  <tbody *ngFor="let Datas of allInvestorsData | paginate
+                  <tbody *ngFor="let Datas of allEarning | paginate
                   : {
                       itemsPerPage: pageSize,
                       currentPage: pagination,
@@ -273,49 +272,40 @@
                           </span>
                         </ng-template>
                           <div class="d-flex flex-column">
-                            {{Datas.sender_name}}<small class="text-muted"
-                              >{{Datas.email}}</small
+                            {{Datas.receiver_name}}<small class="text-muted"
+                              >{{Datas.receiver_email}}</small
                             >
                           </div>
                         </div>
                       </td>
                       <td>
                         <span class="text-truncate d-flex align-items-center"
-                          >{{Datas.invest_amt | currency :' $'}}</span
+                          >{{Datas.roi_amt | currency :' $'}}</span
                         >
                       </td>
                       <td><span class="fw-semibold">{{Datas.plan_type}}</span></td>
                       <td><span class="fw-semibold">{{Datas.investment_name}}</span></td>
-                      <td>{{Datas.investment_duration}}</td>
                       <td>
-                         <span *ngIf="Datas.invest_status == 'Pending'">
-                          <span class="badge rounded-pill bg-secondary">{{Datas.invest_status}}</span>
+                        <span *ngIf="Datas.credit_status == 'Successful'">
+                          <span class="badge rounded-pill bg-info">{{Datas.credit_status}}</span>
                         </span>
-                        <span *ngIf="Datas.invest_status =='Approve'">
-                          <span class="badge rounded-pill bg-primary">{{Datas.invest_status}}</span>
+                        <span *ngIf="Datas.credit_status !='Successful'">
+                          <span class="badge rounded-pill bg-secondary">{{Datas.credit_status}}</span>
                         </span>
+                      </td>
+                      <td>
+                        <span class="badge bg-label-secondary">{{Datas.post_date | date:'short'}}</span>
                       </td>
                       <td>
                         <span class="badge bg-label-secondary">{{Datas.createdOn | date:'short'}}</span>
                       </td>
                       <td>
-                        <div class="d-inline-block text-nowrap">
-
-                          <button class="btn btn-sm btn-icon rounded-pill btn-primary" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right" data-bs-html="true" title="Credit Account"
-                          (click)="openCreditModal(Datas._id, Datas.sender_name, Datas.plan_type, Datas.investment_name, Datas.createdBy)">
-                            <i class="bx bx-plus text-white"></i></button
+                        <div class="d-inline-block text-nowrap" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right" data-bs-html="true" title="Credit Account">
+                          <button class="btn btn-sm btn-icon rounded-pill btn-primary"
+                          (click)="openCreditModal(Datas.investment_id, Datas.receiver_name, Datas.plan_type, Datas.investment_name, Datas.receiver_id)">
+                            <i class="bx bx-plus text-white"></i>
+                            </button
                           >
-                          &nbsp;&nbsp;
-                          <button class="btn btn-sm btn-icon delete-record rounded-pill btn-info" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right" data-bs-html="true" title="Approve Investment Account"
-                          (click)="openConfirmApproval(Datas._id)">
-                            <i class="bx bx-check btn btn-icon text-white"></i></button
-                          >
-                          &nbsp;&nbsp;
-                          <button class="btn btn-sm btn-icon delete-record rounded-pill btn-danger" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right" data-bs-html="true" title="Delete Record"
-                          (click)="openConfirmDelete(Datas._id)">
-                            <i class="bx bx-trash btn btn-icon text-white"></i></button
-                          >
-
                         </div>
                       </td>
                     </tr>
@@ -337,7 +327,7 @@
                     <br/>
                   </div>
                 </ng-template>
-                <div class="row mx-2" *ngIf="allInvestorsData.length > 0">
+                <div class="row mx-2" *ngIf="allEarning.length > 0">
                   <div class="col-sm-12 col-md-6">
                     <div
                       class="dataTables_info"
@@ -372,7 +362,7 @@
 <!-- Credit modal here-->
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
   <div class="modal-dialog">
-    <form class="modal-content" [formGroup]="creditForm">
+    <form class="modal-content" [formGroup]="earningCreditForm">
       <div class="modal-header bg-secondary">
         <h5 class="modal-title text-white" id="backDropModalTitle">Credit Account </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeCreditModal()"></button>
@@ -394,8 +384,8 @@
                 id="invest_plan"
                 placeholder="Current Investment Plan"
                 name="invest_plan" formControlName="invest_plan" readonly/>
-              <div *ngIf="creditForm.controls['invest_plan'].invalid && (creditForm.controls['invest_plan'].dirty || creditForm.controls['invest_plan'].touched || creditForm.controls['invest_plan'].untouched && isFormSubmit )" class="text-danger">
-                <span *ngIf="creditForm.controls['invest_plan'].hasError('required')" class="text-danger"> * Required</span>
+              <div *ngIf="earningCreditForm.controls['invest_plan'].invalid && (earningCreditForm.controls['invest_plan'].dirty || earningCreditForm.controls['invest_plan'].touched || earningCreditForm.controls['invest_plan'].untouched && isFormSubmit )" class="text-danger">
+                <span *ngIf="earningCreditForm.controls['invest_plan'].hasError('required')" class="text-danger"> * Required</span>
               </div>
             </div>
           </div>
@@ -411,8 +401,8 @@
                 id="invest_type"
                 placeholder="Current Investment Type"
                 name="invest_type" formControlName="invest_type" readonly/>
-              <div *ngIf="creditForm.controls['invest_type'].invalid && (creditForm.controls['invest_type'].dirty || creditForm.controls['invest_type'].touched || creditForm.controls['invest_type'].untouched && isFormSubmit )" class="text-danger">
-                <span *ngIf="creditForm.controls['invest_type'].hasError('required')" class="text-danger"> * Required</span>
+              <div *ngIf="earningCreditForm.controls['invest_type'].invalid && (earningCreditForm.controls['invest_type'].dirty || earningCreditForm.controls['invest_type'].touched || earningCreditForm.controls['invest_type'].untouched && isFormSubmit )" class="text-danger">
+                <span *ngIf="earningCreditForm.controls['invest_type'].hasError('required')" class="text-danger"> * Required</span>
               </div>
             </div>
           </div>
@@ -430,8 +420,8 @@
                 id="sending_amt"
                 placeholder="Enter Amount to Credit"
                 name="sending_amt" formControlName="sending_amt"/>
-              <div *ngIf="creditForm.controls['sending_amt'].invalid && (creditForm.controls['sending_amt'].dirty || creditForm.controls['sending_amt'].touched || creditForm.controls['sending_amt'].untouched && isFormSubmit )" class="text-danger">
-                <span *ngIf="creditForm.controls['sending_amt'].hasError('required')" class="text-danger"> * Required</span>
+              <div *ngIf="earningCreditForm.controls['sending_amt'].invalid && (earningCreditForm.controls['sending_amt'].dirty || earningCreditForm.controls['sending_amt'].touched || earningCreditForm.controls['sending_amt'].untouched && isFormSubmit )" class="text-danger">
+                <span *ngIf="earningCreditForm.controls['sending_amt'].hasError('required')" class="text-danger"> * Required</span>
               </div>
             </div>
           </div>
@@ -446,8 +436,8 @@
                 id="credit_date"
                 placeholder="Select Date"
                 name="credit_date" formControlName="credit_date"/>
-              <div *ngIf="creditForm.controls['credit_date'].invalid && (creditForm.controls['credit_date'].dirty || creditForm.controls['credit_date'].touched || creditForm.controls['credit_date'].untouched && isFormSubmit )" class="text-danger">
-                <span *ngIf="creditForm.controls['credit_date'].hasError('required')" class="text-danger"> * Required</span>
+              <div *ngIf="earningCreditForm.controls['credit_date'].invalid && (earningCreditForm.controls['credit_date'].dirty || earningCreditForm.controls['credit_date'].touched || earningCreditForm.controls['credit_date'].untouched && isFormSubmit )" class="text-danger">
+                <span *ngIf="earningCreditForm.controls['credit_date'].hasError('required')" class="text-danger"> * Required</span>
               </div>
             </div>
           </div>
@@ -458,7 +448,7 @@
               >Additional Note/Description</label>
             <textarea class='form-control' name="credit_note" id='credit_note' formControlName="credit_note" placeholder='Description' rows='3'></textarea>
             <div>
-              <span *ngIf="creditForm.get('credit_note')!.hasError('maxlength')" class="text-danger">
+              <span *ngIf="earningCreditForm.get('credit_note')!.hasError('maxlength')" class="text-danger">
                 The maximum length is 250 characters.
               </span>
             </div>
@@ -469,7 +459,7 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" (click)="closeCreditModal()">Cancel</button>
-        <button type="button" (click)="openConfirmCreditModal()" class="btn btn-primary" [disabled]="isFormSubmit && creditForm.invalid || confirmModalActive">
+        <button type="button" (click)="openConfirmModal()" class="btn btn-primary" [disabled]="isFormSubmit && earningCreditForm.invalid || confirmModalActive">
           Credit
         </button>
       </div>
@@ -484,15 +474,15 @@
     <form class="modal-content">
       <div class="modal-header bg-warning">
         <h5 class="modal-title text-white" id="backDropModalTitle">Caution </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeConfirmCreditModal()"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeConfirmModal()"></button>
       </div>
       <div class="modal-body">
         <h5> Are you sure you want to do this?</h5>
         <br>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="closeConfirmCreditModal()">Cancel</button>
-        <button type="button" (click)="creditUser()" class="btn btn-primary" [disabled]="isDeleteSubmit">
+        <button type="button" class="btn btn-outline-secondary" (click)="closeConfirmModal()">Cancel</button>
+        <button type="submit" (click)="creditInvestors()" class="btn btn-primary" [disabled]="isDeleteSubmit">
           <div class="spinner-border spinner-border-sm text-primary" role="status" *ngIf="isDeleteSubmit">
             <span class="visually-hidden">Loading...</span>
           </div>
@@ -510,64 +500,3 @@
   </div>
 </div>
 
-<!-- Delete modal here-->
-<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyleDelete}">
-  <div class="modal-dialog">
-    <form class="modal-content">
-      <div class="modal-header bg-danger">
-        <h5 class="modal-title text-white" id="backDropModalTitle">Caution </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeConfirmDelete()"></button>
-      </div>
-      <div class="modal-body">
-        <h5> Are you sure you want to delete this?</h5>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="closeConfirmDelete()">Cancel</button>
-        <button type="button" (click)="deleteInvestors()" class="btn btn-danger" [disabled]="isDeleteSubmit">
-          <div class="spinner-border spinner-border-sm text-white" role="status" *ngIf="isDeleteSubmit">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-          &nbsp;
-          <!-- <span *ngIf="!isFormSubmit">
-            Submit
-          </span>
-          <span *ngIf="isFormSubmit">
-            Logging out...
-          </span> -->
-          {{ isDeleteSubmit === false ? "Yes" : "" }}
-        </button>
-      </div>
-     </form>
-  </div>
-</div>
-
-<!-- Confirm approval of investment modal here-->
-<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyleApproval}">
-  <div class="modal-dialog">
-    <form class="modal-content">
-      <div class="modal-header bg-danger">
-        <h5 class="modal-title text-white" id="backDropModalTitle">Caution </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeConfirmDelete()"></button>
-      </div>
-      <div class="modal-body">
-        <h5> Are you sure you want to approval this?</h5>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="closeConfirmApproval()">Cancel</button>
-        <button type="button" (click)="approveInvestors()" class="btn btn-danger" [disabled]="isDeleteSubmit">
-          <div class="spinner-border spinner-border-sm text-white" role="status" *ngIf="isDeleteSubmit">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-          &nbsp;
-          <!-- <span *ngIf="!isFormSubmit">
-            Submit
-          </span>
-          <span *ngIf="isFormSubmit">
-            Logging out...
-          </span> -->
-          {{ isDeleteSubmit === false ? "Yes" : "" }}
-        </button>
-      </div>
-     </form>
-  </div>
-</div>

@@ -15,6 +15,12 @@
             <span class="text-muted fw-light">Manage User /</span> Account Debiting
           </h4>
 
+          <div class="text-center" *ngIf="isLoading">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+
           <!-- Users List Table -->
           <div class="card">
             <div class="card-header border-bottom">
@@ -26,27 +32,7 @@
                 class="dataTables_wrapper dt-bootstrap5 no-footer"
               >
                 <div class="row mx-2">
-                  <div class="col-md-2">
-                    <div class="me-3">
-                      <div
-                        class="dataTables_length"
-                        id="DataTables_Table_0_length"
-                      >
-                        <label
-                          ><select
-                            name="DataTables_Table_0_length"
-                            aria-controls="DataTables_Table_0"
-                            class="form-select"
-                          >
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                          </select></label
-                        >
-                      </div>
-                    </div>
-                  </div>
+
                   <div class="col-md-10">
                     <div
                       class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"
@@ -72,9 +58,7 @@
                 </div>
                 <table
                   class="datatables-users table border-top dataTable no-footer dtr-column"
-                  id="DataTables_Table_0"
-                  aria-describedby="DataTables_Table_0_info"
-                >
+                  id="DataTables_Table_0" *ngIf="!isLoading && allCreditUsers.length > 0 else loadingFalse">
                   <thead>
                     <tr>
                       <th
@@ -140,7 +124,12 @@
                       </th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody *ngFor="let userData of allCreditUsers | paginate
+                  : {
+                      itemsPerPage: pageSize,
+                      currentPage: pagination,
+                      totalItems: totalRecord
+                    }; let i = index">
                     <tr class="odd">
                       <td
                         class="control"
@@ -154,18 +143,21 @@
                         <div
                           class="d-flex justify-content-start align-items-center user-name"
                         >
-                          <div class="avatar-wrapper">
-                            <div class="avatar avatar-sm me-3">
-                              <img
-                                src="../../assets/img/avatars/7.png"
-                                alt="Avatar"
-                                class="rounded-circle"
-                              />
-                            </div>
+                        <div class="avatar-wrapper" *ngIf="userData.image_photo else defaultImage">
+                          <div class="avatar avatar-sm me-3">
+                            <img [src]="userProfilePic+userData.image_photo" alt="Avatar" class="rounded-circle"/>
                           </div>
+                        </div>
+
+                        <ng-template #defaultImage>
+                          <span class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"
+                          ><i class="bx bx-user bx-xs"></i>
+                          </span>
+                        </ng-template>
+
                           <div class="d-flex flex-column">
-                            Yoko Pottie<small class="text-muted"
-                              >ypottiec@privacy.gov.au</small
+                            {{userData.surname}} {{userData.first_name}}<small class="text-muted"
+                              >{{userData.email}}</small
                             >
                           </div>
                         </div>
@@ -175,15 +167,15 @@
                           ><span
                             class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"
                             ><i class="bx bx-user bx-xs"></i></span
-                          >Subscriber</span
+                          >{{userData.acct_number}}</span
                         >
                       </td>
-                      <td><span class="fw-semibold">Basic</span></td>
-                      <td><span class="fw-semibold">Good</span></td>
+                      <td><span class="fw-semibold">{{userData.acct_type}}</span></td>
+                      <td><span class="fw-semibold">{{userData.currency_type}}{{userData.acct_balance}}.00</span></td>
 
                       <td>
                         <div class="d-inline-block text-nowrap">
-                          <button class="btn btn-sm btn-icon rounded-pill btn-danger">
+                          <button class="btn btn-sm btn-icon rounded-pill btn-danger" (click)="openDebitModal(userData._id, userData.acct_balance, userData.surname+' '+ userData.first_name)">
                             <i class="fa fa-share-square text-white"></i></button
                           >
 
@@ -192,7 +184,23 @@
                     </tr>
                   </tbody>
                 </table>
-                <div class="row mx-2">
+                <ng-template #loadingFalse>
+                  <div class="row mx-2" *ngIf="!isLoading">
+                    <div class="col-sm-12 col-md-12 text-center">
+                      <div
+                        class="dataTables_info"
+                        id="DataTables_Table_0_info"
+                        role="status"
+                        aria-live="polite"
+                      >
+                        There is no record at the moment.
+                        <br><br>
+                      </div>
+                    </div>
+                    <br/>
+                  </div>
+                </ng-template>
+                <div class="row mx-2" *ngIf="allCreditUsers.length > 0">
                   <div class="col-sm-12 col-md-6">
                     <div
                       class="dataTables_info"
@@ -200,12 +208,18 @@
                       role="status"
                       aria-live="polite"
                     >
-                      Showing 1 to 10 of 50 entries
+                    <br/>
+                      Showing  {{pagination}} of {{totalRecord}} entries
+
                     </div>
                   </div>
+
                   <div class="col-sm-12 col-md-6">
-                    <!--Pagination goes here-->
+                    <br>
+                    <pagination-controls (pageChange)="renderPage($event)" class="page-link"></pagination-controls>
+
                   </div>
+                  <br>
                 </div>
               </div>
             </div>
@@ -215,5 +229,153 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Debit modal here-->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog">
+    <form class="modal-content" [formGroup]="debitForm">
+      <div class="modal-header bg-secondary">
+        <h5 class="modal-title text-white" id="backDropModalTitle">Debit Account </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeDebitModal()"></button>
+      </div>
+      <div class="modal-body">
+        <h6> Fill the details below to debit user account</h6>
+        <br>
+      <h4>{{displayName}} <small>Account</small></h4>
+          <br>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3 fv-plugins-icon-container">
+              <label class="form-label" for="add-user-fullname"
+                >Current Bal</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="debit_current_bal"
+                placeholder="Current Balance"
+                name="debit_current_bal" formControlName="debit_current_bal" readonly/>
+              <div *ngIf="debitForm.controls['debit_current_bal'].invalid && (debitForm.controls['debit_current_bal'].dirty || debitForm.controls['debit_current_bal'].touched || debitForm.controls['debit_current_bal'].untouched && isFormSubmit )" class="text-danger">
+                <span *ngIf="debitForm.controls['debit_current_bal'].hasError('required')" class="text-danger"> * Required</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3 fv-plugins-icon-container">
+              <label class="form-label" for="add-user-fullname"
+                >Amount</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="debit_sending_amt"
+                placeholder="Enter Amount"
+                name="debit_sending_amt" formControlName="debit_sending_amt"/>
+              <div *ngIf="debitForm.controls['debit_sending_amt'].invalid && (debitForm.controls['debit_sending_amt'].dirty || debitForm.controls['debit_sending_amt'].touched || debitForm.controls['debit_sending_amt'].untouched && isFormSubmit )" class="text-danger">
+                <span *ngIf="debitForm.controls['debit_sending_amt'].hasError('required')" class="text-danger"> * Required</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3 fv-plugins-icon-container">
+              <label class="form-label" for="add-user-fullname"
+                >Status</label
+              >
+              <select id="debit_status" name="debit_status" formControlName="debit_status" class="form-select">
+                <option Maintenance="">Select</option>
+                <option Maintenance="Pending">Pending</option>
+                <option Maintenance="Successful">Successful</option>
+                <option Maintenance="Bank Debit">Bank Debit</option>
+                <option Maintenance="Loan Re-payment">Loan Re-payment</option>
+                <option Maintenance="Account Opening Fees">Account Opening Fees</option>
+                <option Maintenance="Account Maintenance Charges">Account Maintenance Charges</option>
+                <option Maintenance="Tax Charges">Tax Charges</option>
+                <option Maintenance="Credit Card Issuing">Credit Card Issuing</option>
+            </select>
+              <div *ngIf="debitForm.controls['debit_status'].invalid && (debitForm.controls['debit_status'].dirty || debitForm.controls['debit_status'].touched || debitForm.controls['debit_status'].untouched && isFormSubmit )" class="text-danger">
+                <span *ngIf="debitForm.controls['debit_status'].hasError('required')" class="text-danger"> * Required</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3 fv-plugins-icon-container">
+              <label class="form-label" for="add-user-fullname"
+                >Date</label>
+              <input
+                type="date"
+                class="form-control"
+                id="debit_date"
+                placeholder="Select Date"
+                name="debit_date" formControlName="debit_date"/>
+              <div *ngIf="debitForm.controls['debit_date'].invalid && (debitForm.controls['debit_date'].dirty || debitForm.controls['debit_date'].touched || debitForm.controls['debit_date'].untouched && isFormSubmit )" class="text-danger">
+                <span *ngIf="debitForm.controls['debit_date'].hasError('required')" class="text-danger"> * Required</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="mb-3 fv-plugins-icon-container">
+            <label class="form-label" for="add-user-fullname"
+              >Note/Description</label
+            >
+            <textarea class='form-control' name="debit_note" id='debit_note' formControlName="debit_note" placeholder='Description' rows='3'></textarea>
+            <div *ngIf="debitForm.controls['debit_note'].invalid && (debitForm.controls['debit_note'].dirty || debitForm.controls['debit_note'].touched || debitForm.controls['debit_note'].untouched && isFormSubmit )" class="text-danger">
+              <span *ngIf="debitForm.controls['debit_note'].hasError('required')" class="text-danger"> * Required</span>
+              <span *ngIf="debitForm.get('debit_note')!.hasError('maxlength')" class="text-danger">
+                The maximum length is 250 characters.
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="closeDebitModal()">Cancel</button>
+        <button type="button" (click)="openConfirmDebitModal()" class="btn btn-primary" [disabled]="isFormSubmit && debitForm.invalid || confrimDebitModalActive">
+          Debit
+        </button>
+      </div>
+     </form>
+  </div>
+</div>
+
+
+<!-- Confirm debit modal here-->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyleConfirm}">
+  <div class="modal-dialog modal-dialog-centered">
+    <form class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title text-white" id="backDropModalTitle">Caution </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeConfirmDebitModal()"></button>
+      </div>
+      <div class="modal-body">
+        <h5> Are you sure you want to do this?</h5>
+        <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="closeConfirmDebitModal()">Cancel</button>
+        <button type="button" (click)="debitUser()" class="btn btn-primary" [disabled]="isDeleteSubmit">
+          <div class="spinner-border spinner-border-sm text-primary" role="status" *ngIf="isDeleteSubmit">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          &nbsp;
+          <!-- <span *ngIf="!isFormSubmit">
+            Submit
+          </span>
+          <span *ngIf="isFormSubmit">
+            Logging out...
+          </span> -->
+          {{ isDeleteSubmit === false ? "Yes" : "" }}
+        </button>
+      </div>
+     </form>
   </div>
 </div>

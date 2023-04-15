@@ -17,6 +17,7 @@ export class AuthServiceService {
   private _registerUrl = serverUrl+'api/register';
   private _loginUrl = serverUrl+'api/login';
 
+
   constructor(private http: HttpClient,
     private _router: Router) { }
 
@@ -36,6 +37,8 @@ export class AuthServiceService {
     loginNewUser(loginData:any) {
       return this.http.post<any>(this._loginUrl, loginData);
     }
+
+
 
 }
 

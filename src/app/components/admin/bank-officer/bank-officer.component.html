@@ -1,0 +1,150 @@
+<div class="layout-wrapper layout-content-navbar">
+  <div class="layout-container">
+    <!-- Menu -->
+    <app-side-bar></app-side-bar>
+    <!-- Menu End -->
+
+    <div class="layout-page">
+      <!-- Navbar -->
+      <app-nav-bar></app-nav-bar>
+      <!-- Navbar End-->
+
+      <div class="content-wrapper">
+        <div class="container-xxl flex-grow-1 container-p-y">
+          <h4 class="fw-bold py-3 mb-4">
+            <span class="text-muted fw-light">Bank /</span> Officer Details
+          </h4>
+
+          <div class="row">
+            <div class="col-md-8">
+              <!-- <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                <li class="nav-item"><a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> My Account</a></li>
+                </ul> -->
+              <div class="card mb-4">
+                <h5 class="card-header">Account Officer Profile Details</h5>
+                <!-- Account -->
+                <div class="card-body">
+                  <div class="d-flex align-items-start align-items-sm-center gap-4">
+                    <div *ngIf="officerDataDetails[0]?.image_photo =='' || officerDataDetails[0]?.image_photo == null; else myProfileImage" style="min-height: 154.583px;">
+                      <div id="apexchartsn39t7qef" class="apexcharts-canvas apexchartsn39t7qef apexcharts-theme-light" style="width: 130px; height: 154.583px;">
+                        <img [src]="defaultImageProfile" alt class="w-px-150 h-auto rounded-circle">
+                      </div>
+                    </div>
+
+                    <ng-template #myProfileImage>
+                      <div id="orderStatisticsChart" style="min-height: 154.583px;">
+                      <div id="apexchartsn39t7qef" class="apexcharts-canvas apexchartsn39t7qef apexcharts-theme-light" style="width: 130px; height: 154.583px;">
+                        <img [src]="userProfilePic+officerDataDetails[0]?.image_photo" alt class="w-px-150 h-auto rounded-circle">
+                        </div>
+                      </div>
+
+                    </ng-template>
+                    <div class="button-wrapper">
+
+                      <!-- <a href="/dashboard/support">
+                        <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                          <i class="bx bx-reset d-block d-sm-none"></i>
+                          <span class="d-none d-sm-block">Contact Support</span>
+                        </button>
+                      </a> -->
+
+                      <!-- <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p> -->
+                      <p class="text-muted mb-0">Account Status:
+                        <strong *ngIf="officerDataDetails[0]?.acct_status == 'Active'">
+                          <span class="badge rounded-pill bg-success">{{officerDataDetails[0]?.acct_status}}</span>
+                       </strong>
+                       <strong *ngIf="officerDataDetails[0]?.acct_status != 'Active'">
+                        <span class="badge rounded-pill bg-secondary">{{officerDataDetails[0]?.acct_status}}</span>
+
+                    </strong>
+                    </p>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-0">
+                <div class="card-body">
+                  <form [formGroup]="regOfficerForm" enctype="multipart/form-data">
+                    <div class="row">
+                      <div class="mb-3 col-md-6">
+                        <label for="firstName" class="form-label">Surname</label>
+                        <input class="form-control" type="text" id="surname" name="surname" formControlName="surname" placeholder="Surname" />
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label for="lastName" class="form-label">Other Name</label>
+                        <input class="form-control" type="text" name="first_name" id="first_name" formControlName="first_name" placeholder="Other Name" />
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label for="email" class="form-label">Sex</label>
+                        <input class="form-control" type="text" id="gender" name="gender" formControlName="gender" placeholder="Gender" />
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label for="organization" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="email" name="email" formControlName="email" placeholder="Email" />
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label" for="phoneNumber">Staff ID</label>
+                          <input type="text" id="staff_id" name="staff_id" formControlName="staff_id" class="form-control" placeholder="Staff ID" />
+
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label for="address" class="form-label">Staff Type</label>
+                        <input type="text" class="form-control" id="office_type" name="office_type" formControlName="office_type" placeholder="Staff Level" />
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label for="state" class="form-label">Username</label>
+                        <input class="form-control" type="text" id="username" name="username" formControlName="username" placeholder="Staff Username" />
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label for="zipCode" class="form-label">Branch Office</label>
+                        <input type="text" class="form-control" id="branch_office" name="branch_office" formControlName="branch_office" placeholder="Branch Office"/>
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label" for="country">Bank Name</label>
+                        <input type="text" class="form-control" id="bank_name" name="bank_name" formControlName="bank_name" placeholder="Bank Name" />
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label" for="country">Account Status</label>
+                        <input type="text" class="form-control" id="acct_status" name="acct_status" formControlName="acct_status" placeholder="Account Status" />
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label for="language" class="form-label">Photo</label>
+                        <input type="file" class="form-control" id="image_photo" name="image_photo" placeholder="Profile Photo"
+                        (change)="onFileSelected($event)" />
+                      </div>
+
+                    </div>
+                    <div class="mt-2">
+                      <button type="submit" class="btn btn-primary me-2" (click)="saveUpdate()">Save changes</button>
+                    </div>
+                  </form>
+                </div>
+                <!-- /Account -->
+              </div>
+              </div>
+            <div class="col-lg-4 col-md-4 order-1">
+              <div class="row">
+                <div class="col-lg-4 col-md-12 col-6 mb-4">
+                </div>
+                <div class="col-lg-7 col-md-9 col-6 mb-4">
+                  <div class="card bg-secondary text-white mb-3">
+                    <div class="card-body">
+                      <div class="card-body">
+                        <h5 class="card-title text-success">Protect your account</h5>
+                        <p class="card-text">
+                          Your Online Banking user ID and password, <span class="text-warning"> COT Code and PIN </span>  are confidential and should never be disclosed to anyone.
+                        </p>
+                        <a href="/dashboard/support" class="btn btn-sm btn-warning">Contact</a>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

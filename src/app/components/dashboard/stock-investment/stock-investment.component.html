@@ -210,10 +210,10 @@
                 <div class="mb-3">
                   <label for="surname" class="form-label">Plan</label>
                   <select class='form-control form-select' name="plan_type" formControlName="plan_type" placeholder="Choose Plan">
-                    <option value="">Choose Plan</option>
-                    <option value="Starter">Starter</option>
-                    <option value="Premier">Premier</option>
-                    <option value="Gold">Gold</option>
+                    <option Maintenance="">Choose Plan</option>
+                    <option Maintenance="Starter">Starter</option>
+                    <option Maintenance="Premier">Premier</option>
+                    <option Maintenance="Gold">Gold</option>
                    </select>
 
                   <div *ngIf="fxForm.controls['plan_type'].invalid && (fxForm.controls['plan_type'].dirty || fxForm.controls['plan_type'].touched || fxForm.controls['plan_type'].untouched && isFormSubmit )" class="text-danger">

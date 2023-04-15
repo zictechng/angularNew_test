@@ -18,7 +18,14 @@
           <!-- Users List Table -->
           <div class="card">
             <div class="card-header border-bottom">
-              <h5 class="card-title">Action Details</h5>
+              <h5 class="card-title">Activities carried out in the system show here</h5>
+
+              <div class="text-center" *ngIf="isLoading">
+                <div class="spinner-border" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+
             </div>
             <div class="card-datatable table-responsive">
               <div
@@ -30,30 +37,15 @@
                     <div class="me-3">
                       <div
                         class="dataTables_length"
-                        id="DataTables_Table_0_length"
-                      >
-                        <label
-                          ><select
-                            name="DataTables_Table_0_length"
-                            aria-controls="DataTables_Table_0"
-                            class="form-select"
-                          >
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                          </select></label
-                        >
+                        id="DataTables_Table_0_length">
                       </div>
                     </div>
                   </div>
                   <div class="col-md-10">
                     <div
-                      class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"
-                    >
+                      class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
                       <div
-                        class="dataTables_filter"
-                      >
+                        class="dataTables_filter">
                         <label
                           ><input
                             type="search"
@@ -69,9 +61,7 @@
                 </div>
                 <table
                   class="datatables-users table border-top dataTable no-footer dtr-column"
-                  id="DataTables_Table_0"
-                  aria-describedby="DataTables_Table_0_info"
-                >
+                  id="DataTables_Table_0" *ngIf="!isLoading && allUserLogs.length > 0 else loadingFalse">
                   <thead>
                     <tr>
                       <th
@@ -219,7 +209,12 @@
                       </th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody *ngFor="let Datas of allUserLogs | paginate
+                  : {
+                      itemsPerPage: pageSize,
+                      currentPage: pagination,
+                      totalItems: totalRecord
+                    }; let i = index">
                     <tr class="odd">
                       <td
                         class="control"
@@ -231,49 +226,51 @@
 
                       <td class="sorting_1">
                         <div
-                          class="d-flex justify-content-start align-items-center user-name"
-                        >
-                          <div class="avatar-wrapper">
-                            <div class="avatar avatar-sm me-3">
-                              <img
-                                src="../../assets/img/avatars/7.png"
-                                alt="Avatar"
-                                class="rounded-circle"
-                              />
-                            </div>
-                          </div>
+                          class="d-flex justify-content-start align-items-center user-name">
                           <div class="d-flex flex-column">
-                            Yoko Pottie<small class="text-muted"
-                              >ypottiec@privacy.gov.au</small
-                            >
+                            {{Datas.log_name}}
                           </div>
                         </div>
                       </td>
                       <td>
                         <span class="text-truncate d-flex align-items-center"
-                          ><span
-                            class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"
-                            ><i class="bx bx-user bx-xs"></i></span
-                          >Subscriber</span
-                        >
+                          >{{Datas.log_acct_number}}</span>
                       </td>
-                      <td><span class="fw-semibold">Basic</span></td>
-                      <td><span class="fw-semibold">Good</span></td>
-                      <td><span class="fw-semibold">Good</span></td>
-                      <td><span class="fw-semibold">Good</span></td>
-                      <td><span class="fw-semibold">Good</span></td>
-                      <td><span class="fw-semibold">Good</span></td>
-                      <td><span class="fw-semibold">Good</span></td>
-                      <td><span class="fw-semibold">Good</span></td>
-                      <td><span class="fw-semibold">Good</span></td>
-                      <td><div class="d-inline-block text-nowrap">
-                        <button class="btn btn-sm btn-icon delete-record rounded-pill btn-danger">
+                      <td><span class="fw-semibold">{{Datas.log_receiver_name}}</span></td>
+                      <td><span class="fw-semibold">{{Datas.log_receiver_number}}</span></td>
+                      <td><span class="fw-semibold">{{Datas.log_receiver_bank}}</span></td>
+                      <td><span class="fw-semibold">{{Datas.log_amt | currency:"$"}}</span></td>
+                      <td><span class="fw-semibold">{{Datas.log_status}}</span></td>
+                      <td><span class="fw-semibold">{{Datas.log_country}}</span></td>
+                      <td><span class="fw-semibold">{{Datas.log_swift_code}}</span></td>
+                      <td><span class="fw-semibold">{{Datas.log_nature}}</span></td>
+                      <td><span class="fw-semibold">{{Datas.log_desc}}</span></td>
+                      <td>
+                        <div class="d-inline-block text-nowrap">
+                        <button class="btn btn-sm btn-icon delete-record rounded-pill btn-danger" (click)="openConfirmDelete(Datas._id)">
                       <i class="bx bx-trash btn btn-icon text-white"></i></button>
-                      </div></td>
+                      </div>
+                    </td>
                       </tr>
                   </tbody>
                 </table>
-                <div class="row mx-2">
+                <ng-template #loadingFalse>
+                  <div class="row mx-2" *ngIf="!isLoading">
+                    <div class="col-sm-12 col-md-12 text-center">
+                      <div
+                        class="dataTables_info"
+                        id="DataTables_Table_0_info"
+                        role="status"
+                        aria-live="polite"
+                      >
+                        There is no record at the momemt.
+                        <br><br>
+                      </div>
+                    </div>
+                    <br/>
+                  </div>
+                </ng-template>
+                <div class="row mx-2" *ngIf="allUserLogs.length > 0">
                   <div class="col-sm-12 col-md-6">
                     <div
                       class="dataTables_info"
@@ -281,20 +278,58 @@
                       role="status"
                       aria-live="polite"
                     >
-                      Showing 1 to 10 of 50 entries
+                    <br/>
+                      Showing  {{pagination}} of {{totalRecord}} entries
+
                     </div>
                   </div>
+
                   <div class="col-sm-12 col-md-6">
-                    <!--Pagination goes here-->
+                    <br>
+                    <pagination-controls (pageChange)="renderPage($event)" class="page-link"></pagination-controls>
+
                   </div>
+                  <br>
                 </div>
               </div>
             </div>
             <!-- Offcanvas to add new user -->
 
           </div>
+
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Delete modal here-->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog">
+    <form class="modal-content">
+      <div class="modal-header bg-danger">
+        <h5 class="modal-title text-white" id="backDropModalTitle">Caution </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeConfirmDelete()"></button>
+      </div>
+      <div class="modal-body">
+        <h4> Are you sure you want to delete this?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="closeConfirmDelete()">Cancel</button>
+        <button type="button" (click)="deleteLog()" class="btn btn-danger" [disabled]="isDeleteSubmit">
+          <div class="spinner-border spinner-border-sm text-white" role="status" *ngIf="isDeleteSubmit">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          &nbsp;
+          <!-- <span *ngIf="!isFormSubmit">
+            Submit
+          </span>
+          <span *ngIf="isFormSubmit">
+            Logging out...
+          </span> -->
+          {{ isDeleteSubmit === false ? "Yes" : "" }}
+        </button>
+      </div>
+     </form>
   </div>
 </div>

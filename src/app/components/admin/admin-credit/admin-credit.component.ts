@@ -141,7 +141,7 @@ export class AdminCreditComponent implements OnInit{
             Notiflix.Notify.failure('Error! Account not found.', {
               width: '350px',
               showOnlyTheLastOne: true,
-              position: 'right-bottom',
+              position: 'center-bottom',
               fontSize: '18px',
             });
             } else if(err.status == "403"){
@@ -149,7 +149,7 @@ export class AdminCreditComponent implements OnInit{
               Notiflix.Notify.failure('Error, Account not active', {
                 width: '350px',
                 showOnlyTheLastOne: true,
-                position: 'right-bottom',
+                position: 'center-bottom',
                 fontSize: '18px',
               });
               }
@@ -157,7 +157,7 @@ export class AdminCreditComponent implements OnInit{
                 Notiflix.Notify.failure('Failed, Account balance is low', {
                   width: '350px',
                   showOnlyTheLastOne: true,
-                  position: 'right-bottom',
+                  position: 'center-bottom',
                   fontSize: '18px',
                 });
            }
@@ -165,7 +165,7 @@ export class AdminCreditComponent implements OnInit{
                 Notiflix.Notify.failure('Sorry, Server error! Try again', {
                   width: '350px',
                   showOnlyTheLastOne: true,
-                  position: 'right-bottom',
+                  position: 'center-bottom',
                   fontSize: '17px',
                 });
               }

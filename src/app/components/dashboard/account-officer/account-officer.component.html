@@ -14,134 +14,100 @@
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Account Officer</span></h4>
 
             <div class="row">
-              <div class="col-lg-7 mb-4 order-0">
-                <div class="card h-100">
-                  <div class="card-header d-flex align-items-center justify-content-between pb-0">
-                    <div class="card-title mb-0">
-                      <h5 class="m-0 me-2">Profile Details</h5>
-                      <!-- <a href="#" data-bs-toggle="modal" data-bs-target="#backDropModal3" class="btn btn-sm btn-info">Add</a> -->
-                      <!-- <small class="text-muted">42.82k Total Sales</small> -->
-                     </div>
-
-                  </div>
+              <div class="col-md-8">
+                <!-- <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                  <li class="nav-item"><a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> My Account</a></li>
+                  </ul> -->
+                <div class="card mb-4">
+                  <h5 class="card-header">Account Officer Profile Details</h5>
+                  <!-- Account -->
                   <div class="card-body">
-                    <hr>
-                    <div class="d-flex justify-content-between align-items-center mb-3" style="position: relative;">
-                      <div class="d-flex flex-column align-items-center gap-1">
-                        <h6 class="mb-0">STATUS:</h6>
-                        <span>{{officerData[0]?.acct_status}}</span>
-                      </div>
-                      <div *ngIf="officerData?.image_photo=='' || officerData?.image_photo== null; else myProfileImage" style="min-height: 154.583px;">
+                    <div class="d-flex align-items-start align-items-sm-center gap-4">
+                      <div *ngIf="officerDataDetails[0]?.image_photo =='' || officerDataDetails[0]?.image_photo == null; else myProfileImage" style="min-height: 154.583px;">
                         <div id="apexchartsn39t7qef" class="apexcharts-canvas apexchartsn39t7qef apexcharts-theme-light" style="width: 130px; height: 154.583px;">
                           <img [src]="defaultImageProfile" alt class="w-px-150 h-auto rounded-circle">
                         </div>
                       </div>
-                      <!-- <div id="orderStatisticsChart" style="min-height: 154.583px;">
+
+                      <ng-template #myProfileImage>
+                        <div id="orderStatisticsChart" style="min-height: 154.583px;">
                         <div id="apexchartsn39t7qef" class="apexcharts-canvas apexchartsn39t7qef apexcharts-theme-light" style="width: 130px; height: 154.583px;">
-                        <img src="../../../assets/img/avatars/1.png" alt class="w-px-150 h-auto rounded-circle">
-                      </div>
-                  </div> -->
-                  <ng-template #myProfileImage>
-                    <div id="orderStatisticsChart" style="min-height: 154.583px;">
-                    <div id="apexchartsn39t7qef" class="apexcharts-canvas apexchartsn39t7qef apexcharts-theme-light" style="width: 130px; height: 154.583px;">
-                      <img [src]="userProfilePic" alt class="w-px-150 h-auto rounded-circle">
+                          <img [src]="userProfilePic+officerDataDetails[0]?.image_photo" alt class="w-px-150 h-auto rounded-circle">
+                          </div>
+                        </div>
+
+                      </ng-template>
+                      <div class="button-wrapper">
+
+                        <!-- <a href="/dashboard/support">
+                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                            <i class="bx bx-reset d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Contact Support</span>
+                          </button>
+                        </a> -->
+
+                        <!-- <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p> -->
+                        <p class="text-muted mb-0">Account Status:
+                          <strong *ngIf="officerDataDetails[0]?.acct_status == 'Active'">
+                            <span class="badge rounded-pill bg-success">{{officerDataDetails[0]?.acct_status}}</span>
+                         </strong>
+                         <strong *ngIf="officerDataDetails[0]?.acct_status != 'Active'">
+                          <span class="badge rounded-pill bg-secondary">{{officerDataDetails[0]?.acct_status}}</span>
+
+                      </strong>
+                      </p>
                       </div>
                     </div>
-
-                  </ng-template>
                   </div>
-
-                    <ul class="p-0 m-0">
-                      <li class="d-flex mb-4 pb-1">
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <h6 class="mb-0">Full Name</h6>
-                            <small class="text-muted">{{officerData[0]?.surname}} {{officerData[0]?.first_name}}</small>
-                          </div>
-                          <div class="user-progress">
-                            <!-- <small class="fw-semibold">82.5k</small> -->
-                          </div>
+                  <hr class="my-0">
+                  <div class="card-body">
+                    <form [formGroup]="regOfficerForm" enctype="multipart/form-data">
+                      <div class="row">
+                        <div class="mb-3 col-md-6">
+                          <label for="firstName" class="form-label">Surname</label>
+                          <input class="form-control" type="text" id="surname" name="surname" formControlName="surname" readonly placeholder="Surname" />
                         </div>
-                      </li>
-                      <li class="d-flex mb-4 pb-1">
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <h6 class="mb-0">Sex</h6>
-                            <small class="text-muted">{{officerData[0]?.gender}}</small>
-                          </div>
-
+                        <div class="mb-3 col-md-6">
+                          <label for="lastName" class="form-label">Other Name</label>
+                          <input class="form-control" type="text" name="first_name" id="first_name" formControlName="first_name" readonly placeholder="Other Name" />
                         </div>
-                      </li>
-
-                      <li class="d-flex mb-4 pb-1">
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <h6 class="mb-0">Contact Email</h6>
-                            <small class="text-muted">{{officerData[0]?.email}}</small>
-                          </div>
+                        <div class="mb-3 col-md-6">
+                          <label for="email" class="form-label">Sex</label>
+                          <input class="form-control" type="text" id="gender" name="gender" formControlName="gender" readonly placeholder="Gender" />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label for="organization" class="form-label">Email</label>
+                          <input type="text" class="form-control" id="email" name="email" formControlName="email" readonly placeholder="Email" />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label class="form-label" for="phoneNumber">Staff ID</label>
+                            <input type="text" id="staff_id" name="staff_id" formControlName="staff_id" class="form-control" readonly placeholder="Staff ID" />
 
                         </div>
-                      </li>
-
-                      <li class="d-flex mb-4 pb-1">
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <h6 class="mb-0">Staff Type</h6>
-                            <small class="text-muted">{{officerData[0]?.staff_type}}</small>
-                          </div>
-                          <div class="user-progress">
-
-                          </div>
+                        <div class="mb-3 col-md-6">
+                          <label for="address" class="form-label">Staff Type</label>
+                          <input type="text" class="form-control" id="office_type" name="office_type" formControlName="office_type" readonly placeholder="Staff Level" />
                         </div>
-                      </li>
-
-                      <li class="d-flex mb-4 pb-1">
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <h6 class="mb-0">Staff ID</h6>
-                            <small class="text-muted">{{officerData[0]?.staff_id}}</small>
-                          </div>
-                          <div class="user-progress">
-
-                          </div>
+                        <div class="mb-3 col-md-6">
+                          <label for="state" class="form-label">Username</label>
+                          <input class="form-control" type="text" id="username" name="username" formControlName="username" readonly placeholder="Staff Username" />
                         </div>
-                      </li>
-
-                      <li class="d-flex mb-4 pb-1">
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <h6 class="mb-0">Username</h6>
-                            <small class="text-muted">{{officerData[0]?.username}}</small>
-                          </div>
-
+                        <div class="mb-3 col-md-6">
+                          <label for="zipCode" class="form-label">Branch Office</label>
+                          <input type="text" class="form-control" id="branch_office" name="branch_office" formControlName="branch_office" readonly placeholder="Branch Office"/>
                         </div>
-                      </li>
-                      <li class="d-flex mb-4 pb-1">
-
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <h6 class="mb-0">Office Branch</h6>
-                            <small class="text-muted">{{officerData[0]?.branch}}</small>
-                          </div>
-
+                        <div class="mb-3 col-md-6">
+                          <label class="form-label" for="country">Bank Name</label>
+                          <input type="text" class="form-control" id="bank_name" name="bank_name" readonly formControlName="bank_name" placeholder="Bank Name" />
                         </div>
-                      </li>
-                      <li class="d-flex mb-4 pb-1">
+                      </div>
 
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <h6 class="mb-0">Bank Name</h6>
-                            <small class="text-muted">{{officerData[0]?.bank_name}}</small>
-                          </div>
-
-                        </div>
-                      </li>
-                    </ul>
+                    </form>
                   </div>
+                  <!-- /Account -->
                 </div>
-              </div>
-
-              <div class="col-lg-5 col-md-4 order-1">
+                </div>
+              <div class="col-lg-4 col-md-4 order-1">
                 <div class="row">
                   <div class="col-lg-4 col-md-12 col-6 mb-4">
                   </div>
@@ -149,9 +115,9 @@
                     <div class="card bg-secondary text-white mb-3">
                       <div class="card-body">
                         <div class="card-body">
-                          <h5 class="card-title text-success">Reach out anytime</h5>
+                          <h5 class="card-title text-success">Protect your account</h5>
                           <p class="card-text">
-                            Your account officer is always available at your convenient <span class="text-warning"> your issue </span>  are confidential and should never be disclosed to anyone.
+                            Your Online Banking user ID and password, <span class="text-warning"> COT Code and PIN </span>  are confidential and should never be disclosed to anyone.
                           </p>
                           <a href="/dashboard/support" class="btn btn-sm btn-warning">Contact</a>
                         </div>
@@ -161,10 +127,8 @@
                   </div>
                 </div>
               </div>
-              <br/><br/>
-              <!-- Total Revenue -->
-              </div>
             </div>
+          </div>
             <!-- Total Revenue -->
 
            </div>
@@ -175,34 +139,6 @@
 
    </div>
 
-   <!-- about loan modal popup here-->
-<div class="col-lg-4 col-md-3">
-  <div class="mt-3">
-    <div class="modal fade" id="backDropModal3" data-bs-backdrop="static" tabindex="-1">
-      <div class="modal-dialog">
-        <form class="modal-content" [formGroup]="regOfficerForm">
-          <div class="modal-header bg-info">
-            <h5 class="modal-title text-white" id="backDropModalTitle">Fast Loan</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <input type="text" class="form-control" name="surname" formControlName="surname" placeholder="Enter Surname">
-            <input type="text" class="form-control" name="first_name" formControlName="first_name" placeholder="Enter First Name">
-            <input type="text" class="form-control" name="gender" formControlName="gender" placeholder="Enter Gender">
-            <input type="text" class="form-control" name="username" formControlName="username" placeholder="Enter Username">
-            <input type="text" class="form-control" name="email" formControlName="email" placeholder="Enter Email">
 
-          </div>
-          <div class="modal-footer">
-
-              <button type="submit" class="btn btn-outline-secondary" (click)="saveOfficer()">Send</button>
-
-          </div>
-         </form>
-
-      </div>
-    </div>
-  </div>
-</div>
 
 

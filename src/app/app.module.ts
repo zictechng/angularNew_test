@@ -50,6 +50,9 @@ import { AdminUsersComponent } from './components/admin/admin-users/admin-users.
 import { AdminSystemLogComponent } from './components/admin/admin-system-log/admin-system-log.component';
 import { AdminAllLogComponent } from './components/admin/admin-all-log/admin-all-log.component';
 import { UpdateAccountComponent } from './components/admin/update-account/update-account.component';
+import { InvestmentPlansComponent } from './components/admin/investment-plans/investment-plans.component';
+import { AdminInvestmentEarningComponent } from './components/admin/admin-investment-earning/admin-investment-earning.component';
+import { BankOfficerComponent } from './components/admin/bank-officer/bank-officer.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +96,9 @@ import { UpdateAccountComponent } from './components/admin/update-account/update
     AdminSystemLogComponent,
     AdminAllLogComponent,
     UpdateAccountComponent,
+    InvestmentPlansComponent,
+    AdminInvestmentEarningComponent,
+    BankOfficerComponent,
 
   ],
   imports: [

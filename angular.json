@@ -41,7 +41,9 @@
               "src/assets/js/dashboards-analytics.js",
               "src/assets/js/extended-ui-perfect-scrollbar.js",
               "src/assets/js/pages-account-settings-account.js",
-              "src/assets/js/ui-modals.js"
+              "src/assets/js/ui-modals.js",
+              "src/assets/js/ui-popover.js"
+
             ]
           },
           "configurations": {

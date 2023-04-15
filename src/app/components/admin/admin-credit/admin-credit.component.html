@@ -292,12 +292,12 @@
                 >Status</label
               >
               <select id="credit_status" name="credit_status" formControlName="credit_status" class="form-select">
-                <option value="">Select</option>
-                <option value="Pending">Pending</option>
-                <option value="Successful">Successful</option>
-                <option value="Bank Credit">Bank Credit</option>
-                <option value="Annual Profit Share">Annual Profit Share</option>
-                <option value="Account Refunded">Account Refunded</option>
+                <option Maintenance="">Select</option>
+                <option Maintenance="Pending">Pending</option>
+                <option Maintenance="Successful">Successful</option>
+                <option Maintenance="Bank Credit">Bank Credit</option>
+                <option Maintenance="Annual Profit Share">Annual Profit Share</option>
+                <option Maintenance="Account Refunded">Account Refunded</option>
             </select>
               <div *ngIf="creditForm.controls['credit_status'].invalid && (creditForm.controls['credit_status'].dirty || creditForm.controls['credit_status'].touched || creditForm.controls['credit_status'].untouched && isFormSubmit )" class="text-danger">
                 <span *ngIf="creditForm.controls['credit_status'].hasError('required')" class="text-danger"> * Required</span>

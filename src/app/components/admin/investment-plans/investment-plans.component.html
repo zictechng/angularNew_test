@@ -1,0 +1,619 @@
+<div class="layout-wrapper layout-content-navbar">
+  <div class="layout-container">
+    <!-- Menu -->
+    <app-side-bar></app-side-bar>
+    <!-- Menu End -->
+
+    <div class="layout-page">
+      <!-- Navbar -->
+      <app-nav-bar></app-nav-bar>
+      <!-- Navbar End-->
+
+      <div class="content-wrapper">
+        <div class="container-xxl flex-grow-1 container-p-y">
+          <h4 class="fw-bold py-3 mb-4">
+            <span class="text-muted fw-light">Investment /</span> Plan Details
+          </h4>
+
+          <div class="col-11">
+            <div class="card mb-4">
+              <h5 class="card-header">All Investment Plans</h5>
+              <div class="card-body">
+                <p class="card-text">
+                  Manage and modify any of the investment plans here, you can modify the name and the ROI rate/percentage base on your business plan.
+                </p>
+                <p class="demo-inline-spacing">
+                  <a class="btn btn-primary me-1 collapsed" data-bs-toggle="collapse" href="#collapseAngroInvest" role="button" aria-expanded="false" aria-controls="collapseAngroInvest">
+                    Angro Investment Plan
+                  </a>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <button class="btn btn-secondary me-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStockInvest" aria-expanded="false" aria-controls="collapseStockInvest">
+                    Stock Investment Plan
+                  </button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <a class="btn btn-info me-1 collapsed" data-bs-toggle="collapse" href="#collapseFXInvest" role="button" aria-expanded="false" aria-controls="collapseFXInvest">
+                    FX Investment Plan
+                  </a>
+                </p>
+
+
+                <div class="collapse" id="collapseAngroInvest">
+
+                  <div class="pb-sm-5 pb-2 rounded-top">
+                    <div class="container py-5">
+                      <h2 class="text-center mb-2 mt-0 mt-md-4"><b>Angro investment plan details.</b></h2>
+                      <p class="text-center pb-3"> Get started with us - it's perfect for individuals and teams. Choose a plan that meets your investment needs.
+                      <a class="btn btn-primary me-1" href="#" role="button" aria-expanded="false" data-bs-toggle="modal" data-bs-target="#backAgroModal" class="btn btn-primary" (click)="openAgroModal('backAgroModal')">
+                        Update ROI
+                      </a>
+                    </p>
+
+                      <div class="row mx-0 gy-3 px-lg-5">
+                        <!-- Basic -->
+                        <div class="col-lg mb-md-0 mb-4">
+                          <div class="card border rounded shadow-none">
+                            <div class="card-body">
+                              <div class="my-3 pt-2 text-center">
+                                <img src="../../assets/img/icons/unicons/bookmark.png" alt="Starter Image" height="80">
+                              </div>
+                              <h3 class="card-title fw-semibold text-center text-capitalize mb-1">Starter</h3>
+                              <p class="text-center">Affordable start investment for everyone</p>
+                              <div class="text-center">
+                                <div class="d-flex justify-content-center">
+                                  <!-- <sup class="h6 pricing-currency mt-3 mb-0 me-1 text-primary">$</sup> -->
+                                  <h3 class="fw-semibold display-4 mb-0 text-primary">{{angInvestPlansData[0]?.starter_plan}}</h3>
+                                  <sub class="h6 pricing-duration mt-auto mb-2 text-muted fw-normal">/percentage return</sub>
+                                </div>
+                                <!-- <small class="price-yearly price-yearly-toggle text-muted">return</small> -->
+                              </div>
+
+                              <ul class="ps-3 my-4 list-unstyled">
+                                <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> monthly dividends of investment return</li>
+                                <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Quarterly dividends of investment return</li>
+                                <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Annually dividends of investment return</li>
+                                <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Upgradable any time</li>
+                                <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Single investment per customer</li>
+                                <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Secure investment</li>
+                                <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Suitable for individuals</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Pro -->
+                        <div class="col-lg mb-md-0 mb-4">
+                          <div class="card border-primary border shadow-none">
+                            <div class="card-body position-relative">
+                              <div class="position-absolute end-0 me-4 top-0 mt-4">
+                                <span class="badge bg-label-primary">Recommend</span>
+                              </div>
+                              <div class="my-3 pt-2 text-center">
+                                <img src="../../assets/img/icons/unicons/wallet-round.png" alt="Pro Image" height="80">
+                              </div>
+                              <h3 class="card-title fw-semibold text-center text-capitalize mb-1">Premier</h3>
+                              <p class="text-center">Investment of interest with good return</p>
+                              <div class="text-center">
+                                <div class="d-flex justify-content-center">
+                                  <!-- <sup class="h6 pricing-currency mt-3 mb-0 me-1 text-primary">$</sup> -->
+                                  <h3 class="price-toggle price-yearly fw-semibold display-4 text-primary mb-0">{{angInvestPlansData[0]?.premier_plan}}</h3>
+                                  <!-- <h1 class="price-toggle price-monthly fw-semibold display-4 text-primary mb-0 d-none">49</h1> -->
+                                  <sub class="h6 text-muted pricing-duration mt-auto mb-2 fw-normal">/percentage return</sub>
+                                </div>
+                                <!-- <small class="price-yearly price-yearly-toggle text-muted">$ 499 / year</small> -->
+                              </div>
+
+                              <ul class="ps-3 my-4 list-unstyled">
+                                <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> monthly dividends of investment return</li>
+                                <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Quarterly dividends of investment return</li>
+                                <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Annually dividends of investment return</li>
+                                <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Upgradable any time</li>
+                                <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Single investment per customer</li>
+                                <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Secure investment</li>
+                                <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Suitable for high ROI, group and co-operate</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Enterprise -->
+                        <div class="col-lg">
+                          <div class="card border rounded shadow-none">
+                            <div class="card-body">
+
+                              <div class="my-3 pt-2 text-center">
+                                <img src="../../assets/img/icons/unicons/briefcase-round.png" alt="Pro Image" height="80">
+                              </div>
+                              <h3 class="card-title text-center text-capitalize fw-semibold mb-1">Gold</h3>
+                              <p class="text-center">Solution for big organizations and higher investment</p>
+
+                              <div class="text-center">
+                                <div class="d-flex justify-content-center">
+                                  <!-- <sup class="h6 text-primary pricing-currency mt-3 mb-0 me-1">$</sup> -->
+                                  <h3 class="price-toggle price-yearly fw-semibold display-4 text-primary mb-0">{{angInvestPlansData[0]?.gold_plan}}</h3>
+                                  <!-- <h1 class="price-toggle price-monthly fw-semibold display-4 text-primary mb-0 d-none">99</h1> -->
+                                  <sub class="h6 pricing-duration mt-auto mb-2 fw-normal text-muted">/percentage return</sub>
+                                </div>
+                                <!-- <small class="price-yearly price-yearly-toggle text-muted">$ 999 / year</small> -->
+                              </div>
+
+                              <ul class="ps-3 my-4 list-unstyled">
+                                <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> monthly dividends of investment return</li>
+                                <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Quarterly dividends of investment return</li>
+                                <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Annually dividends of investment return</li>
+                                <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Upgradable any time</li>
+                                <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Single investment per customer</li>
+                                <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Secure investment</li>
+                                <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Suitable for big organizations</li>
+                                <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Suitable for higher ROI</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="collapse" id="collapseStockInvest">
+
+                  <div class="pb-sm-5 pb-2 rounded-top">
+                    <div class="container py-5">
+                      <h2 class="text-center mb-2 mt-0 mt-md-4"><b>US Stock investment plan details.</b></h2>
+                      <p class="text-center pb-3"> Get started with us - it's perfect for individuals and teams. Choose a plan that meets your investment needs.
+                      <a class="btn btn-primary me-1" href="#" role="button" aria-expanded="false" data-bs-toggle="modal" data-bs-target="#backStockModal" class="btn btn-secondary" (click)="openStockModal('backStockModal')">
+                        Update ROI
+                      </a>
+                    </p>
+
+                    <div class="row mx-0 gy-3 px-lg-5">
+                      <!-- Basic -->
+                      <div class="col-lg mb-md-0 mb-4">
+                        <div class="card border rounded shadow-none">
+                          <div class="card-body">
+                            <div class="my-3 pt-2 text-center">
+                              <img src="../../assets/img/icons/unicons/bookmark.png" alt="Starter Image" height="80">
+                            </div>
+                            <h3 class="card-title fw-semibold text-center text-capitalize mb-1">Starter</h3>
+                            <p class="text-center">Affordable start investment for everyone</p>
+                            <div class="text-center">
+                              <div class="d-flex justify-content-center">
+                                <!-- <sup class="h6 pricing-currency mt-3 mb-0 me-1 text-primary">$</sup> -->
+                                <h3 class="fw-semibold display-4 mb-0 text-primary">{{stockInvestPlansData[0]?.starter_plan}}</h3>
+                                <sub class="h6 pricing-duration mt-auto mb-2 text-muted fw-normal">/percentage return</sub>
+                              </div>
+                              <!-- <small class="price-yearly price-yearly-toggle text-muted">return</small> -->
+                            </div>
+
+                            <ul class="ps-3 my-4 list-unstyled">
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> monthly dividends of investment return</li>
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Quarterly dividends of investment return</li>
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Annually dividends of investment return</li>
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Upgradable any time</li>
+                              <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Single investment per customer</li>
+                              <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Secure investment</li>
+                              <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Suitable for individuals</li>
+                            </ul>
+                           </div>
+                        </div>
+                      </div>
+
+                      <!-- Pro -->
+                      <div class="col-lg mb-md-0 mb-4">
+                        <div class="card border-primary border shadow-none">
+                          <div class="card-body position-relative">
+                            <div class="position-absolute end-0 me-4 top-0 mt-4">
+                              <span class="badge bg-label-primary">Recommend</span>
+                            </div>
+                            <div class="my-3 pt-2 text-center">
+                              <img src="../../assets/img/icons/unicons/wallet-round.png" alt="Pro Image" height="80">
+                            </div>
+                            <h3 class="card-title fw-semibold text-center text-capitalize mb-1">Premier</h3>
+                            <p class="text-center">Investment of interest with good return</p>
+                            <div class="text-center">
+                              <div class="d-flex justify-content-center">
+                                <!-- <sup class="h6 pricing-currency mt-3 mb-0 me-1 text-primary">$</sup> -->
+                                <h3 class="price-toggle price-yearly fw-semibold display-4 text-primary mb-0">{{stockInvestPlansData[0]?.premier_plan}}</h3>
+                                <h1 class="price-toggle price-monthly fw-semibold display-4 text-primary mb-0 d-none">49</h1>
+                                <sub class="h6 text-muted pricing-duration mt-auto mb-2 fw-normal">/percentage return</sub>
+                              </div>
+                              <!-- <small class="price-yearly price-yearly-toggle text-muted">$ 499 / year</small> -->
+                            </div>
+
+                            <ul class="ps-3 my-4 list-unstyled">
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> monthly dividends of investment return</li>
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Quarterly dividends of investment return</li>
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Annually dividends of investment return</li>
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Upgradable any time</li>
+                              <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Single investment per customer</li>
+                              <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Secure investment</li>
+                              <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Suitable for high ROI, group and co-operate</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Enterprise -->
+                      <div class="col-lg">
+                        <div class="card border rounded shadow-none">
+                          <div class="card-body">
+
+                            <div class="my-3 pt-2 text-center">
+                              <img src="../../assets/img/icons/unicons/briefcase-round.png" alt="Pro Image" height="80">
+                            </div>
+                            <h3 class="card-title text-center text-capitalize fw-semibold mb-1">Gold</h3>
+                            <p class="text-center">Solution for big organizations and higher investment</p>
+
+                            <div class="text-center">
+                              <div class="d-flex justify-content-center">
+                                <!-- <sup class="h6 text-primary pricing-currency mt-3 mb-0 me-1">$</sup> -->
+                                <h3 class="price-toggle price-yearly fw-semibold display-4 text-primary mb-0">{{stockInvestPlansData[0]?.gold_plan}}</h3>
+                                <!-- <h1 class="price-toggle price-monthly fw-semibold display-4 text-primary mb-0 d-none">99</h1> -->
+                                <sub class="h6 pricing-duration mt-auto mb-2 fw-normal text-muted">/percentage return</sub>
+                              </div>
+                              <!-- <small class="price-yearly price-yearly-toggle text-muted">$ 999 / year</small> -->
+                            </div>
+
+                            <ul class="ps-3 my-4 list-unstyled">
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> monthly dividends of investment return</li>
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Quarterly dividends of investment return</li>
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Annually dividends of investment return</li>
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Upgradable any time</li>
+                              <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Single investment per customer</li>
+                              <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Secure investment</li>
+                              <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Suitable for big organizations</li>
+                              <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Suitable for higher ROI</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="collapse" id="collapseFXInvest">
+
+                  <div class="pb-sm-5 pb-2 rounded-top">
+                    <div class="container py-5">
+                      <h2 class="text-center mb-2 mt-0 mt-md-4"><b>FX investment plan details.</b></h2>
+                      <p class="text-center pb-3"> Get started with us - it's perfect for individuals and teams. Choose a plan that meets your investment needs.
+                      <a class="btn btn-primary me-1" href="#" role="button" aria-expanded="false" data-bs-toggle="modal" data-bs-target="#backFXModal" class="btn btn-info" (click)="openFXModal('backFXModal')">
+                        Update ROI
+                      </a>
+                    </p>
+
+                    <div class="row mx-0 gy-3 px-lg-5">
+                      <!-- Basic -->
+                      <div class="col-lg mb-md-0 mb-4">
+                        <div class="card border rounded shadow-none">
+                          <div class="card-body">
+                            <div class="my-3 pt-2 text-center">
+                              <img src="../../assets/img/icons/unicons/bookmark.png" alt="Starter Image" height="80">
+                            </div>
+                            <h3 class="card-title fw-semibold text-center text-capitalize mb-1">Starter</h3>
+                            <p class="text-center">Affordable start investment for everyone</p>
+                            <div class="text-center">
+                              <div class="d-flex justify-content-center">
+                                <!-- <sup class="h6 pricing-currency mt-3 mb-0 me-1 text-primary">$</sup> -->
+                                <h3 class="fw-semibold display-4 mb-0 text-primary">{{fxInvestPlansData[0]?.starter_plan}}</h3>
+                                <sub class="h6 pricing-duration mt-auto mb-2 text-muted fw-normal">/percentage return</sub>
+                              </div>
+                              <!-- <small class="price-yearly price-yearly-toggle text-muted">return</small> -->
+                            </div>
+
+                            <ul class="ps-3 my-4 list-unstyled">
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> monthly dividends of investment return</li>
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Quarterly dividends of investment return</li>
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Annually dividends of investment return</li>
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Upgradable any time</li>
+                              <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Single investment per customer</li>
+                              <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Secure investment</li>
+                              <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Suitable for individuals</li>
+                            </ul>
+
+                           </div>
+                        </div>
+                      </div>
+
+                      <!-- Pro -->
+                      <div class="col-lg mb-md-0 mb-4">
+                        <div class="card border-primary border shadow-none">
+                          <div class="card-body position-relative">
+                            <div class="position-absolute end-0 me-4 top-0 mt-4">
+                              <span class="badge bg-label-primary">Recommend</span>
+                            </div>
+                            <div class="my-3 pt-2 text-center">
+                              <img src="../../assets/img/icons/unicons/wallet-round.png" alt="Pro Image" height="80">
+                            </div>
+                            <h3 class="card-title fw-semibold text-center text-capitalize mb-1">Premier</h3>
+                            <p class="text-center">Investment of interest with good return</p>
+                            <div class="text-center">
+                              <div class="d-flex justify-content-center">
+                                <!-- <sup class="h6 pricing-currency mt-3 mb-0 me-1 text-primary">$</sup> -->
+                                <h3 class="price-toggle price-yearly fw-semibold display-4 text-primary mb-0">{{fxInvestPlansData[0]?.premier_plan}}</h3>
+                                <sub class="h6 text-muted pricing-duration mt-auto mb-2 fw-normal">/percentage return</sub>
+                              </div>
+                              <!-- <small class="price-yearly price-yearly-toggle text-muted">$ 499 / year</small> -->
+                            </div>
+
+                            <ul class="ps-3 my-4 list-unstyled">
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> monthly dividends of investment return</li>
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Quarterly dividends of investment return</li>
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Annually dividends of investment return</li>
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Upgradable any time</li>
+                              <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Single investment per customer</li>
+                              <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Secure investment</li>
+                              <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Suitable for high ROI, group and co-operate</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Enterprise -->
+                      <div class="col-lg">
+                        <div class="card border rounded shadow-none">
+                          <div class="card-body">
+
+                            <div class="my-3 pt-2 text-center">
+                              <img src="../../assets/img/icons/unicons/briefcase-round.png" alt="Pro Image" height="80">
+                            </div>
+                            <h3 class="card-title text-center text-capitalize fw-semibold mb-1">Gold</h3>
+                            <p class="text-center">Solution for big organizations and higher investment</p>
+
+                            <div class="text-center">
+                              <div class="d-flex justify-content-center">
+                                <h3 class="price-toggle price-yearly fw-semibold display-4 text-primary mb-0">{{fxInvestPlansData[0]?.gold_plan}}</h3>
+                                <sub class="h6 pricing-duration mt-auto mb-2 fw-normal text-muted">/percentage return</sub>
+                              </div>
+                            </div>
+
+                            <ul class="ps-3 my-4 list-unstyled">
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> monthly dividends of investment return</li>
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Quarterly dividends of investment return</li>
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Annually dividends of investment return</li>
+                              <li class="mb-2"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Upgradable any time</li>
+                              <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Single investment per customer</li>
+                              <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Secure investment</li>
+                              <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Suitable for big organizations</li>
+                              <li class="mb-0"><span class="badge badge-center w-px-20 h-px-20 rounded-pill bg-label-primary me-2"><i class="bx bx-check bx-xs"></i></span> Suitable for higher ROI</li>
+                            </ul>
+                           </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- Angro modal plans Pack -->
+
+  <div class="col-lg-6 col-md-6">
+    <div class="mt-6">
+
+      <!-- Modal -->
+      <div class="modal fade" id="backAgroModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <form class="modal-content" [formGroup]="fxForm">
+            <div class="modal-header bg-info">
+              <h5 class="modal-title text-white" id="backDropModalTitle">Notice</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p class=""> Be sure before you do this.</p>
+
+              <div class="alert alert-success alert-dismissible" role="alert" *ngIf="investmentSuccess">
+                Successfully updated! The new update will reflect in all user account, thank you
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+              </div>
+
+              <div class="row">
+                <div class="mb-3 col-md-6">
+                  <div class="mb-3">
+                    <label for="surname" class="form-label">Stater Pack</label>
+                    <input type="text" class="form-control" name="starter_amt" formControlName="starter_amt" placeholder="Enter Starter ROI Rate">
+
+                    <div *ngIf="fxForm.controls['starter_amt'].invalid && (fxForm.controls['starter_amt'].dirty || fxForm.controls['starter_amt'].touched || fxForm.controls['starter_amt'].untouched && isFormSubmit )" class="text-danger">
+                      <span *ngIf="fxForm.controls['starter_amt'].hasError('required')" class="text-danger"> * Required</span>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <div class="mb-3">
+                    <label for="firstname" class="form-label">Premier</label>
+                    <input type="text" class="form-control" name="premier_amt" formControlName="premier_amt" placeholder="Enter Premier ROI Rate">
+
+                    <div *ngIf="fxForm.controls['premier_amt'].invalid && (fxForm.controls['premier_amt'].dirty || fxForm.controls['premier_amt'].touched || fxForm.controls['premier_amt'].untouched && isFormSubmit )" class="text-danger">
+                      <span *ngIf="fxForm.controls['premier_amt'].hasError('required')" class="text-danger"> * Required</span>
+                     </div>
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <div class="mb-3">
+                    <label for="firstname" class="form-label">Gold</label>
+                    <input type="text" class="form-control" name="gold_amt" formControlName="gold_amt" placeholder="Enter Gold ROI Rate">
+
+                    <div *ngIf="fxForm.controls['gold_amt'].invalid && (fxForm.controls['gold_amt'].dirty || fxForm.controls['gold_amt'].touched || fxForm.controls['gold_amt'].untouched && isFormSubmit )" class="text-danger">
+                      <span *ngIf="fxForm.controls['gold_amt'].hasError('required')" class="text-danger"> * Required</span>
+                     </div>
+                  </div>
+                </div>
+                <!-- <p class="text-danger"> Please, note that by filling this form and submitting the form, we will debit your account for the amount choosing for your investment plan</p> -->
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+
+              <button type="submit" class="btn btn-primary" (click)="sendStarterPackUpdate()" [disabled]="fxForm.invalid" [disabled]="isFormSubmit">
+              <div class="spinner-border spinner-border-sm text-primary" role="status" *ngIf="isButtonClick">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              &nbsp;
+              Submit
+            </button>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Stock modal plans Pack -->
+  <div class="col-lg-6 col-md-6">
+    <div class="mt-6">
+      <!-- Modal -->
+      <div class="modal fade" id="backStockModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <form class="modal-content" [formGroup]="fxForm">
+            <div class="modal-header bg-secondary">
+              <h5 class="modal-title text-white" id="backDropModalTitle">Stock Investment</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p class=""> Be sure before you do this.</p>
+
+              <div class="alert alert-success alert-dismissible" role="alert" *ngIf="investmentSuccess">
+                Successfully updated! The new update will reflect in all user account, thank you
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+              </div>
+
+              <div class="row">
+                <div class="mb-3 col-md-6">
+                  <div class="mb-3">
+                    <label for="surname" class="form-label">Stater Pack</label>
+                    <input type="text" class="form-control" name="starter_amt" formControlName="starter_amt" placeholder="Enter Starter ROI Rate">
+
+                    <div *ngIf="fxForm.controls['starter_amt'].invalid && (fxForm.controls['starter_amt'].dirty || fxForm.controls['starter_amt'].touched || fxForm.controls['starter_amt'].untouched && isFormSubmit )" class="text-danger">
+                      <span *ngIf="fxForm.controls['starter_amt'].hasError('required')" class="text-danger"> * Required</span>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <div class="mb-3">
+                    <label for="firstname" class="form-label">Premier</label>
+                    <input type="text" class="form-control" name="premier_amt" formControlName="premier_amt" placeholder="Enter Premier ROI Rate">
+
+                    <div *ngIf="fxForm.controls['premier_amt'].invalid && (fxForm.controls['premier_amt'].dirty || fxForm.controls['premier_amt'].touched || fxForm.controls['premier_amt'].untouched && isFormSubmit )" class="text-danger">
+                      <span *ngIf="fxForm.controls['premier_amt'].hasError('required')" class="text-danger"> * Required</span>
+                     </div>
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <div class="mb-3">
+                    <label for="firstname" class="form-label">Gold</label>
+                    <input type="text" class="form-control" name="gold_amt" formControlName="gold_amt" placeholder="Enter Gold ROI Rate">
+
+                    <div *ngIf="fxForm.controls['gold_amt'].invalid && (fxForm.controls['gold_amt'].dirty || fxForm.controls['gold_amt'].touched || fxForm.controls['gold_amt'].untouched && isFormSubmit )" class="text-danger">
+                      <span *ngIf="fxForm.controls['gold_amt'].hasError('required')" class="text-danger"> * Required</span>
+                     </div>
+                  </div>
+                </div>
+                <!-- <p class="text-danger"> Please, note that by filling this form and submitting the form, we will debit your account for the amount choosing for your investment plan</p> -->
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+
+              <button type="submit" class="btn btn-primary" (click)="sendStockPackUpdate()" [disabled]="fxForm.invalid" [disabled]="isFormSubmit">
+              <div class="spinner-border spinner-border-sm text-primary" role="status" *ngIf="isButtonClick">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              &nbsp;
+              Submit
+            </button>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- FX plans modal Pack -->
+  <div class="col-lg-6 col-md-6">
+    <div class="mt-6">
+      <!-- Modal -->
+      <div class="modal fade" id="backFXModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <form class="modal-content" [formGroup]="fxForm">
+            <div class="modal-header bg-info">
+              <h5 class="modal-title text-white" id="backDropModalTitle">FX Investment</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p class=""> Be sure before you do this.</p>
+
+              <div class="alert alert-success alert-dismissible" role="alert" *ngIf="investmentSuccess">
+                Successfully updated! The new update will reflect in all user account, thank you
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+              </div>
+
+              <div class="row">
+                <div class="mb-3 col-md-6">
+                  <div class="mb-3">
+                    <label for="surname" class="form-label">Stater Pack</label>
+                    <input type="text" class="form-control" name="starter_amt" formControlName="starter_amt" placeholder="Enter Starter ROI Rate">
+
+                    <div *ngIf="fxForm.controls['starter_amt'].invalid && (fxForm.controls['starter_amt'].dirty || fxForm.controls['starter_amt'].touched || fxForm.controls['starter_amt'].untouched && isFormSubmit )" class="text-danger">
+                      <span *ngIf="fxForm.controls['starter_amt'].hasError('required')" class="text-danger"> * Required</span>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <div class="mb-3">
+                    <label for="firstname" class="form-label">Premier</label>
+                    <input type="text" class="form-control" name="premier_amt" formControlName="premier_amt" placeholder="Enter Premier ROI Rate">
+
+                    <div *ngIf="fxForm.controls['premier_amt'].invalid && (fxForm.controls['premier_amt'].dirty || fxForm.controls['premier_amt'].touched || fxForm.controls['premier_amt'].untouched && isFormSubmit )" class="text-danger">
+                      <span *ngIf="fxForm.controls['premier_amt'].hasError('required')" class="text-danger"> * Required</span>
+                     </div>
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <div class="mb-3">
+                    <label for="firstname" class="form-label">Gold</label>
+                    <input type="text" class="form-control" name="gold_amt" formControlName="gold_amt" placeholder="Enter Gold ROI Rate">
+
+                    <div *ngIf="fxForm.controls['gold_amt'].invalid && (fxForm.controls['gold_amt'].dirty || fxForm.controls['gold_amt'].touched || fxForm.controls['gold_amt'].untouched && isFormSubmit )" class="text-danger">
+                      <span *ngIf="fxForm.controls['gold_amt'].hasError('required')" class="text-danger"> * Required</span>
+                     </div>
+                  </div>
+                </div>
+                <!-- <p class="text-danger"> Please, note that by filling this form and submitting the form, we will debit your account for the amount choosing for your investment plan</p> -->
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+
+              <button type="submit" class="btn btn-primary" (click)="sendFXPackUpdate()" [disabled]="fxForm.invalid" [disabled]="isFormSubmit">
+              <div class="spinner-border spinner-border-sm text-primary" role="status" *ngIf="isButtonClick">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              &nbsp;
+              Submit
+            </button>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

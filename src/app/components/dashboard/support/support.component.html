@@ -13,29 +13,30 @@
            <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Support</span></h4>
 
-            <div class="row">
-              <div class="col-lg-6 mb-4 order-0">
-                <div class="col-xl">
+              <div class="row">
+                <div class="col-md-8">
                   <div class="card mb-4">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                      <h5 class="mb-0">Create Support Ticket </h5>
+                    <h5 class="card-header">Create Support Ticket </h5>
+                    <!-- Account -->
+                    <div class="card-header d-flex justify-content-between">
                       <small class="text-muted float-end">You can always contact Coin Bank for enquiry or for any technical issues <span class="text-danger">24/7.</span></small>
                     </div>
+                    <hr class="my-0">
                     <div class="card-body">
                       <form [formGroup]="ticketForm">
                         <div class="mb-3">
-                          <label class="form-label" for="basic-default-fullname">Customer Bank Name</label>
+                          <label class="form-label" for="basic-default-fullname">Subject</label>
                           <select class="form-control form-select" name="subject" id="subject" formControlName="subject">
-                            <option value=""></option>
-                            <option value="Funds Transfer Issues"> Funds Transfer Issues</option>
-                            <option value="Loan Application">Loan Application</option>
-                            <option value="Account Not Active">Account Not Active</option>
-                            <option value="Account Statement"> Account Statement</option>
-                            <option value="Account Opening Form"> Account Opening Form</option>
-                            <option value="Payment">Payment</option>
-                            <option value="Loan Re-payment">Loan Re-payment</option>
-                            <option value="Fees Charges">Fees Charges</option>
-                            <option value="Others">Others</option>
+                            <option Maintenance=""></option>
+                            <option Maintenance="Funds Transfer Issues"> Funds Transfer Issues</option>
+                            <option Maintenance="Loan Application">Loan Application</option>
+                            <option Maintenance="Account Not Active">Account Not Active</option>
+                            <option Maintenance="Account Statement"> Account Statement</option>
+                            <option Maintenance="Account Opening Form"> Account Opening Form</option>
+                            <option Maintenance="Payment">Payment</option>
+                            <option Maintenance="Loan Re-payment">Loan Re-payment</option>
+                            <option Maintenance="Fees Charges">Fees Charges</option>
+                            <option Maintenance="Others">Others</option>
                         </select>
                         <div *ngIf="ticketForm.controls['subject'].invalid && (ticketForm.controls['subject'].dirty || ticketForm.controls['subject'].touched || ticketForm.controls['subject'].untouched && isFormSubmit )" class="text-danger">
                           <span *ngIf="ticketForm.controls['subject'].hasError('required')" class="text-danger"> * Required</span>
@@ -90,33 +91,30 @@
                         </button>
                       </form>
                     </div>
-                  </div>
-                </div>
-              </div>
 
-              <div class="col-lg-6 col-md-4 order-1">
-                <div class="row">
-                  <div class="col-lg-4 col-md-12 col-6 mb-4">
+                    <!-- /Account -->
                   </div>
-                  <div class="col-lg-6 col-md-9 col-6 mb-4">
-                    <div class="card bg-warning text-white mb-3">
-                      <div class="card-body">
-                        <div class="card-body">
-                          <h5 class="card-title text-dark">Notice</h5>
-                          <p class="card-text">
-                           Our support center is open to every one 24 hours a day! Feel free to contact us.
-                          </p>
-                          <!-- <a href="javascript:;" class="btn btn-sm btn-outline-success">Apply Now</a> -->
+                  </div>
+                  <div class="col-lg-4 col-md-4 order-1">
+                    <div class="row">
+                      <div class="col-lg-4 col-md-12 col-6 mb-4">
+                      </div>
+                      <div class="col-lg-7 col-md-9 col-6 mb-4">
+                        <div class="card bg-warning text-white mb-3">
+                          <div class="card-body">
+                            <div class="card-body">
+                              <h5 class="card-title text-dark">Notice</h5>
+                              <p class="card-text">
+                                Our support center is open to every one 24 hours a day! Feel free to contact us.
+                              </p>
+                              <!-- <a href="javascript:;" class="btn btn-sm btn-outline-success">Apply Now</a> -->
+                            </div>
+
+                          </div>
                         </div>
-
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-
-              <br/><br/>
-              <!-- Total Revenue -->
               </div>
             </div>
             <!-- Total Revenue -->

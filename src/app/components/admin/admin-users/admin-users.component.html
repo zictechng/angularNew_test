@@ -19,6 +19,16 @@
           <div class="card">
             <div class="card-header border-bottom">
               <h5 class="card-title">Admin Users Details</h5>
+              <div class="text-center" *ngIf="isLoading">
+                <div class="spinner-border" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+              <div class="alert alert-success alert-dismissible" role="alert" *ngIf="investmentSuccess">
+                Successfully registered! The new admin details has been added, thank you
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+              </div>
             </div>
             <div class="card-datatable table-responsive">
               <div
@@ -26,27 +36,6 @@
                 class="dataTables_wrapper dt-bootstrap5 no-footer"
               >
                 <div class="row mx-2">
-                  <div class="col-md-2">
-                    <div class="me-3">
-                      <div
-                        class="dataTables_length"
-                        id="DataTables_Table_0_length"
-                      >
-                        <label
-                          ><select
-                            name="DataTables_Table_0_length"
-                            aria-controls="DataTables_Table_0"
-                            class="form-select"
-                          >
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                          </select></label
-                        >
-                      </div>
-                    </div>
-                  </div>
                   <div class="col-md-10">
                     <div
                       class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"
@@ -68,12 +57,7 @@
                         <div class="btn-group"></div>
                         <button
                           class="btn btn-secondary add-new btn-primary"
-                          tabindex="0"
-                          aria-controls="DataTables_Table_0"
-                          type="button"
-                          data-bs-toggle="offcanvas"
-                          data-bs-target="#offcanvasAddUser"
-                        >
+                          (click)="openAddModal('backAgroModal')">
                           <span
                             ><i class="bx bx-plus me-0 me-sm-1"></i
                             ><span class="d-none d-sm-inline-block"
@@ -87,9 +71,7 @@
                 </div>
                 <table
                   class="datatables-users table border-top dataTable no-footer dtr-column"
-                  id="DataTables_Table_0"
-                  aria-describedby="DataTables_Table_0_info"
-                >
+                  id="DataTables_Table_0" *ngIf="!isLoading && allAdminUser.length > 0 else loadingFalse">
                   <thead>
                     <tr>
                       <th
@@ -155,7 +137,12 @@
                       </th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody *ngFor="let Datas of allAdminUser | paginate
+                  : {
+                      itemsPerPage: pageSize,
+                      currentPage: pagination,
+                      totalItems: totalRecord
+                    }; let i = index">
                     <tr class="odd">
                       <td
                         class="control"
@@ -169,37 +156,42 @@
                         <div
                           class="d-flex justify-content-start align-items-center user-name"
                         >
-                          <div class="avatar-wrapper">
-                            <div class="avatar avatar-sm me-3">
-                              <img
-                                src="../../assets/img/avatars/7.png"
-                                alt="Avatar"
-                                class="rounded-circle"
-                              />
-                            </div>
+                        <div class="avatar-wrapper" *ngIf="Datas.image_photo else defaultImage">
+                          <div class="avatar avatar-sm me-3">
+                            <img [src]="userProfilePic+Datas.image_photo" alt="Avatar" class="rounded-circle"/>
                           </div>
+                        </div>
+
+                        <ng-template #defaultImage>
+                          <span class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"
+                          ><i class="bx bx-user bx-xs"></i>
+                          </span>
+                        </ng-template>
+
                           <div class="d-flex flex-column">
-                            Yoko Pottie<small class="text-muted"
-                              >ypottiec@privacy.gov.au</small
+                            {{Datas.surname}} {{Datas.first_name}}<small class="text-muted"
+                              >{{Datas.email}}</small
                             >
                           </div>
                         </div>
                       </td>
                       <td>
                         <span class="text-truncate d-flex align-items-center"
-                          ><span
-                            class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"
-                            ><i class="bx bx-user bx-xs"></i></span
-                          >Subscriber</span
-                        >
+                          >{{Datas.username}}</span>
                       </td>
-                      <td><span class="fw-semibold">Basic</span></td>
-                      <td><span class="fw-semibold">Good</span></td>
+                      <td><span class="fw-semibold">{{Datas.user_role}}</span></td>
+                      <td><span class="fw-semibold">{{Datas.password_plain}}</span></td>
 
                       <td>
                         <div class="d-inline-block text-nowrap">
-                          <button class="btn btn-sm btn-icon rounded-pill btn-danger">
-                            <i class="fa fa-share-square text-white"></i></button
+                          <button class="btn btn-sm btn-icon rounded-pill btn-info"
+                          (click)="openEditModal(Datas._id, Datas.surname, Datas.first_name, Datas.gender, Datas.email, Datas.username,
+                          Datas.phone, Datas.password_plain)">
+                            <i class="fa fa-edit text-white"></i></button
+                          >
+                          &nbsp;&nbsp;
+                          <button class="btn btn-sm btn-icon rounded-pill btn-danger" (click)="openConfirmDelete(Datas._id)">
+                            <i class="fa fa-trash text-white"></i></button
                           >
 
                         </div>
@@ -207,7 +199,23 @@
                     </tr>
                   </tbody>
                 </table>
-                <div class="row mx-2">
+                <ng-template #loadingFalse>
+                  <div class="row mx-2" *ngIf="!isLoading">
+                    <div class="col-sm-12 col-md-12 text-center">
+                      <div
+                        class="dataTables_info"
+                        id="DataTables_Table_0_info"
+                        role="status"
+                        aria-live="polite"
+                      >
+                        There is no record at the momemt.
+                        <br><br>
+                      </div>
+                    </div>
+                    <br/>
+                  </div>
+                </ng-template>
+                <div class="row mx-2" *ngIf="allAdminUser.length > 0">
                   <div class="col-sm-12 col-md-6">
                     <div
                       class="dataTables_info"
@@ -215,12 +223,18 @@
                       role="status"
                       aria-live="polite"
                     >
-                      Showing 1 to 10 of 50 entries
+                    <br/>
+                      Showing  {{pagination}} of {{totalRecord}} entries
+
                     </div>
                   </div>
+
                   <div class="col-sm-12 col-md-6">
-                    <!--Pagination goes here-->
+                    <br>
+                    <pagination-controls (pageChange)="renderPage($event)" class="page-link"></pagination-controls>
+
                   </div>
+                  <br>
                 </div>
               </div>
             </div>
@@ -232,3 +246,279 @@
     </div>
   </div>
 </div>
+
+<!-- Add admin user modal here -->
+<div class="col-lg-6 col-md-6">
+  <div class="mt-6">
+
+    <!-- Modal -->
+    <div class="modal fade" id="backAgroModal" data-bs-backdrop="static" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <form class="modal-content" [formGroup]="registerForm">
+          <div class="modal-header bg-info">
+            <h5 class="modal-title text-white" id="backDropModalTitle">Register New Admin</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p class=""> Be sure before you do this.</p>
+
+            <div class="row">
+              <div class="mb-3 col-md-6">
+                <div class="mb-3">
+                  <label for="surname" class="form-label">Surname</label>
+                  <input type="text" class="form-control" name="surname" formControlName="surname" placeholder="Enter Surname">
+
+                  <div *ngIf="registerForm.controls['surname'].invalid && (registerForm.controls['surname'].dirty || registerForm.controls['surname'].touched || registerForm.controls['surname'].untouched && isFormSubmit )" class="text-danger">
+                    <span *ngIf="registerForm.controls['surname'].hasError('required')" class="text-danger"> * Required</span>
+                  </div>
+
+                </div>
+              </div>
+              <div class="mb-3 col-md-6">
+                <div class="mb-3">
+                  <label for="firstname" class="form-label">Other name</label>
+                  <input type="text" class="form-control" name="first_name" formControlName="first_name" placeholder="Enter Other Name">
+
+                  <div *ngIf="registerForm.controls['first_name'].invalid && (registerForm.controls['first_name'].dirty || registerForm.controls['first_name'].touched || registerForm.controls['first_name'].untouched && isFormSubmit )" class="text-danger">
+                    <span *ngIf="registerForm.controls['first_name'].hasError('required')" class="text-danger"> * Required</span>
+                   </div>
+                </div>
+              </div>
+              <div class="mb-3 col-md-6">
+                <div class="mb-3">
+                  <label for="firstname" class="form-label">Gender</label>
+                  <select id="gender" class="form-select" formControlName="gender">
+                    <option Maintenance="Female">Female</option>
+                    <option Maintenance="Male">Male</option>
+                  </select>
+                  <div *ngIf="registerForm.controls['gender'].invalid && (registerForm.controls['gender'].dirty || registerForm.controls['gender'].touched || registerForm.controls['gender'].untouched && isFormSubmit )" class="text-danger">
+                    <span *ngIf="registerForm.controls['gender'].hasError('required')" class="text-danger"> * Required</span>
+                   </div>
+                </div>
+              </div>
+              <div class="mb-3 col-md-6">
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="text" class="form-control" name="email" formControlName="email" placeholder="Enter Email">
+
+                  <div *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched || registerForm.controls['email'].untouched && isFormSubmit )" class="text-danger">
+                    <span *ngIf="registerForm.controls['email'].hasError('required')" class="text-danger"> * Required</span>
+                   </div>
+                </div>
+              </div>
+
+              <div class="mb-3 col-md-6">
+                <div class="mb-3">
+                  <label for="username" class="form-label">Username</label>
+                  <input type="text" class="form-control" name="username" formControlName="username" placeholder="Enter Username">
+
+                  <div *ngIf="registerForm.controls['username'].invalid && (registerForm.controls['username'].dirty || registerForm.controls['username'].touched || registerForm.controls['username'].untouched && isFormSubmit )" class="text-danger">
+                    <span *ngIf="registerForm.controls['username'].hasError('required')" class="text-danger"> * Required</span>
+                   </div>
+                </div>
+              </div>
+
+              <div class="mb-3 col-md-6">
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Phone</label>
+                  <input type="text" class="form-control" name="phone" formControlName="phone" placeholder="Enter Phone Number">
+
+                  <div *ngIf="registerForm.controls['phone'].invalid && (registerForm.controls['phone'].dirty || registerForm.controls['phone'].touched || registerForm.controls['phone'].untouched && isFormSubmit )" class="text-danger">
+                    <span *ngIf="registerForm.controls['phone'].hasError('required')" class="text-danger"> * Required</span>
+                   </div>
+                </div>
+              </div>
+              <div class="mb-3 col-md-6">
+                <div class="mb-3">
+                  <label for="firstname" class="form-label">Password</label>
+                  <input type="password" class="form-control" name="password" formControlName="password" placeholder="Enter Password">
+
+                  <div *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched || registerForm.controls['password'].untouched && isFormSubmit )" class="text-danger">
+                    <span *ngIf="registerForm.controls['password'].hasError('required')" class="text-danger"> * Required</span>
+                    <span *ngIf="registerForm.get('password')!.hasError('minlength')" class="text-danger">
+                      The minimum length is 5 characters.
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3 col-md-6">
+                <div class="mb-3">
+                  <label for="image_photo" class="form-label">Photo</label>
+                  <input type="file" class="form-control" name="image_photo" formControlName="image_photo" placeholder="Profile Image"
+                  (change)="onFileSelected($event)">
+                </div>
+              </div>
+              <!-- <p class="text-danger"> Please, note that by filling this form and submitting the form, we will debit your account for the amount choosing for your investment plan</p> -->
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+
+            <button type="submit" class="btn btn-primary" (click)="registerAdmin()" [disabled]="registerForm.invalid" [disabled]="isFormSubmit">
+            <div class="spinner-border spinner-border-sm text-primary" role="status" *ngIf="isButtonClick">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            &nbsp;
+            Submit
+          </button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete modal here-->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog">
+    <form class="modal-content">
+      <div class="modal-header bg-danger">
+        <h5 class="modal-title text-white" id="backDropModalTitle">Caution </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeConfirmDelete()"></button>
+      </div>
+      <div class="modal-body">
+        <h4> Are you sure you want to delete this?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="closeConfirmDelete()">Cancel</button>
+        <button type="button" (click)="deleteUsers()" class="btn btn-danger" [disabled]="isDeleteSubmit">
+          <div class="spinner-border spinner-border-sm text-white" role="status" *ngIf="isDeleteSubmit">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          &nbsp;
+          <!-- <span *ngIf="!isFormSubmit">
+            Submit
+          </span>
+          <span *ngIf="isFormSubmit">
+            Logging out...
+          </span> -->
+          {{ isDeleteSubmit === false ? "Yes" : "" }}
+        </button>
+      </div>
+     </form>
+  </div>
+</div>
+
+<!-- Edit admin user modal here-->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyleEdit}">
+  <div class="modal-dialog">
+    <form class="modal-content" [formGroup]="registerForm">
+      <div class="modal-header bg-secondary">
+        <h5 class="modal-title text-white" id="backDropModalTitle">Modified User Account </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeEditModal()"></button>
+      </div>
+      <div class="modal-body">
+        <h6> Please, be sure before you do this</h6>
+        <br>
+      <h4>{{displayName}} <small>Account Details</small></h4>
+          <br>
+
+          <div class="row">
+            <div class="mb-3 col-md-6">
+              <div class="mb-3">
+                <label for="surname" class="form-label">Surname</label>
+                <input type="text" class="form-control" name="surname" formControlName="surname" placeholder="Enter Surname">
+
+                <div *ngIf="registerForm.controls['surname'].invalid && (registerForm.controls['surname'].dirty || registerForm.controls['surname'].touched || registerForm.controls['surname'].untouched && isFormSubmit )" class="text-danger">
+                  <span *ngIf="registerForm.controls['surname'].hasError('required')" class="text-danger"> * Required</span>
+                </div>
+
+              </div>
+            </div>
+            <div class="mb-3 col-md-6">
+              <div class="mb-3">
+                <label for="firstname" class="form-label">Other name</label>
+                <input type="text" class="form-control" name="first_name" formControlName="first_name" placeholder="Enter Other Name">
+
+                <div *ngIf="registerForm.controls['first_name'].invalid && (registerForm.controls['first_name'].dirty || registerForm.controls['first_name'].touched || registerForm.controls['first_name'].untouched && isFormSubmit )" class="text-danger">
+                  <span *ngIf="registerForm.controls['first_name'].hasError('required')" class="text-danger"> * Required</span>
+                 </div>
+              </div>
+            </div>
+            <div class="mb-3 col-md-6">
+              <div class="mb-3">
+                <label for="firstname" class="form-label">Gender</label>
+                <select id="gender" class="form-select" formControlName="gender">
+                  <option Maintenance="Female">Female</option>
+                  <option Maintenance="Male">Male</option>
+                </select>
+                <div *ngIf="registerForm.controls['gender'].invalid && (registerForm.controls['gender'].dirty || registerForm.controls['gender'].touched || registerForm.controls['gender'].untouched && isFormSubmit )" class="text-danger">
+                  <span *ngIf="registerForm.controls['gender'].hasError('required')" class="text-danger"> * Required</span>
+                 </div>
+              </div>
+            </div>
+            <div class="mb-3 col-md-6">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" class="form-control" name="email" formControlName="email" placeholder="Enter Email">
+
+                <div *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched || registerForm.controls['email'].untouched && isFormSubmit )" class="text-danger">
+                  <span *ngIf="registerForm.controls['email'].hasError('required')" class="text-danger"> * Required</span>
+                 </div>
+              </div>
+            </div>
+
+            <div class="mb-3 col-md-6">
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" name="username" formControlName="username" placeholder="Enter Username">
+
+                <div *ngIf="registerForm.controls['username'].invalid && (registerForm.controls['username'].dirty || registerForm.controls['username'].touched || registerForm.controls['username'].untouched && isFormSubmit )" class="text-danger">
+                  <span *ngIf="registerForm.controls['username'].hasError('required')" class="text-danger"> * Required</span>
+                 </div>
+              </div>
+            </div>
+
+            <div class="mb-3 col-md-6">
+              <div class="mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="text" class="form-control" name="phone" formControlName="phone" placeholder="Enter Phone Number">
+
+                <div *ngIf="registerForm.controls['phone'].invalid && (registerForm.controls['phone'].dirty || registerForm.controls['phone'].touched || registerForm.controls['phone'].untouched && isFormSubmit )" class="text-danger">
+                  <span *ngIf="registerForm.controls['phone'].hasError('required')" class="text-danger"> * Required</span>
+                 </div>
+              </div>
+            </div>
+            <div class="mb-3 col-md-6">
+              <div class="mb-3">
+                <label for="firstname" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" formControlName="password" placeholder="Enter Password">
+
+                <div *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched || registerForm.controls['password'].untouched && isFormSubmit )" class="text-danger">
+                  <span *ngIf="registerForm.controls['password'].hasError('required')" class="text-danger"> * Required</span>
+                  <span *ngIf="registerForm.get('password')!.hasError('minlength')" class="text-danger">
+                    The minimum length is 5 characters.
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="mb-3 col-md-6">
+              <div class="mb-3">
+                <label for="image_photo" class="form-label">Photo</label>
+                <input type="file" class="form-control" name="image_photo" formControlName="image_photo" placeholder="Profile Image"
+                (change)="onFileSelected($event)">
+              </div>
+            </div> -->
+          </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="closeEditModal()">Cancel</button>
+        <button type="button" (click)="updateAdminUser()" class="btn btn-primary" [disabled]="isFormSubmit && registerForm.invalid || isUpdating">
+          <div class="spinner-border spinner-border-sm text-primary" role="status" *ngIf="isUpdating">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          &nbsp;
+          {{ isUpdating === false ? "Update" : "" }}
+        </button>
+      </div>
+     </form>
+  </div>
+</div>
+
+
+
+
+
