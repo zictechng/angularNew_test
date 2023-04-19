@@ -1,119 +1,145 @@
-<ul class="menu-inner py-1">
-  <!-- Dashboard -->
-  <li class="menu-item active">
-    <a href="/admin/dashboard" class="menu-link">
-      <i class="menu-icon tf-icons bx bx-home-circle"></i>
-      <div data-i18n="Analytics">Dashboard</div>
-    </a>
-  </li>
+<div *ngIf="_authLevel.myAccessLevel() =='Admin'">
 
-  <!-- Layouts -->
-  <li class="menu-item">
-    <a href="/admin/all-users" class="menu-link">
-      <i class="bx bx-user me-2 fs-5"></i>
-      <div data-i18n="Layouts">&nbsp; Account Holder</div>
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+  <div class="app-brand demo ">
+    <a href="/dashboard/index" class="app-brand-link">
+      <span class="app-brand-logo demo">
+        <!-- logo will come here later-->
+      </span>
+      <span class="app-brand-text demo menu-text fw-bolder ms-2" *ngIf="!logoAvailableS else justNameOnly">
+        <img [src]="imageUrl+company_logo.app_logo" alt class="w-px-150 h-auto rounded-circle">
+      </span>
     </a>
-  </li>
-  <li class="menu-item">
-    <a href ="/admin/pending-account" class="menu-link">
-      <i class="bx bx-user me-2 fs-5"></i>
-      <div data-i18n="Without menu">Pending Account</div>
-    </a>
-  </li>
-  <li class="menu-item">
-    <a href ="/admin/all-transactions" class="menu-link">
-      <i class="bx bx-detail me-1 fs-5"></i>
-      <div data-i18n="Without navbar">Transaction</div>
-    </a>
-  </li>
+    <ng-template #justNameOnly>
+      <span class="app-brand-text demo menu-text fw-bolder ms-2 text-transform:uppercase;">{{companyName | uppercase}}</span>
+    </ng-template>
 
-  <li class="menu-item">
-    <a href="/admin/credit-account" class="menu-link">
-      <i class="bx bx-credit-card me-2 fs-5"></i>
-      <div data-i18n="Without navbar">Credit Account</div>
+    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+      <i class="bx bx-chevron-left bx-sm align-middle"></i>
     </a>
-  </li>
-  <li class="menu-item">
-    <a href="/admin/debit-account" class="menu-link">
-      <i class="bx bx-credit-card me-2 fs-5"></i>
-      <div data-i18n="Basic">Debit Account</div>
-    </a>
-  </li>
+  </div>
 
-  <li class="menu-item">
-    <a href="javascript:void(0);" class="menu-link menu-toggle">
-      <i class="fa fa-dot-circle fs-5"></i>
-      <div data-i18n="Account Settings"> &nbsp; &nbsp; Investment</div>
-    </a>
-    <ul class="menu-sub">
-      <li class="menu-item">
-        <a href="/admin/investment-plans" class="menu-link">
-          <div data-i18n="Account">Investment Plans</div>
+  <div class="menu-inner-shadow"></div>
+    <ul class="menu-inner py-1">
+      <!-- Dashboard -->
+      <li class="menu-item {{dash_activeLink}}">
+        <a href="/admin/dashboard" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-home-circle"></i>
+          <div data-i18n="Analytics">Dashboard</div>
         </a>
       </li>
 
-      <li class="menu-item">
-        <a href="/admin/user-investment" class="menu-link">
-          <div data-i18n="Notifications">Investors</div>
+      <!-- Layouts -->
+      <li class="menu-item {{actUser_activeLink}}">
+        <a href="/admin/all-users" class="menu-link">
+          <i class="bx bx-user me-2 fs-5"></i>
+          <div data-i18n="Layouts">&nbsp; Account Holder</div>
         </a>
       </li>
-      <li class="menu-item">
-        <a href="/admin/investors-earning" class="menu-link">
-          <div data-i18n="Notifications">Investors Earning</div>
+      <li class="menu-item {{pendUser_activeLink}}">
+        <a href ="/admin/pending-account" class="menu-link">
+          <i class="bx bx-user me-2 fs-5"></i>
+          <div data-i18n="Without menu">Pending Account</div>
         </a>
       </li>
+      <li class="menu-item {{tran_activeLink}}">
+        <a href ="/admin/all-transactions" class="menu-link">
+          <i class="bx bx-detail me-1 fs-5"></i>
+          <div data-i18n="Without navbar">Transaction</div>
+        </a>
+      </li>
+
+      <li class="menu-item {{cr_activeLink}}">
+        <a href="/admin/credit-account" class="menu-link">
+          <i class="bx bx-credit-card me-2 fs-5"></i>
+          <div data-i18n="Without navbar">Credit Account</div>
+        </a>
+      </li>
+      <li class="menu-item {{dr_activeLink}}">
+        <a href="/admin/debit-account" class="menu-link">
+          <i class="bx bx-credit-card me-2 fs-5"></i>
+          <div data-i18n="Basic">Debit Account</div>
+        </a>
+      </li>
+
+      <li class="menu-item {{in_activeLink}}">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="fa fa-dot-circle fs-5"></i>
+          <div data-i18n="Account Settings"> &nbsp; &nbsp; Investment</div>
+        </a>
+        <ul class="menu-sub ">
+          <li class="menu-item">
+            <a href="/admin/investment-plans" class="menu-link">
+              <div data-i18n="Account">Investment Plans</div>
+            </a>
+          </li>
+
+          <li class="menu-item">
+            <a href="/admin/user-investment" class="menu-link">
+              <div data-i18n="Notifications">Investors</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/admin/investors-earning" class="menu-link">
+              <div data-i18n="Notifications">Investors Earning</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="menu-item {{adUser_activeLink}}">
+        <a href="/admin/admin-users" class="menu-link">
+          <i class='far fa-user-circle fs-5'></i>
+          &nbsp;&nbsp;<div data-i18n="Basic">Admin Users</div>
+        </a>
+      </li>
+
+      <li class="menu-item {{bnkUser_activeLink}}">
+        <a href="/admin/officer" class="menu-link">
+          <i class='far fa-user-circle fs-5'></i>
+          &nbsp;&nbsp;<div data-i18n="Basic">Bank Officer</div>
+        </a>
+      </li>
+
+      <li class="menu-item {{sysLogs_activeLink}}">
+        <a href="/admin/users-logs" class="menu-link">
+          <i class='menu-icon tf-icons bx bx-copy fs-5'></i>
+          <div data-i18n="Basic">System Log</div>
+        </a>
+      </li>
+
+      <li class="menu-item {{userLogs_activeLink}}">
+        <a href="/admin/system-logs" class="menu-link">
+          <i class='menu-icon tf-icons bx bx-copy fs-5'></i>
+          &nbsp;<div data-i18n="Basic">System Activities</div>
+        </a>
+      </li>
+
+      <li class="menu-header small text-uppercase"><span class="menu-header-text">Action</span></li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="fa fa-power-off "></i>
+          <div data-i18n="Authentications" >&nbsp; Authentications</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <!-- <button (click)="openModal('smallModal')" class="btn btn-primary btn-xs" type="button">Add
+              Student</button> -->
+
+            <a (click)="openAdminLogoutPopup()" class="menu-link" style="cursor: pointer;">
+              <div data-i18n="Basic">Logout</div>
+            </a>
+          </li>
+
+        </ul>
+      </li>
+
+      <br><br>
     </ul>
-  </li>
 
-  <li class="menu-item">
-    <a href="/admin/admin-users" class="menu-link">
-      <i class='far fa-user-circle fs-5'></i>
-      &nbsp;&nbsp;<div data-i18n="Basic">Admin Users</div>
-    </a>
-  </li>
+</aside>
+</div>
 
-  <li class="menu-item">
-    <a href="/admin/officer" class="menu-link">
-      <i class='far fa-user-circle fs-5'></i>
-      &nbsp;&nbsp;<div data-i18n="Basic">Bank Officer</div>
-    </a>
-  </li>
-
-  <li class="menu-item">
-    <a href="/admin/users-logs" class="menu-link">
-      <i class='menu-icon tf-icons bx bx-copy fs-5'></i>
-      <div data-i18n="Basic">System Log</div>
-    </a>
-  </li>
-
-  <li class="menu-item">
-    <a href="/admin/system-logs" class="menu-link">
-      <i class='menu-icon tf-icons bx bx-copy fs-5'></i>
-      &nbsp;<div data-i18n="Basic">System Activities</div>
-    </a>
-  </li>
-
-  <li class="menu-header small text-uppercase"><span class="menu-header-text">Action</span></li>
-  <li class="menu-item">
-    <a href="javascript:void(0);" class="menu-link menu-toggle">
-      <i class="fa fa-power-off "></i>
-      <div data-i18n="Authentications" >&nbsp; Authentications</div>
-    </a>
-    <ul class="menu-sub">
-      <li class="menu-item">
-        <!-- <button (click)="openModal('smallModal')" class="btn btn-primary btn-xs" type="button">Add
-          Student</button> -->
-
-        <a (click)="openAdminLogoutPopup()" class="menu-link" style="cursor: pointer;">
-          <div data-i18n="Basic">Logout</div>
-        </a>
-      </li>
-
-    </ul>
-  </li>
-
-  <br><br>
-</ul>
 
 <!--Modal for logout here-->
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
@@ -139,7 +165,7 @@
           <span *ngIf="isFormSubmit">
             Logging out...
           </span> -->
-          {{ isFormSubmit === false ? "Logout" : "Logging out..." }}
+          {{ isFormSubmit === false ? "Logout" : "Logging out" }}
         </button>
       </div>
      </form>

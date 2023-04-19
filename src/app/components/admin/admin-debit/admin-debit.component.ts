@@ -89,7 +89,7 @@ export class AdminDebitComponent implements OnInit{
   }
   renderPage(event: number) {
     this.pagination = event;
-    this.getDebitUser();
+    this.reloadTable();
   }
 
   reloadTable(){

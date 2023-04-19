@@ -37,6 +37,12 @@ export class HomePageComponent implements OnInit{
   myData: any = {};
   fullname: any;
 
+  companyLogo: string = '';
+  companyShortName: any =[];
+  companyNames: any =[];
+
+
+  myNotifications: any = [];
 
 constructor(private _dataService: ServiceDataService,
   public _authLevel: userLevelAccess,
@@ -48,10 +54,12 @@ constructor(private _dataService: ServiceDataService,
    this.getMyIncomeStatement();
    this.myRecentTransaction();
    this.getFinanceChart();
+   this.getCompanyName()
    // check user access level and redirect
    if(this._authLevel.myLevel !="User"){
     this._router.navigate(['/admin'])
    }
+
   }
 
   RenderChart(labeldata:any, maindata:any, colordata:any, type:any, id:any){
@@ -105,12 +113,12 @@ constructor(private _dataService: ServiceDataService,
 
   getFinanceChart(){
     this._dataService.financeChartReport(this.myLocalDatails._id).subscribe(res =>{
-      this.chartdata = res;
-      //console.log(this.labeldata)
+      this.chartdata = res.resultData;
+      //console.log("Dash Chart", this.chartdata)
       if(this.chartdata!=null){
         for(let i=0; i<this.chartdata.length; i++){
           //console.log(this.chartdata[i]);
-          this.labeldata.push(this.chartdata[i].tr_year)
+          this.labeldata.push(this.chartdata[i].tr_month)
           this.realdata.push(this.chartdata[i].amount)
           this.colordata.push(this.chartdata[i].colorcode)
         }
@@ -130,5 +138,19 @@ constructor(private _dataService: ServiceDataService,
 //   console.log("Data 2", nowData._id)
 
 //   }
+
+getNotification(){
+  this._dataService.fetchUserNotification(this.myLocalDatails._id).subscribe(res =>{
+    this.myNotifications = res;
+    //console.log("My Notification", this.myNotifications)
+  })
+}
+
+getCompanyName(){
+  this._dataService.fetchCompanyDetails().subscribe(res =>{
+    this.companyNames = res;
+
+  })
+}
 
 }

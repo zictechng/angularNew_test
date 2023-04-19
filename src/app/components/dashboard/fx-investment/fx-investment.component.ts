@@ -14,6 +14,9 @@ declare let $: any;
 })
 export class FxInvestmentComponent implements OnInit{
 
+
+  myLocalDatails = this._dataService.getUserLocalInfomation();
+
   isFormSubmit = false
   isButtonClick = false
 
@@ -29,14 +32,14 @@ export class FxInvestmentComponent implements OnInit{
   fxForm = new FormGroup({
     plan_type: new FormControl('', [Validators.required]),
     invest_amt: new FormControl('', [Validators.required]),
+    investment_duration: new FormControl('', [Validators.required]),
+    user_id: new FormControl(this.myLocalDatails._id, [Validators.required]),
 
   });
 
 
   constructor(private _dataService: ServiceDataService,
     private _router: Router){}
-
-  myLocalDatails = this._dataService.getUserLocalInfomation();
 
   additionalData = {
     "createdBy": (this.myLocalDatails._id),
@@ -123,7 +126,7 @@ export class FxInvestmentComponent implements OnInit{
           this.isButtonClick = false;
        }, err =>{
           if(err.status == "401"){
-            Notiflix.Notify.warning('Error! Investment already running', {
+            Notiflix.Notify.failure('Error! Investment already running', {
               width: '450px',
               showOnlyTheLastOne: true,
               fontSize: '18px',
@@ -131,7 +134,7 @@ export class FxInvestmentComponent implements OnInit{
             });
               }
             else if(err.status == '500'){
-              Notiflix.Notify.warning('Error! Server errored occurred', {
+              Notiflix.Notify.failure('Error! Server errored occurred', {
                  width: '350px',
                  showOnlyTheLastOne: true,
                  fontSize: '18px',

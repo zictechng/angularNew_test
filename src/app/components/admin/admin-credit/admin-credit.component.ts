@@ -88,7 +88,7 @@ export class AdminCreditComponent implements OnInit{
   }
   renderPage(event: number) {
     this.pagination = event;
-    this.getCreditUser();
+    this.reloadTable();
   }
 
   reloadTable(){

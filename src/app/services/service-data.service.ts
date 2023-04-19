@@ -42,6 +42,8 @@ export class ServiceDataService {
  private _ticketSubmitUrl = serverUrl+'api/submit_ticket';
  private _investPlanSubmitUrl = serverUrl+'api/submit_investment';
  private _financeChartUrl = serverUrl+'api/user_finance_chart/';
+ private _user_notificationUrl = serverUrl+'api/user_notification/';
+ private _user_notificationReadUrl = serverUrl+'api/user_notification_read/';
 
  // admin route goes here
  private _getAllUserUrl = serverUrl+'api/all-users';
@@ -73,6 +75,8 @@ export class ServiceDataService {
  private _userSystemActivityUrl = serverUrl+'api/user_system_logs';
  private _systemLogsDeleteUrl = serverUrl+'api/system_logs_delete/';
  private _updateOfficerDetailsUrl = serverUrl+'api/update_officer';
+ private _systemSetupUrl = serverUrl+'api/system_setup';
+ private _companyDetailsUrl = serverUrl+'api/company_name';
 
 
 
@@ -104,6 +108,10 @@ wireTransferFunds(transactionData:any){
 getUserAcctStatement(page: number, pageSize: number, id: any){
   return this.http.get<any>(this._userAccountStatement+'?page='+page+'&pageSize='+pageSize+'&id='+id);
 }
+// get user account statement here
+// getUserAcctStatement2(page: number, pageSize:number){
+//   return this.http.get<any>(this._userAccountStatement+'?page='+page+'&pageSize='+pageSize);
+// }
 
 // get user account summary statement and sum them out here
 getUserAcctSummary(myId: string){
@@ -282,6 +290,25 @@ deleteSystemLogs(id:any){
 // delete system activities logs data by admin
 updateOfficerProfile(officerData:any){
   return this.http.post<any>(this._updateOfficerDetailsUrl , officerData);
+}
+
+// delete system activities logs data by admin
+fetchUserNotification(userID_Data:any){
+  return this.http.get<any>(this._user_notificationUrl+ userID_Data);
+}
+
+// delete system activities logs data by admin
+markUserAllRead(userID_Data:any){
+  return this.http.get<any>(this._user_notificationReadUrl+ userID_Data);
+}
+
+// update system app details data by admin
+setupSystemInfo(system_Data:any){
+  return this.http.post<any>(this._systemSetupUrl, system_Data);
+}
+// get company details data by admin
+fetchCompanyDetails(){
+  return this.http.get<any>(this._companyDetailsUrl);
 }
 
 }

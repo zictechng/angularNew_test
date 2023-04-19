@@ -1,7 +1,7 @@
 <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
     <i class="bx bx-bell bx-sm"></i>
-    <span class="badge bg-danger rounded-pill badge-notifications">5</span>
+    <span class="badge bg-danger rounded-pill badge-notifications" *ngIf="myNotifications.length > 0">{{myNotifications.length}}</span>
   </a>
   <ul class="dropdown-menu dropdown-menu-end py-0">
     <li class="dropdown-menu-header border-bottom">
@@ -10,19 +10,37 @@
         <a href="javascript:void(0)" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Notification" data-bs-original-title="All Notification"><i class="bx fs-4 bx-envelope-open"></i></a>
       </div>
     </li>
-    <li class="dropdown-notifications-list scrollable-container ps">
+
+    <div class="alert alert-danger alert-dismissible" role="alert" *ngIf="isButtonClick">
+      Are you sure you want to mark all as read?
+
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+      </button>
+      <br/><br/>
+      <button type="button" (click)="markAllAsRead()" class="btn btn-outline-success" [disabled]="isDeleteSubmit">
+        <div class="spinner-border spinner-border-sm text-primary" role="status" *ngIf="isDeleteSubmit">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      {{ isDeleteSubmit === false ? "Yes" : "" }}
+      </button>
+
+
+    </div>
+
+
+    <li class="dropdown-notifications-list scrollable-container ps" *ngFor="let noticeDatas of myNotifications ; let i = index">
       <ul class="list-group list-group-flush">
         <li class="list-group-item list-group-item-action dropdown-notifications-item">
           <div class="d-flex">
             <div class="flex-shrink-0 me-3">
               <div class="avatar">
-                <img src="../../assets/img/avatars/1.png" alt="" class="w-px-40 h-auto rounded-circle">
+                <span class='badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2'><i class='bx bx-user bx-xs'></i></span>
               </div>
             </div>
             <div class="flex-grow-1">
-              <h6 class="mb-1">Congratulation Lettie 🎉</h6>
-              <p class="mb-0">Won the monthly best seller gold badge</p>
-              <small class="text-muted">1h ago</small>
+              <h6 class="mb-1">Hi {{noticeDatas.alert_name}}, 🎉</h6>
+              <p class="mb-0">{{noticeDatas.alert_nature}}</p>
+              <small class="text-muted">{{noticeDatas.createdOn| date:'medium'}}</small>
             </div>
             <div class="flex-shrink-0 dropdown-notifications-actions">
               <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
@@ -30,33 +48,44 @@
             </div>
           </div>
         </li>
-
-        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-          <div class="d-flex">
-            <div class="flex-shrink-0 me-3">
-              <div class="avatar">
-                <img src="../../assets/img/avatars/6.png" alt="" class="w-px-40 h-auto rounded-circle">
-              </div>
-            </div>
-            <div class="flex-grow-1">
-              <h6 class="mb-1">New message from Jane</h6>
-              <p class="mb-0">Your have new message from Jane</p>
-              <small class="text-muted">5 days ago</small>
-            </div>
-            <div class="flex-shrink-0 dropdown-notifications-actions">
-              <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-              <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-            </div>
-          </div>
-        </li>
-
       </ul>
-
     </li>
-    <li class="dropdown-menu-footer border-top">
-      <a href="javascript:void(0);" class="dropdown-item d-flex justify-content-center p-3">
-        View all notifications
-      </a>
-    </li>
+      <li class="dropdown-menu-footer border-top" *ngIf="myNotifications.length > 0">
+        <a href="javascript:void(0);" (click)="openConfirmCreditModal()" class="dropdown-item d-flex justify-content-center p-3">
+          Mark as read
+        </a>
+      </li>
+      <li class="dropdown-menu-footer border-top" *ngIf="myNotifications.length < 1">
+        <a href="javascript:void(0);" class="dropdown-item d-flex justify-content-center p-3">
+          No notifications available
+        </a>
+      </li>
   </ul>
 </li>
+
+
+<!-- Confirm Credit modal here-->
+<!-- <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyleConfirm}">
+  <div class="modal-dialog modal-dialog-centered">
+    <form class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title text-white" id="backDropModalTitle">Caution </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeConfirmCreditModal()"></button>
+      </div>
+      <div class="modal-body">
+        <h5> Are you sure you want to mark all as read?</h5>
+        <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="closeConfirmCreditModal()">Cancel</button>
+        <button type="button" (click)="markAllAsRead()" class="btn btn-primary" [disabled]="isDeleteSubmit">
+          <div class="spinner-border spinner-border-sm text-primary" role="status" *ngIf="isDeleteSubmit">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          &nbsp;
+        {{ isDeleteSubmit === false ? "Yes" : "" }}
+        </button>
+      </div>
+     </form>
+  </div>
+</div> -->

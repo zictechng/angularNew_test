@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { ServiceDataService } from 'src/app/services/service-data.service';
 import { userLevelAccess } from 'src/app/services/userLevel.service';
 
@@ -26,6 +27,7 @@ export class AdminHomeComponent implements OnInit{
 
   constructor(private _dataService: ServiceDataService,
     private _router: Router,
+    private _authService: AuthServiceService,
     private _authLevel: userLevelAccess){}
 
   ngOnInit(): void {
@@ -34,6 +36,7 @@ export class AdminHomeComponent implements OnInit{
     this.getAllActiveUser();
     this.getAllUserTransaction();
     this.getInvestment();
+    this._authService.defineAccessLevel(this.myLocalDatails.user_role)
   }
 
 

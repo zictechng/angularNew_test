@@ -30,6 +30,7 @@ export class StockInvestmentComponent implements OnInit {
   fxForm = new FormGroup({
     plan_type: new FormControl('', [Validators.required]),
     invest_amt: new FormControl('', [Validators.required]),
+    investment_duration: new FormControl('', [Validators.required]),
 
   });
 
@@ -124,7 +125,7 @@ export class StockInvestmentComponent implements OnInit {
           this.isButtonClick = false;
        }, err =>{
           if(err.status == "401"){
-            Notiflix.Notify.warning('Error! Investment already running', {
+            Notiflix.Notify.failure('Error! Investment already running', {
               width: '450px',
               showOnlyTheLastOne: true,
               fontSize: '18px',
@@ -132,7 +133,7 @@ export class StockInvestmentComponent implements OnInit {
             });
               }
             else if(err.status == '500'){
-              Notiflix.Notify.warning('Error! Server errored occurred', {
+              Notiflix.Notify.failure('Error! Server errored occurred', {
                  width: '350px',
                  showOnlyTheLastOne: true,
                  fontSize: '18px',

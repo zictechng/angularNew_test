@@ -21,7 +21,7 @@ export class AccountStatementComponent implements OnInit{
 
   totalRecord: number = 0;
   pagination: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 10;
   totalPages: number = 1;
 
   showSpinner: Boolean = false;
@@ -33,14 +33,26 @@ export class AccountStatementComponent implements OnInit{
     private _router: Router) {}
 
 
-
   ngOnInit(): void {
     this.fetchAccountStatementData();
     this.fetchAccountSummary();
   }
 
   // method to fetch user statement of account
-  fetchAccountStatementData() {
+  // fetchAccountStatementData() {
+  //   this.showSpinner = true
+  //   this._dataService.getUserAcctStatement2(this.pagination, this.pageSize).subscribe(res =>{
+  //     this.showLoader = false;
+  //     this.statementData = res.docs;
+  //     console.log("Result", res)
+  //     //this.statementData = res.data;
+  //     this.totalRecord = res.total_record;
+  //     this.totalPages = window.Math.ceil(this.totalRecord/this.pageSize);
+  //     this.showSpinner = false
+  //   });
+  // }
+ // method to fetch user statement of account
+   fetchAccountStatementData() {
     this.showSpinner = true
     this._dataService.getUserAcctStatement(this.pagination, this.pageSize, this.myId._id).subscribe(res =>{
       this.showLoader = false;
@@ -54,7 +66,17 @@ export class AccountStatementComponent implements OnInit{
 
   renderPage(event: number) {
     this.pagination = event;
-    this.fetchAccountStatementData();
+    this.reloadTable();
+  }
+
+  reloadTable(){
+      this._dataService.getUserAcctStatement(this.pagination, this.pageSize, this.myId._id).subscribe(res =>{
+      this.showLoader = false;
+      this.statementData = res;
+      this.statementData = res.data;
+      this.totalRecord = res.total_record;
+      this.totalPages = window.Math.ceil(this.totalRecord/this.pageSize);
+    });
   }
   //get user summary of transaction and sum them out
   fetchAccountSummary() {

@@ -47,17 +47,16 @@ export class SupportComponent implements OnInit{
         if(res.msg == '200')
         {
           Notiflix.Notify.success('Ticket Submitted Successfully', {
-            success: {
-                background: '#1EAAE7',
-                },
-                width: '350px',
-                showOnlyTheLastOne: true,
-                fontSize: '18px',
+            width: '350px',
+            showOnlyTheLastOne: true,
+            fontSize: '18px',
+            position: 'center-bottom',
             });
             this.isFormSubmit = false;
             Notiflix.Loading.remove();
             this.isButtonClick = false;
             this.isButtonClick = false;
+            this.ticketForm.reset()
         }
         else{
           Notiflix.Notify.failure('Not Successful', {

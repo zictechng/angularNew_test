@@ -217,10 +217,10 @@
                       <td><span class="fw-semibold">{{Datas.acct_number}}</span></td>
                       <td>{{Datas.bank_name}}</td>
                       <td>
-                        <span class="badge bg-label-secondary">{{Datas.currency_type}}{{Datas.amount}}</span>
+                        <span class="badge bg-label-secondary">{{Datas.amount | currency: Datas.sender_currency_type}}</span>
                       </td>
                       <td>
-                        <span class="badge bg-label-secondary">{{Datas.trans_balance}}</span>
+                        <span class="badge bg-label-secondary">{{Datas.trans_balance | currency: Datas.sender_currency_type}}</span>
                       </td>
                       <td>
                         <span class="badge bg-label-secondary">{{Datas.swift_code}}</span>
@@ -275,7 +275,10 @@
 
                   <div class="col-sm-12 col-md-6">
                     <br>
-                    <pagination-controls (pageChange)="renderPage($event)" class="page-link"></pagination-controls>
+                    <pagination-controls
+                    previousLabel="Prev"
+                    nextLabel="Next"
+                    (pageChange)="renderPage($event)" class="page-link"></pagination-controls>
 
                   </div>
                   <br>

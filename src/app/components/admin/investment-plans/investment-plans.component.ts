@@ -13,8 +13,11 @@ declare let $: any;
 })
 export class InvestmentPlansComponent implements OnInit{
 
+
+
   isFormSubmit = false
   isButtonClick = false
+  myLocalDatails = JSON.parse(localStorage.getItem('userData')|| '{}');
 
   plan_invest:any = '';
   plan_amt:any = '';
@@ -35,14 +38,15 @@ export class InvestmentPlansComponent implements OnInit{
     starter_amt: new FormControl('', [Validators.required]),
     premier_amt: new FormControl('', [Validators.required]),
     gold_amt: new FormControl('', [Validators.required]),
+    user_id: new FormControl(this.myLocalDatails._id),
   });
 
   constructor(private _dataService: ServiceDataService,
     private _router: Router) {}
 
   ngOnInit(): void {
-    this.fetchInvestedPlans()
-  }
+    this.fetchInvestedPlans();
+   }
 
   // get all investment plans
   fetchInvestedPlans(){
@@ -69,6 +73,7 @@ export class InvestmentPlansComponent implements OnInit{
     if(this.fxForm.valid){
       this.isButtonClick = true;
         this.formDataRecieved = this.fxForm.value;
+        console.log("User ID", this.formDataRecieved.user_id)
         const merged = Object.assign(this.formDataRecieved );
         this._dataService.angroInvestUpdateRecord(merged).subscribe(res =>{
 

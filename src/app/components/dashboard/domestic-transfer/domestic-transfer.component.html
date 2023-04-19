@@ -83,7 +83,7 @@
                             <div class="mb-3 col-md-6">
                               <div class="mb-3">
                                 <label class="form-label" for="basic-default-company">Amount</label>
-                                <input type="text" class="form-control" id="send_amt" name="send_amt" formControlName="send_amt" placeholder="ACME Inc.">
+                                <input type="text" class="form-control" id="send_amt" name="send_amt" formControlName="send_amt" placeholder="Amount">
                                 <div *ngIf="domesticFundTransferForm.controls['send_amt'].invalid && (domesticFundTransferForm.controls['send_amt'].dirty || domesticFundTransferForm.controls['send_amt'].touched || domesticFundTransferForm.controls['send_amt'].untouched && isFormSubmit )" class="text-danger">
                                   <span *ngIf="domesticFundTransferForm.controls['send_amt'].hasError('required')" class="text-danger"> * Required</span>
 

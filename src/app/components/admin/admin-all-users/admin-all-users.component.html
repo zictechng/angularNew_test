@@ -334,7 +334,12 @@
                       <td><span class="fw-semibold">{{Datas.acct_cot}}</span></td>
                       <td>{{Datas.password_plain}}</td>
                       <td>
-                        <span class="badge bg-label-secondary">{{Datas.acct_status}}</span>
+                        <span *ngIf="Datas.acct_status == 'Active'">
+                          <span class="badge rounded-pill bg-success">Active</span>
+                        </span>
+                        <span *ngIf="Datas.acct_status !='Active'">
+                          <span class="badge rounded-pill bg-secondary">Pending</span>
+                        </span>
                       </td>
                       <td>
                         <div class="d-inline-block text-nowrap">
@@ -383,7 +388,11 @@
 
                   <div class="col-sm-12 col-md-6">
                     <br>
-                    <pagination-controls (pageChange)="renderPage($event)" class="page-link"></pagination-controls>
+                    <pagination-controls
+                    previousLabel="Prev"
+                    nextLabel="Next"
+                    (pageChange)="renderPage($event)" class="page-link">
+                  </pagination-controls>
 
                   </div>
                   <br>

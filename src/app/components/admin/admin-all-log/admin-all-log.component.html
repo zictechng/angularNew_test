@@ -239,7 +239,7 @@
                       <td><span class="fw-semibold">{{Datas.log_receiver_name}}</span></td>
                       <td><span class="fw-semibold">{{Datas.log_receiver_number}}</span></td>
                       <td><span class="fw-semibold">{{Datas.log_receiver_bank}}</span></td>
-                      <td><span class="fw-semibold">{{Datas.log_amt | currency:"$"}}</span></td>
+                      <td><span class="fw-semibold">{{Datas.log_amt | currency: Datas.sender_currency_type}}</span></td>
                       <td><span class="fw-semibold">{{Datas.log_status}}</span></td>
                       <td><span class="fw-semibold">{{Datas.log_country}}</span></td>
                       <td><span class="fw-semibold">{{Datas.log_swift_code}}</span></td>

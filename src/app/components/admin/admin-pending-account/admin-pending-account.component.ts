@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as Notiflix from 'notiflix';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { ServiceDataService } from 'src/app/services/service-data.service';
 import { userLevelAccess } from 'src/app/services/userLevel.service';
 
@@ -36,11 +37,18 @@ export class AdminPendingAccountComponent implements OnInit{
 
   constructor(private _dataService: ServiceDataService,
     private _router: Router,
-    private _authLevel: userLevelAccess){}
+    private _authService: AuthServiceService,
+    private _authLevel: userLevelAccess){
+    this._authService.defineAccessLevel(this.myLocalDatails.user_role)
+    }
 
 
   ngOnInit(): void {
     this.getAllUsers();
+    this._authService.defineAccessLevel(this.myLocalDatails.user_role)
+    // if(this.myLocalDatails.user_role !='Admin'){
+    //   this._router.navigate(['/dashboard']);
+    // }
   }
 
 

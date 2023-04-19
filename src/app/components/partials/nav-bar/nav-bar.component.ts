@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as Notiflix from 'notiflix';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { ServiceDataService } from 'src/app/services/service-data.service';
 import { userLevelAccess } from 'src/app/services/userLevel.service';
@@ -20,6 +21,17 @@ export class NavBarComponent implements AfterViewInit, OnInit{
   userDatas: any;
   userProfilePhoto = '';
   userProfilePic = '';
+  myNotifications: any[] = [];
+
+  isAdmin: boolean = false;
+  bgColor: string = '';
+
+  companyLogo: string = '';
+  companyShortName: any =[];
+  companyName: any =[];
+  companyAllName: any = '';
+
+  myLocalDatails = JSON.parse(localStorage.getItem('userData')|| '{}');
 
   constructor(private _dataService: ServiceDataService,
    private _authService: AuthServiceService,
@@ -41,8 +53,20 @@ export class NavBarComponent implements AfterViewInit, OnInit{
     this._authLevel.myAccessLevel();
     this.top_bar_fullname = this.defaultDetailsLocalStorage.surname + ' ' +this.defaultDetailsLocalStorage.first_name;
     this.getLoggedInUserProfileData();
+    this.getNotification();
+    this.isAdmin = this._authLevel.myAccessLevel() == 'Admin';
+    this.adminLevel();
+    this.getCompanyName();
   }
 
+  adminLevel(){
+    if(this.isAdmin){
+      this.bgColor = 'bg-warning';
+    }
+    else if(!this.isAdmin){
+    this.bgColor = 'bg-navbar-theme';
+    }
+  }
 
   // get logged in user profile details and profile image here
   getLoggedInUserProfileData(){
@@ -54,18 +78,67 @@ export class NavBarComponent implements AfterViewInit, OnInit{
     });
   }
 
+// logout method goes here
   logoutOut(){
     this.isFormSubmit = true;
     setTimeout(() => {
-      localStorage.clear();
-      this._router.navigate(['/login']);
-      this.closeNavLogoutPopup();
-      this.isFormSubmit= false;
+      this._authService.logoutUser(this.myLocalDatails._id).subscribe(res =>{
+        if(res.msg == '200'){
+          Notiflix.Notify.success('Logout successfully.', {
+            width: '350px',
+            showOnlyTheLastOne: true,
+            fontSize: '18px',
+            position: 'right-top',
+           });
+           localStorage.clear();
+           this._router.navigate(['/login']);
+           this.closeNavLogoutPopup();
+           this.isFormSubmit= false;
+           this._authService.userLoginStatus = false;
+         }
+        else{
+          Notiflix.Notify.failure('Sorry! Failed to logout', {
+            width: '400px',
+            showOnlyTheLastOne: true,
+            fontSize: '18px',
+            position: 'center-bottom',
+           });
+        }
+      },err =>{
+        if(err.status == "404"){
+          Notiflix.Notify.failure('Error! No user found', {
+            width: '450px',
+            showOnlyTheLastOne: true,
+            fontSize: '18px',
+            position:'center-bottom'
+          });
+            }
+          else if(err.status == '500'){
+            Notiflix.Notify.failure('Error! Server errored occurred', {
+               width: '350px',
+               showOnlyTheLastOne: true,
+               fontSize: '18px',
+               position:'center-bottom'
+             });
+           }
+           this.isFormSubmit = false;
+          })
+      }, 1000);
+  }
 
-      this._authService.loginUser = false;
-    }, 2000);
+  getNotification(){
+    this._dataService.fetchUserNotification(this.myLocalDatails._id).subscribe(res =>{
+      this.myNotifications = res;
+      //console.log("My Notification", this.myNotifications)
+    })
+  }
 
-
+  getCompanyName(){
+    this._dataService.fetchCompanyDetails().subscribe(res =>{
+      this.companyName = res.app_name;
+      this.companyAllName = this.companyName;
+      console.log("Company Details", this.companyAllName)
+    })
   }
 
   // logout modal dialog here

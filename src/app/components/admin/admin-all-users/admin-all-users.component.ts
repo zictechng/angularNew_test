@@ -31,7 +31,7 @@ export class AdminAllUsersComponent implements OnInit{
 
   totalRecord: number = 0;
   pagination: number = 1;
-  pageSize: number = 15;
+  pageSize: number = 10;
   totalPages: number = 1;
 
 

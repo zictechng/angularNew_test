@@ -40,6 +40,7 @@ export class BankOfficerComponent implements OnInit{
     acct_status: new FormControl(''),
     address: new FormControl(''),
     image_photo: new FormControl(''),
+    user_id: new FormControl(this.myId._id),
     });
 
 
@@ -80,7 +81,7 @@ export class BankOfficerComponent implements OnInit{
  }
 
  saveUpdate(){
-        console.log("Submitted Data", this.regOfficerForm.value)
+        //console.log("Submitted Data", this.regOfficerForm.value)
         this.userDataReceived  = this.regOfficerForm.value;
         Notiflix.Loading.standard('Processing...');
         const formData = new FormData();
@@ -96,6 +97,7 @@ export class BankOfficerComponent implements OnInit{
         formData.append('branch_office', this.userDataReceived.branch_office);
         formData.append('bank_name', this.userDataReceived.bank_name);
         formData.append('acct_status', this.userDataReceived.acct_status);
+        formData.append('user_id', this.userDataReceived.user_id);
 
         this._serviceData.updateOfficerProfile(formData).subscribe(res =>{
           if(res.msg == '200')

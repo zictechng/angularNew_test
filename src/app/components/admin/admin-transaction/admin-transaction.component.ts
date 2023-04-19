@@ -26,7 +26,7 @@ export class AdminTransactionComponent implements OnInit{
 
   totalRecord: number = 0;
   pagination: number = 1;
-  pageSize: number = 15;
+  pageSize: number = 10;
   totalPages: number = 1;
 
   isFormSubmit = false;
@@ -60,16 +60,10 @@ export class AdminTransactionComponent implements OnInit{
 
   renderPage(event: number) {
     this.pagination = event;
-    this.getAllUserTran();
+    this.reloadTable();
   }
 
   reloadTable(){
-    // refresh the table data after deleting
-    // this._dataService.fetchUsersAll(this.pagination, this.pageSize).subscribe(res =>{
-    //   this.allUser = res.data;
-    //   this.totalRecord = res.total_record;
-    //   this.totalPages = window.Math.ceil(this.totalRecord/this.pageSize);
-    // });
       // refresh the counters of active, pending, blocked users
       this._dataService.getAllTran(this.pagination, this.pageSize).subscribe(res =>{
         this.allTransactions = res.data;

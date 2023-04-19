@@ -14,17 +14,17 @@
           <h4 class="fw-bold py-3 mb-4">
             <span class="text-muted fw-light">Manage User /</span> Account Debiting
           </h4>
-
-          <div class="text-center" *ngIf="isLoading">
-            <div class="spinner-border" role="status">
-              <span class="sr-only">Loading...</span>
-            </div>
-          </div>
-
           <!-- Users List Table -->
           <div class="card">
             <div class="card-header border-bottom">
               <h5 class="card-title">Debiting Users Account</h5>
+
+              <div class="text-center" *ngIf="isLoading">
+                <div class="spinner-border" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+
             </div>
             <div class="card-datatable table-responsive">
               <div
@@ -171,7 +171,7 @@
                         >
                       </td>
                       <td><span class="fw-semibold">{{userData.acct_type}}</span></td>
-                      <td><span class="fw-semibold">{{userData.currency_type}}{{userData.acct_balance}}.00</span></td>
+                      <td><span class="fw-semibold">{{userData.acct_balance | currency:userData.currency_type }}.00</span></td>
 
                       <td>
                         <div class="d-inline-block text-nowrap">

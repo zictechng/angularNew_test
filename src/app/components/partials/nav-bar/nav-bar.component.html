@@ -1,6 +1,6 @@
 <!-- Navbar -->
 
-<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center {{bgColor}}" id="layout-navbar">
 
   <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0   d-xl-none ">
     <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
@@ -11,7 +11,7 @@
   <!-- Search -->
     <div class="navbar-nav align-items-center">
       <div class="nav-item d-flex align-items-center">
-        <span class="app-brand-text companyName menu-text fw-bolder ms-2">Sneat Trust and Saving (STS) </span>
+        <span class="app-brand-text companyName menu-text fw-bolder ms-2">{{companyAllName | uppercase}} </span>
       </div>
     </div>
     <!-- /Search -->
@@ -121,10 +121,11 @@
           <span *ngIf="isFormSubmit">
             Logging out...
           </span> -->
-          {{ isFormSubmit === false ? "Logout" : "Logging out..." }}
+          {{ isFormSubmit === false ? "Logout" : "Logging out" }}
         </button>
       </div>
      </form>
   </div>
 </div>
+
 <!-- / Navbar -->

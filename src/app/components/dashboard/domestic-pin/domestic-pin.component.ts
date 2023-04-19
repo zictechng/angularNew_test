@@ -58,7 +58,10 @@ export class DomesticPinComponent implements OnInit  {
             console.log("Backend responds", res)
             this.isbuttonClick = false
             // localStorage.setItem('transaction_id', '');
-            this._router.navigate(['/dashboard/domestic-successful']); // after transfer, go back to dashboard page
+            this._router.navigate(['/dashboard/domestic-successful']).then(() =>{
+              window.location.reload()
+              }); //this will refresh/reload your page
+              // after transfer, go back to dashboard page
           }
           this.fundTransferPINForm.reset();
           this.isFormSubmit = false;

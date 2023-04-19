@@ -15,7 +15,7 @@ export class AuthPageComponent implements OnInit {
   // variable to check if user click on the submit button
   isFormSubmit = false;
   userDataReceived: any = {}
-
+  myLoginState: boolean = false;
   clicked: boolean = false;
 
   loginForm = new FormGroup({
@@ -29,7 +29,8 @@ export class AuthPageComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    console.log("Login Details 2", this._auth.userLoginStatus)
+    console.log("Login State", this.myLoginState)
   }
 
   loginUser(){
@@ -45,20 +46,20 @@ export class AuthPageComponent implements OnInit {
           if(res.msg == '200')
             {
               Notiflix.Notify.success(' Successfully Login', {
-                success: {
-                    background: '#1EAAE7',
-                    },
-                    width: '300px',
-                    showOnlyTheLastOne: true,
-                    fontSize: '18px',
+                width: '300px',
+                showOnlyTheLastOne: true,
+                fontSize: '18px',
                 });
 
                 localStorage.setItem('token', res.token);
                 localStorage.setItem('userData', JSON.stringify(res.userData));
 
-                this._auth.loginUser = true;
+                this._auth.userLoginStatus = true;
                 this.isFormSubmit = false
-
+                this._auth.orderDataPassed(this._auth.userLoginStatus);
+                console.log("Login Status ", this._auth.userLoginStatus)
+                this.myLoginState = true;
+                console.log("Login Status ", this.myLoginState)
                 // get user role level here
                 this._authLevel.myLevel = res.userData.user_role;
                 this.clicked = false; // this disables the button when clicked
@@ -67,16 +68,22 @@ export class AuthPageComponent implements OnInit {
                 Notiflix.Loading.remove(); // remove the loading indicator
                 // check user role and redirect to page
                 if(this._authLevel.myLevel == "User"){
-                  this._router.navigate(['/dashboard']);
+                  this._router.navigate(['/dashboard/index']).then(() =>{
+                    window.location.reload() // This will make the page reload after login
+                    });
+                  //this._router.navigate(['/dashboard/index']);
                 }
                 else if(this._authLevel.myLevel == "Admin"){
-                  this._router.navigate(['/admin']);
+                  //this._router.navigate(['/admin']);
+                  this._router.navigate(['/admin']).then(() =>{
+                    window.location.reload()
+                    });
                 }
 
                 //this._router.navigate(['/dashboard/index']); // after login, go dashboard page
             }
           else {
-                Notiflix.Notify.warning('Error! Something went wrong, try again', {
+                Notiflix.Notify.failure('Error! Something went wrong, try again', {
                     width: '350px',
                     showOnlyTheLastOne: true,
                     fontSize: '18px',
@@ -86,21 +93,21 @@ export class AuthPageComponent implements OnInit {
               }
          }, err =>{
           if(err.status == "401"){
-          Notiflix.Notify.warning('Error! No user found', {
+          Notiflix.Notify.failure('Error! No user found', {
             width: '250px',
             showOnlyTheLastOne: true,
             fontSize: '18px',
           });
             }
             else if(err.status == "400"){
-          Notiflix.Notify.warning('Error! Some fields missing..', {
+          Notiflix.Notify.failure('Error! Some fields missing..', {
                 width: '300px',
                 showOnlyTheLastOne: true,
                 fontSize: '18px',
               });
           }
           else if(err.status == '403'){
-            Notiflix.Notify.warning('Sorry! Error occurred, try again', {
+            Notiflix.Notify.failure('Sorry! Error occurred, try again', {
                width: '330px',
                showOnlyTheLastOne: true,
                fontSize: '18px',
@@ -108,7 +115,7 @@ export class AuthPageComponent implements OnInit {
              Notiflix.Loading.remove();
            }
            else if(err.status == '404'){
-            Notiflix.Notify.warning('Error! Wrong password', {
+            Notiflix.Notify.failure('Error! Wrong password', {
                width: '300px',
                showOnlyTheLastOne: true,
                fontSize: '18px',

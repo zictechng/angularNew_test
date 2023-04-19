@@ -101,7 +101,8 @@
                             }
                             ; let i = index">
                             <tr>
-                              <td>{{ pageSize * (pagination - 1) + i+1 }}</td>
+                              <!-- {{ pageSize * (pagination - 1) + i+1 }} -->
+                              <td>{{ pageSize * (pagination - 1) + i+1 }} </td>
                               <td><span class="text-muted">{{statementDatas.createdOn | date:'shortDate'}}</span>
                               </td>
                               <td><span class="text-muted">{{statementDatas.createdOn | date:'shortDate'}}</span>
@@ -120,7 +121,10 @@
                           </tbody>
                         </table>
                         <div class="d-flex justify-content-end dataTables_paginate demo-inline-spacing">
-                          <pagination-controls (pageChange)="renderPage($event)" class="page-link"></pagination-controls>
+                          <pagination-controls
+                          previousLabel="Prev"
+                          nextLabel="Next"
+                           (pageChange)="renderPage($event)" class="page-link"></pagination-controls>
                        </div>
                       </div>
                     </div>

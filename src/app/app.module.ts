@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule , HTTP_INTERCEPTORS} from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {FormsModule} from '@angular/forms';
 
@@ -53,6 +53,12 @@ import { UpdateAccountComponent } from './components/admin/update-account/update
 import { InvestmentPlansComponent } from './components/admin/investment-plans/investment-plans.component';
 import { AdminInvestmentEarningComponent } from './components/admin/admin-investment-earning/admin-investment-earning.component';
 import { BankOfficerComponent } from './components/admin/bank-officer/bank-officer.component';
+import { PasswordSettingComponent } from './components/admin/password-setting/password-setting.component';
+import { AdminAppSettingComponent } from './components/admin/admin-app-setting/admin-app-setting.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { AdminAuthenticatedService } from './services/admin-authenticated.service';
+import { ServiceDataService } from './services/service-data.service';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -99,6 +105,9 @@ import { BankOfficerComponent } from './components/admin/bank-officer/bank-offic
     InvestmentPlansComponent,
     AdminInvestmentEarningComponent,
     BankOfficerComponent,
+    PasswordSettingComponent,
+    AdminAppSettingComponent,
+    PageNotFoundComponent,
 
   ],
   imports: [
@@ -113,7 +122,14 @@ import { BankOfficerComponent } from './components/admin/bank-officer/bank-offic
   ],
   providers: [
     AuthServiceService, IsAuthenticatedGuard,
-    userLevelAccess
+    AdminAuthenticatedService,
+    userLevelAccess,
+    ServiceDataService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass:TokenInterceptorService,
+      multi: true,
+    }
    ],
   bootstrap: [AppComponent]
 })

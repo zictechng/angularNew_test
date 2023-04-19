@@ -166,15 +166,11 @@
                         </div>
                       </td>
                       <td>
-                        <span class="text-truncate d-flex align-items-center"
-                          ><span
-                            class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"
-                            ><i class="bx bx-user bx-xs"></i></span
-                          >{{userData.acct_number}}</span
-                        >
+                        <span class="text-truncate d-flex align-items-center">
+                          {{userData.acct_number}}</span>
                       </td>
                       <td><span class="fw-semibold">{{userData.acct_type}}</span></td>
-                      <td><span class="fw-semibold">{{userData.currency_type}}{{userData.acct_balance}}.00</span></td>
+                      <td><span class="fw-semibold">{{userData.acct_balance | currency: userData.currency_type}}</span></td>
 
                       <td>
                         <div class="d-inline-block text-nowrap">

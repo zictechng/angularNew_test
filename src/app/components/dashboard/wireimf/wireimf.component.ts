@@ -59,7 +59,10 @@ export class WireimfComponent implements OnInit{
           //console.log("Backend responds", res)
           this.isbuttonClick = false
           // localStorage.setItem('transaction_id', '');
-          this._router.navigate(['/dashboard/transfer-successful']); // after transfer, go back to dashboard page
+          this._router.navigate(['/dashboard/transfer-successful']).then(() =>{
+            window.location.reload()
+            }); //this will refresh/reload your page
+            // after transfer, go back to dashboard page
         }
         this.fundTransferIMFForm.reset();
         this.isFormSubmit = false;

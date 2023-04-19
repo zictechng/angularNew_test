@@ -61,15 +61,6 @@ export class AdminAllLogComponent implements OnInit{
       }, 500);
     }
 
-    reloadTable(){
-      // refresh the table data after deleting
-      this._dataService.systemActivityLog(this.pagination, this.pageSize).subscribe(res =>{
-        this.allUserLogs = res.data;
-        this.totalRecord = res.total_record;
-        this.totalPages = window.Math.ceil(this.totalRecord/this.pageSize);
-      });
-    }
-
     renderPage(event: number) {
       this.pagination = event;
       this.reloadTable();
@@ -79,7 +70,7 @@ export class AdminAllLogComponent implements OnInit{
     deleteLog(){
     this.isDeleteSubmit = true
     //console.log("Deleted ID", this.deleteID);
-    this._dataService.deleteUserDetail(this.deleteID).subscribe(res =>{
+    this._dataService.deleteSystemLogs(this.deleteID).subscribe(res =>{
       if(res.msg == 200){
         Notiflix.Notify.success('Deleted successfully', {
           width: '350px',
@@ -127,6 +118,14 @@ export class AdminAllLogComponent implements OnInit{
     );
   }
 
+  reloadTable(){
+    // refresh the table data after deleting
+    this._dataService.systemActivityLog(this.pagination, this.pageSize).subscribe(res =>{
+      this.allUserLogs = res.data;
+      this.totalRecord = res.total_record;
+      this.totalPages = window.Math.ceil(this.totalRecord/this.pageSize);
+    });
+  }
   // confirm modal dialog here
   displayStyle = "none";
   openConfirmDelete(id: any) {

@@ -1,0 +1,196 @@
+<div class="layout-wrapper layout-content-navbar">
+  <div class="layout-container">
+    <!-- Menu -->
+      <app-side-bar></app-side-bar>
+     <!-- Menu End -->
+     <div class="layout-page">
+       <!-- Navbar -->
+       <app-nav-bar></app-nav-bar>
+       <!-- Navbar End-->
+         <div class="content-wrapper">
+           <!-- Dash page comes here-->
+           <!-- Content -->
+           <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="fw-bold py-3 mb-4">
+              <span class="text-muted fw-light"> Application Setting</span>
+            </h4>
+
+            <div class="row">
+              <div class="col-md-8">
+                <!-- <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                  <li class="nav-item"><a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> My Account</a></li>
+                  </ul> -->
+
+                <div class="card">
+                  <h5 class="card-header">Main Business Name</h5>
+                  <div class="card-body">
+                    <div class="mb-3 col-12 mb-0">
+                      <div class="alert alert-warning">
+                        <h6 class="alert-heading fw-bold mb-1"></h6>
+                        <p class="mb-0">Enter the name you want it to display on the top bar of the application.</p>
+                      </div>
+                    </div>
+                    <form name="businessApp" [formGroup]="appSettingForm" >
+                      <div class="form-check mb-3">
+                        <label class="form-check-label text-danger">Please do not use long characters</label>
+                        <input class="form-control" type="text" name="business_name" formControlName="business_name" placeholder="Enter Business Name" />
+
+                        <div *ngIf="appSettingForm.controls['business_name'].invalid && (appSettingForm.controls['business_name'].dirty || appSettingForm.controls['business_name'].touched || appSettingForm.controls['business_name'].untouched && isFormSubmit )" class="text-danger">
+                          <span *ngIf="appSettingForm.controls['business_name'].hasError('required')" class="text-danger"> * Required</span>
+                          <span *ngIf="appSettingForm.get('business_name')!.hasError('minlength')" class="text-danger">
+                            The maximum length is 25 characters.
+                          </span>
+                        </div>
+                      </div>
+                      <div class="form-check mb-3">
+                        <label class="form-check-label text-danger">Please do not use long characters</label>
+                        <input class="form-control" type="text" name="business_short_name" formControlName="business_short_name" placeholder="Enter Business Short Name" />
+
+                        <div *ngIf="appSettingForm.controls['business_short_name'].invalid && (appSettingForm.controls['business_short_name'].dirty || appSettingForm.controls['business_short_name'].touched || appSettingForm.controls['business_short_name'].untouched && isFormSubmit )" class="text-danger">
+                          <span *ngIf="appSettingForm.controls['business_short_name'].hasError('required')" class="text-danger"> * Required</span>
+                          <span *ngIf="appSettingForm.get('business_short_name')!.hasError('minlength')" class="text-danger">
+                            The maximum length is 10 characters.
+                          </span>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-danger deactivate-account" (click)="openBusinessNameModal('businessNameModal')">Save</button>
+                    </form>
+                  </div>
+                </div>
+
+                <p></p><br/>
+                <div class="card">
+                  <h5 class="card-header">Business Logo</h5>
+                  <div class="card-body">
+                    <div class="mb-3 col-12 mb-0">
+                      <div class="alert alert-warning">
+                        <h6 class="alert-heading fw-bold mb-1"></h6>
+                        <p class="mb-0">Upload the logo you wish you display as per your need. This will show at the top right hand menu section</p>
+                      </div>
+                    </div>
+                    <form [formGroup]="appSettingLogoForm" enctype="multipart/form-data">
+                      <div class="form-check mb-3">
+                        <label class="form-check-label text-danger">Please use a sizable image [100px X 100px]</label>
+
+                        <input type="file" class="form-control" id="image_photo" name="image_photo" formControlName="image_photo" placeholder="Choose Photo"
+                        (change)="onFileSelected($event)" />
+                        <div *ngIf="appSettingLogoForm.controls['image_photo'].invalid && (appSettingLogoForm.controls['image_photo'].dirty || appSettingLogoForm.controls['image_photo'].touched || appSettingLogoForm.controls['image_photo'].untouched && isFormSubmitLogo )" class="text-danger">
+                          <span *ngIf="appSettingLogoForm.controls['image_photo'].hasError('required')" class="text-danger"> * Required</span>
+
+                        </div>
+                        <div class="avatar-wrapper">
+
+                          <div class="" *ngIf="userProfilePic">
+                            <br/>
+                            <img [src]="userProfilePic" alt="Avatar" height="60" width="200" class="d-block rounded"/>
+                          </div>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-danger" (click)="openLogoModal('businessLogoModal')">Save</button>
+                    </form>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-lg-4 col-md-4 order-1">
+                <div class="row">
+                  <div class="col-lg-4 col-md-12 col-6 mb-4">
+                  </div>
+                  <div class="col-lg-7 col-md-9 col-6 mb-4">
+                    <div class="card bg-secondary text-white mb-3">
+                      <div class="card-body">
+                        <div class="card-body">
+                          <h5 class="card-title text-success">System setup</h5>
+                          <p class="card-text">
+                            Manage the system setting to your need, <span class="text-warning"> Securely </span>  and dynamically.
+                          </p>
+                          <!-- <a href="/dashboard/support" class="btn btn-sm btn-warning">Contact</a> -->
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+            <!-- Total Revenue -->
+           </div>
+           <!-- Content wrapper -->
+         </div>
+         <div class="layout-overlay layout-menu-toggle"></div>
+     </div>
+
+   </div>
+
+   <!--business name setting modal popup here-->
+<div class="col-lg-4 col-md-3">
+  <div class="mt-3">
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <div class="modal fade" data-bs-backdrop="static" tabindex="-1" id="businessNameModal">
+      <div class="modal-dialog modal-dialog-centered">
+        <form class="modal-content">
+          <div class="modal-header bg-danger">
+            <h5 class="modal-title text-white" id="backDropModalTitle">Caution</h5>
+            <button type="button" class="btn-close" aria-label="Close" (click)="closeAppSettingModal('businessNameModal')"></button>
+          </div>
+          <div class="modal-body">
+            <p> Are you sure you want to save this ?</p>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" (click)="closeAppSettingModal('businessNameModal')">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" (click)="saveBusinessName()" [disabled]="isButtonClicked">
+              <div class="spinner-border spinner-border-sm text-primary" role="status" *ngIf="isLoading">
+                <span class="visually-hidden">Loading...</span>
+               </div>
+              &nbsp;
+              {{ isLoading === false ? "Yes" : "Updating..." }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+ <!--Logo setting modal popup here-->
+ <div class="col-lg-4 col-md-3">
+  <div class="mt-3">
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <div class="modal fade" data-bs-backdrop="static" tabindex="-1" id="businessLogoModal">
+      <div class="modal-dialog modal-dialog-centered">
+        <form class="modal-content">
+          <div class="modal-header bg-danger">
+            <h5 class="modal-title text-white" id="backDropModalTitle">Caution</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeAppSettingModal('businessNameModal')"></button>
+          </div>
+          <div class="modal-body">
+
+            <p> Are you sure you want to save the Logo ?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" (click)="closeAppSettingModal('businessNameModal')">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" (click)="saveBusinessLogo()" [disabled]="isFormSubmitLogo">
+              <div class="spinner-border spinner-border-sm text-primary" role="status" *ngIf="isLoading">
+                <span class="visually-hidden">Loading...</span>
+               </div>
+              &nbsp;
+              {{ isLoading === false ? "Yes" : "Updating..." }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+

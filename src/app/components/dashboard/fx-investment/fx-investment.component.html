@@ -381,6 +381,25 @@
 
                 </div>
               </div>
+
+              <div class="mb-3 col-md-6">
+                <div class="mb-3">
+                  <label for="surname" class="form-label">Duration</label>
+                  <select class='form-control form-select' name="investment_duration" formControlName="investment_duration" placeholder="Choose Period">
+                    <option value="">Choose Period</option>
+                    <option Value="Monthly">Monthly</option>
+                    <option Value="Quarterly">Quarterly</option>
+                    <option Value="Annually">Annually</option>
+                   </select>
+
+                  <div *ngIf="fxForm.controls['investment_duration'].invalid && (fxForm.controls['investment_duration'].dirty || fxForm.controls['investment_duration'].touched || fxForm.controls['investment_duration'].untouched && isFormSubmit )" class="text-danger">
+                    <span *ngIf="fxForm.controls['investment_duration'].hasError('required')" class="text-danger"> * Required</span>
+
+                  </div>
+
+                </div>
+              </div>
+
               <p class="text-danger"> Please, note that by filling this form and submitting the form, we will debit your account for the amount choosing for your investment plan</p>
 
             </div>

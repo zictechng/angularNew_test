@@ -43,7 +43,7 @@
               <div class="col-lg-6 col-md-4 order-1">
                 <div class="row">
                   <div class="col-lg-6 col-md-12 col-6 mb-4">
-                    <div class="card">
+                    <div class="card bg-info text-white">
                       <div class="card-body">
                         <div class="card-title d-flex align-items-start justify-content-between">
                           <div class="avatar flex-shrink-0">
@@ -53,8 +53,8 @@
 
                         </div>
                         <span class="fw-semibold d-block mb-1">Credit Balance</span>
-                        <h3 class="card-title mb-2">{{myData.amount || '0.0' | currency}}</h3>
-                        <small class="text-success fw-semibold"><i class='bx bx-up-arrow-alt'></i> +72.80%</small>
+                        <h3 class="card-title mb-2">{{myData.amount | currency: myData.currency_type}}</h3>
+                        <small class="text-success fw-semibold text-white"><i class='bx bx-up-arrow-alt text-white'></i> +72.80%</small>
                       </div>
                     </div>
                   </div>
@@ -69,7 +69,7 @@
 
                         </div>
                         <span class="fw-semibold d-block mb-1">Available Balance</span>
-                        <h3 class="card-title mb-2">{{myData.amount || '0.0' | currency}}</h3>
+                        <h3 class="card-title mb-2">{{myData.amount | currency: myData.currency_type}}</h3>
                         <small class="text-success fw-semibold"><i class='bx bx-up-arrow-alt'></i> +28.42%</small>
                       </div>
                     </div>
@@ -193,7 +193,7 @@
                         <tr>
                           <th scope="row">{{i + 1}}</th>
                           <td>{{recentDatas.transaction_status}}</td>
-                          <td>{{recentDatas.amount | currency}}</td>
+                          <td>{{recentDatas.amount | currency: recentDatas.sender_currency_type }}</td>
                           <td>{{recentDatas.tran_desc}}</td>
                           <td>{{recentDatas.transac_nature}}</td>
                           <td>{{recentDatas.createdOn | date:'medium'}}</td>
