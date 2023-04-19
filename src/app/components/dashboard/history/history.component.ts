@@ -58,11 +58,22 @@ export class HistoryComponent implements OnInit{
     this.showSpinner = true
     this._dataService.getUserTranHistory(this.pagination, this.pageSize, this.myId._id).subscribe((res: any) =>{
       if(res.msg == "200"){
-      this.historyData = res.data;
-      this.totalRecord = res.total_record;
-      this.totalPages = window.Math.ceil(this.totalRecord/this.pageSize);
-     // console.log(this.totalRecord);
-      this.showSpinner = false
+        this.historyData = res.data;
+        this.totalRecord = res.total_record;
+        this.totalPages = window.Math.ceil(this.totalRecord/this.pageSize);
+        // console.log(this.totalRecord);
+        this.showSpinner = false
+      }
+      else if(res.message === 'jwt malformed') {
+        console.log("JWT Malformed error", res.message)
+          Notiflix.Notify.failure('Access denied!, Login to continue', {
+            width: '400px',
+            showOnlyTheLastOne: true,
+            position: 'right-bottom',
+            fontSize: '18px',
+          });
+          this.showSpinner = false
+
       }
     }, err => {
       if(err instanceof HttpErrorResponse){
@@ -75,6 +86,7 @@ export class HistoryComponent implements OnInit{
             position: 'right-bottom',
             fontSize: '18px',
           });
+          this.showSpinner = false
         }
       }
       else if(err.status === 500){
