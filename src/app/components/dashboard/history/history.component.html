@@ -11,7 +11,13 @@
            <!-- Dash page comes here-->
            <!-- Content -->
            <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Transactions History</span></h4>
+            <div class="fw-bold py-3 mb-4">
+              <span class="text-muted fw-light">Transactions History</span>
+              <div class="search">
+                <input type="text" [(ngModel)]="searchTerm" placeholder="Search" (input)="performSearch()" />
+              </div>
+            </div>
+            
 
             <!-- <div class="wrapper">
               <div class="overlay d-flex justify-content-center" *ngIf="showSpinner; else loadingFalse">

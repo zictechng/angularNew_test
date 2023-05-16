@@ -34,12 +34,14 @@ export class HistoryComponent implements OnInit {
 
   totalRecord: number = 0;
   pagination: number = 1;
-  pageSize: number = 10;
+  pageSize: number = 1000;
   totalPages: number = 1;
   showSpinner: Boolean = false;
   paginationStatementData: any[] = [];
   colordatas: any[] = ['green', 'red'];
   myLocalDatails = JSON.parse(localStorage.getItem('userData') || '{}');
+  searchTerm: string = '';
+  allhistoryData: any[] = [];
 
   constructor(private _dataService: ServiceDataService,
     private _transactService: TransactionsService,
@@ -58,7 +60,9 @@ export class HistoryComponent implements OnInit {
     this.showSpinner = true
     this._dataService.getUserTranHistory(this.pagination, this.pageSize, this.myId._id).subscribe((res: any) => {
       if (res.msg == "200") {
-        this.historyData = res.data;
+        debugger
+        this.allhistoryData = res.data;
+        this.historyData = this.allhistoryData;
         this.totalRecord = res.total_record;
         this.totalPages = window.Math.ceil(this.totalRecord / this.pageSize);
         // console.log(this.totalRecord);
@@ -102,7 +106,7 @@ export class HistoryComponent implements OnInit {
 
   reloadTable() {
     this._dataService.getUserTranHistory(this.pagination, this.pageSize, this.myId._id).subscribe((res: any) => {
-      this.historyData = res.data;
+      this.allhistoryData = res.data;
       this.totalRecord = res.total_record;
       this.totalPages = window.Math.ceil(this.totalRecord / this.pageSize);
       // console.log(this.totalRecord);
@@ -148,7 +152,6 @@ export class HistoryComponent implements OnInit {
 
   getFinanceChart() {
     this._dataService.financeChartReport(this.myLocalDatails._id).subscribe(res => {
-      debugger
       this.chartdata = res.data;
       //console.log("chart details", res.data)
       if (this.chartdata != null) {
@@ -172,5 +175,21 @@ export class HistoryComponent implements OnInit {
     });
   }
 
+  performSearch() {
+    debugger
+    if (this.searchTerm.trim() !== '') {
+      this.historyData = this.allhistoryData.filter((item) =>
+        Object.values(item).some((value: any) =>
+          value.toString().toLowerCase().includes(this.searchTerm.toLowerCase())
+        )
+      );
+      this.totalRecord = this.historyData.length;
+      this.totalPages = window.Math.ceil(this.totalRecord / this.pageSize);
+    } else {
+      this.historyData = this.allhistoryData;
+      this.totalRecord = this.historyData.length;
+      this.totalPages = window.Math.ceil(this.totalRecord / this.pageSize);
+    }
+  }
 
 }

@@ -118,13 +118,12 @@ export class HomePageComponent implements OnInit {
   getFinanceChart() {
     this._dataService.financeChartReport(this.myLocalDatails._id).subscribe(res => {
       this.chartdata = res.resultData;
-      debugger
       const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
       const newData = months.map((month) => {
         const monthData = this.chartdata.filter((d: any) => d.tr_month === month);
-        const credit = monthData.reduce((total: any, d: any) => d.tran_type === "Credit" ? total + d.amount : total, 0);
-        const debit = monthData.reduce((total: any, d: any) => d.tran_type === "Debit" ? total + d.amount : total, 0);
+        const credit = monthData.reduce((total: any, d: any) => d.transac_nature === "Credit" ? total + d.amount : total, 0);
+        const debit = monthData.reduce((total: any, d: any) => d.transac_nature === "Debit" ? total + d.amount : total, 0);
         const color = credit > debit ? "green" : "red";
         return {
           month,
@@ -141,7 +140,7 @@ export class HomePageComponent implements OnInit {
           //console.log(this.chartdata[i]);
           this.labeldata.push(newData[i].month)
           this.creditData.push(newData[i].credit)
-          this.debitData.push(newData[i].credit)
+          this.debitData.push(newData[i].debit)
         }
         this.RenderChart(this.labeldata, this.creditData,this.debitData, 'bar', 'barchart');
         this.RenderChart(this.labeldata, this.creditData,this.debitData, 'pie', 'piechart');
